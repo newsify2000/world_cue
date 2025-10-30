@@ -1,0 +1,66 @@
+name: world_cue
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.9.2
+
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  flutter_screenutil: ^5.9.3
+  google_fonts: ^6.3.1
+  flutter_svg: ^2.2.1
+  shared_preferences: ^2.5.3
+  dio: ^5.9.0
+  pretty_dio_logger: ^1.4.0
+  delightful_toast: ^1.1.0
+  lottie: ^3.3.2
+  connectivity_plus: ^7.0.0
+  get: ^4.7.2
+  cached_network_image: ^3.4.1
+  shimmer: ^3.0.0
+  firebase_core: ^4.2.0
+  carousel_slider: ^5.1.1
+  google_sign_in: ^6.2.1
+  firebase_auth: ^6.1.1
+
+dev_dependencies:
+  change_app_package_name: ^1.5.0
+  flutter_native_splash: ^2.4.7
+  flutter_launcher_icons: ^0.14.4
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
+
+flutter_native_splash:
+  color: "#FFFFFF"
+  image: assets/splash.png
+  android_12:
+    color: "#ffffff"
+    image: assets/splash.png
+    web: false
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/logo.png"
+
+flutter:
+
+  uses-material-design: true
+
+  # project assets
+  assets:
+    - assets/
+
+flutter_intl:
+  enabled: true

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "991744762477",
+    "project_id": "world-cue",
+    "storage_bucket": "world-cue.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:991744762477:android:94cac0a8f7bb7039d01564",
+        "android_client_info": {
+          "package_name": "com.wc.world_cue"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo2GStfBQryQzjMmWTO0g3z8MCX4oDN5A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
