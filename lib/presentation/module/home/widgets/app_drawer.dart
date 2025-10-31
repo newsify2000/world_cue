@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:world_cue/presentation/common_widgets/padding_helper.dart';
 import 'package:world_cue/presentation/module/home/controller/home_controller.dart';
-import 'package:world_cue/presentation/module/search/search_screen.dart';
+import 'package:world_cue/presentation/module/search/news_search_screen.dart';
 import 'package:world_cue/presentation/theme/text_style.dart';
 import 'package:world_cue/utils/size_config.dart';
 import 'package:world_cue/utils/utilities.dart';
@@ -70,7 +70,7 @@ class AppDrawer extends StatelessWidget {
             ),
           ),
           GestureDetector(
-            onTap: () => Get.to(() => const SearchScreen()),
+            onTap: () => Get.to(() => NewsSearchScreen()),
             child: Container(
               margin: padAll(value: 24.w),
               height: 40.h,

@@ -8,9 +8,11 @@ class NetworkConstants {
 
 class SharedPrefConstants {
   static String initScreen = "initScreen";
-  static String welcomeScreen = "welcomeScreen";
+  static String homeScreen = "homeScreen";
   static String loginScreen = "loginScreen";
-  static String phoneNumber = "phoneNumber";
+  static String userName = "userName";
+  static String userEmail = "userEmail";
+  static String userImage = "userImage";
 }
 
 const String authToken = "authToken";

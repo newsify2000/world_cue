@@ -51,33 +51,6 @@ class HomeController extends GetxController {
     }
   }
 
-  /// Search news with pagination
-  Future<void> searchNews({required int page, required String query}) async {
-    if (isLoading.value || (!hasMore.value && page != 1)) return;
-
-    try {
-      isLoading.value = true;
-      errorMessage.value = '';
-      isSearching.value = true;
-      currentQuery.value = query;
-
-      final result = await _newsRepo.searchNews(query: query, page: page);
-
-      if (page == 1) {
-        newsList.assignAll(result.news);
-      } else {
-        newsList.addAll(result.news);
-      }
-
-      hasMore.value = result.hasMore;
-      currentPage.value = page;
-    } catch (e) {
-      errorMessage.value = e.toString();
-    } finally {
-      isLoading.value = false;
-    }
-  }
-
   /// Refresh headlines (reset pagination)
   Future<void> refreshNews() async {
     hasMore.value = true;
@@ -105,8 +78,18 @@ class HomeController extends GetxController {
 
   Future<String> summarizeNews(NewsModel news) async {
     return await _summarizer.getNewsSummary(
+      sourceLink: news.sourceLink,
       newsText: news.description,
       title: news.title,
+    );
+  }
+
+  Future<String> summarizeNewsLong(NewsModel news) async {
+    return await _summarizer.getNewsSummary(
+      sourceLink: news.sourceLink,
+      newsText: news.description,
+      title: news.title,
+      // isLong: true
     );
   }
 }

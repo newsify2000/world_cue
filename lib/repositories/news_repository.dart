@@ -61,15 +61,16 @@ class NewsRepository {
     required String query,
     String lang = "en",
     String country = "in",
-    int max = 10,
+    int pageSize = 10, // renamed for clarity
     int page = 1,
-  }) async {
+  })
+  async {
     try {
       final queryParams = {
         "q": query,
         "lang": lang,
         "country": country,
-        "max": max.toString(),
+        "max": pageSize.toString(),
         "page": page.toString(),
         "apikey": apiKey,
       };
@@ -94,8 +95,8 @@ class NewsRepository {
         );
       }).toList();
 
-      // Pagination stop condition:
-      final hasMore = newsList.length >= max;
+      // stop if fewer than pageSize means no more results
+      final hasMore = newsList.length >= pageSize;
 
       return (news: newsList, hasMore: hasMore);
     } on BaseApiException catch (e) {
@@ -104,4 +105,5 @@ class NewsRepository {
       throw Exception("Unexpected error: $e");
     }
   }
+
 }

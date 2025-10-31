@@ -35,10 +35,6 @@ extension Separation on List<Widget> {
   }
 }
 
-bool isValidPhoneNumber(String phoneNumber) {
-  final RegExp regex = RegExp(r'^\d{10}$');
-  return regex.hasMatch(phoneNumber);
-}
 
 String formatDateToDayMonth(String isoDate) {
   try {
@@ -70,4 +66,19 @@ String formatDateToDayMonth(String isoDate) {
 
 ColorScheme appColorScheme(BuildContext context) {
   return Theme.of(context).colorScheme;
+}
+
+
+String formatTime(String isoDateString) {
+  DateTime postDate = DateTime.parse(isoDateString).toLocal();
+  Duration diff = DateTime.now().difference(postDate);
+
+  if (diff.inSeconds < 60) return 'Just now';
+  if (diff.inMinutes < 60) return '${diff.inMinutes} min ago';
+  if (diff.inHours < 24) return '${diff.inHours} hr ago';
+  if (diff.inDays == 1) return 'Yesterday';
+  if (diff.inDays < 7) return '${diff.inDays} days ago';
+  if (diff.inDays < 30) return '${(diff.inDays / 7).floor()} w ago';
+  if (diff.inDays < 365) return '${(diff.inDays / 30).floor()} mo ago';
+  return '${(diff.inDays / 365).floor()} yr ago';
 }

@@ -6,7 +6,10 @@ import 'package:world_cue/presentation/module/navigator/navigator_screen.dart';
 
 import 'generated/l10n.dart';
 import 'presentation/common_widgets/internet_connection_checker.dart';
+import 'presentation/module/auth/screens/login_screen.dart';
 import 'presentation/theme/app_theme.dart';
+import 'utils/constants.dart';
+import 'utils/shared_pref.dart';
 
 /// global navigation key
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -59,18 +62,18 @@ class App extends StatelessWidget {
   }
 
   Widget homeScreen() {
-    return NavigatorScreen();
-
-    /*    SharedPref.setString(SharedPrefConstants.initScreen, SharedPrefConstants.loginScreen);
+    SharedPref.setString(
+      SharedPrefConstants.initScreen,
+      SharedPrefConstants.loginScreen,
+    );
 
     String initialScreen =
-        SharedPref.getString(SharedPrefConstants.initScreen) ?? SharedPrefConstants.welcomeScreen;
-    if (initialScreen == SharedPrefConstants.welcomeScreen) {
-      return const OnboardingScreen();
-    } else if (initialScreen == SharedPrefConstants.loginScreen) {
+        SharedPref.getString(SharedPrefConstants.initScreen) ??
+        SharedPrefConstants.loginScreen;
+    if (initialScreen == SharedPrefConstants.loginScreen) {
       return const LoginScreen();
     } else {
-      return const HomeScreen();
-    }*/
+      return const NavigatorScreen();
+    }
   }
 }

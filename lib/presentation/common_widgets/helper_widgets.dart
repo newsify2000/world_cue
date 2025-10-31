@@ -13,39 +13,3 @@ Widget vector(String asset,
     color: color,
   );
 }
-
-Widget loadImage(
-  String imageUrl, {
-  double? width,
-  double? height,
-  BoxFit fit = BoxFit.cover,
-}) {
-  return Image.network(
-    imageUrl,
-    width: width,
-    height: height,
-    fit: fit,
-    loadingBuilder: (BuildContext context, Widget child, ImageChunkEvent? loadingProgress) {
-      if (loadingProgress == null) {
-        return child;
-      } else {
-        return Center(
-          child: CircularProgressIndicator(
-            value: loadingProgress.expectedTotalBytes != null
-                ? loadingProgress.cumulativeBytesLoaded / (loadingProgress.expectedTotalBytes ?? 1)
-                : null,
-          ),
-        );
-      }
-    },
-    errorBuilder: (BuildContext context, Object error, StackTrace? stackTrace) {
-      return Center(
-        child: Icon(
-          Icons.error,
-          color: Colors.red,
-          size: ScreenUtil().setSp(36),
-        ),
-      );
-    },
-  );
-}

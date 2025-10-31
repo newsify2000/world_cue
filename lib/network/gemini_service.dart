@@ -17,6 +17,7 @@ class NewsSummarizerService {
 
   /// Generates a 60-word summary of a news article using the Gemini API.
   Future<String> getNewsSummary({
+    required String sourceLink,
     required String newsText,
     required String title,
   }) async {
@@ -46,6 +47,8 @@ Do not add any other text if you return this error code.
 Title : $title
 Article Content:
 $newsText
+Article Source Link:
+$sourceLink
 ---
 ''';
 

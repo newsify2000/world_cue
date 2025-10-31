@@ -1,183 +1,122 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:world_cue/models/news_model.dart';
+import 'package:world_cue/presentation/common_widgets/custom_network_image.dart';
+import 'package:world_cue/presentation/module/home/controller/home_controller.dart';
+import 'package:world_cue/presentation/theme/text_style.dart';
+import 'package:world_cue/utils/size_config.dart';
+import 'package:world_cue/utils/utilities.dart';
 
 class NewsScreen extends StatefulWidget {
-  final List<NewsModel> newsList;
-  final int initialIndex;
+  final NewsModel news;
+  final VoidCallback? onBookmarkTap;
 
-  const NewsScreen({
-    super.key,
-    required this.newsList,
-    required this.initialIndex,
-  });
+  const NewsScreen({super.key, required this.news, this.onBookmarkTap});
 
   @override
   State<NewsScreen> createState() => _NewsScreenState();
 }
 
 class _NewsScreenState extends State<NewsScreen> {
-  late PageController _pageController;
-  late int _currentIndex;
+  String? summaryText;
+  bool isLoading = true;
+
+  final HomeController controller = Get.find<HomeController>();
 
   @override
   void initState() {
     super.initState();
-    _currentIndex = widget.initialIndex;
-    _pageController = PageController(initialPage: widget.initialIndex);
+    _generateSummary();
   }
 
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
+  Future<void> _generateSummary() async {
+    try {
+      final summary = await controller.summarizeNewsLong(widget.news);
+      if (mounted) {
+        setState(() {
+          if (summary.isEmpty ||
+              summary == "[ERROR_INVALID_CONTENT]" ||
+              summary.startsWith("ERROR_FAILED_TO_GET_SUMMARY")) {
+            summaryText = widget.news.description.isNotEmpty
+                ? "${widget.news.description.split('...')[0]}..."
+                : "No description available.";
+          } else {
+            summaryText = summary;
+          }
+          isLoading = false;
+        });
+      }
+    } catch (e) {
+      setState(() {
+        summaryText = widget.news.description.isNotEmpty
+            ? "${widget.news.description.split('...')[0]}..."
+            : "No description available.";
+        isLoading = false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-    double height = size.height;
-    double width = size.width;
+    final news = widget.news;
 
     return Scaffold(
-      backgroundColor: Colors.white,
-      bottomNavigationBar: GestureDetector(
-        onTap: () async {
-          final model = widget.newsList[_currentIndex];
-          // await launchUrl(Uri.parse(model.link));
-        },
-        child: Container(
-          width: width,
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            color: Colors.blueGrey.shade900,
-            boxShadow: [
-              BoxShadow(
-                offset: const Offset(0, 0),
-                color: Colors.blueGrey.shade900,
-                spreadRadius: 1,
-                blurRadius: 1,
-              ),
-            ],
+      appBar: AppBar(
+        backgroundColor: appColorScheme(context).primaryContainer,
+        iconTheme: IconThemeData(color: appColorScheme(context).onPrimary),
+        centerTitle: false,
+        title: Text(
+          news.title,
+          maxLines: 1,
+          style: AppTextTheme.titleBoldStyle.copyWith(
+            color: appColorScheme(context).onPrimary,
           ),
-          child: const Text(
-            "See Full Article",
-            maxLines: 2,
-            textAlign: TextAlign.center,
-            overflow: TextOverflow.fade,
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 25,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ),
+        ).paddingOnly(right: 48.w),
       ),
-      body: PageView.builder(
-        controller: _pageController,
-        itemCount: widget.newsList.length,
-        onPageChanged: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        itemBuilder: (context, index) {
-          final model = widget.newsList[index];
-          return _buildNewsPage(model, index, height, width);
-        },
-      ),
-    );
-  }
-
-  Widget _buildNewsPage(
-    NewsModel model,
-    int index,
-    double height,
-    double width,
-  ) {
-    return SizedBox(
-      height: height,
-      width: width,
-      child: SingleChildScrollView(
+      backgroundColor: appColorScheme(context).primaryContainer,
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Hero(
-              tag: widget.initialIndex == index ? index : '${index}_nonhero',
-              child: Stack(
-                children: [
-                  ClipRRect(
-                    child: SizedBox(
-                      height: height / 2.75,
-                      width: width,
-                      child: CachedNetworkImage(
-                        imageUrl: model.imageLink,
-                        fit: BoxFit.cover,
-                        filterQuality: FilterQuality.high,
-                        placeholder:
-                            (context, url) => Shimmer.fromColors(
-                              baseColor: Colors.blueGrey.shade900,
-                              highlightColor: Colors.white,
-                              child: SizedBox(
-                                height: height / 2.75,
-                                width: width,
-                              ),
-                            ),
-                        errorWidget:
-                            (context, url, error) => const Center(
-                              child: Icon(
-                                Icons.error,
-                                size: 50,
-                                color: Colors.red,
-                              ),
-                            ),
-                      ),
-                    ),
-                  ),
+            CustomNetworkImage(
+              width: screenWidth(),
+              imageUrl: news.imageLink,
+              fit: BoxFit.contain,
+            ),
 
-                  SafeArea(
-                    child: TextButton(
-                      style: ButtonStyle(
-                        backgroundColor: WidgetStatePropertyAll(
-                          Colors.blueGrey.shade900,
-                        ),
-                        foregroundColor: const WidgetStatePropertyAll(
-                          Colors.white,
-                        ),
-                      ),
-                      onPressed: () async {
-                        // await launchUrl(Uri.parse(model.sourceLink));
-                      },
-                      child: Text("Source: ${model.sourceName}"),
-                    ),
-                  ),
-                ],
+            // Title
+            Text(
+              news.title,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextTheme.titleBoldStyle.copyWith(
+                color: appColorScheme(context).onPrimary,
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                model.title,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
+            ).paddingOnly(left: 16.w, right: 16.w, top: 16.h),
+
+            // Description / Summary
+            Text(
+              isLoading
+                  ? "Generating AI summary..."
+                  : (summaryText ?? "No description available."),
+              style: AppTextTheme.bodyStyle.copyWith(
+                color: appColorScheme(context).onPrimary,
               ),
-            ),
-            const Divider(thickness: 2, indent: 3, endIndent: 3),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                model.description,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 20,
-                  fontWeight: FontWeight.w400,
-                ),
+              maxLines: 10,
+              overflow: TextOverflow.ellipsis,
+            ).paddingOnly(left: 16.w, right: 16.w, top: 16.h),
+
+            // Source + Date
+            Text(
+              news.publishedAt.isNotEmpty && news.sourceName.isNotEmpty
+                  ? "${formatDateToDayMonth(news.publishedAt)} • ${news.sourceName}"
+                  : "source info not available",
+              style: AppTextTheme.captionStyle.copyWith(
+                color: appColorScheme(context).onPrimary,
               ),
-            ),
+              overflow: TextOverflow.ellipsis,
+            ).paddingOnly(left: 16.w, top: 4.h),
           ],
         ),
       ),

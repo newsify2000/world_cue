@@ -29,7 +29,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
     _pages = [
       HomeScreen(
         onOpenDrawer: () =>
-            _scaffoldKey.currentState?.openDrawer(), // 👈 pass drawer callback
+            _scaffoldKey.currentState?.openDrawer(),
       ),
       const HomeScreen(),
     ];
