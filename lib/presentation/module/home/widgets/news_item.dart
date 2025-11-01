@@ -16,10 +16,14 @@ class NewsItem extends StatefulWidget {
   final VoidCallback? onMenuTap;
   final VoidCallback? onBookmarkTap;
   final bool showButtons;
+  final IconData trailingIcon;
+  final IconData leadingIcon;
 
   const NewsItem({
     super.key,
     required this.news,
+    required this.trailingIcon,
+    this.leadingIcon = Icons.view_sidebar_rounded,
     this.onMenuTap,
     this.onBookmarkTap,
     this.showButtons = false,
@@ -84,6 +88,24 @@ class _NewsItemState extends State<NewsItem> {
                 imageUrl: news.imageLink,
               ),
               Positioned(
+                top: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 60.h,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        appColorScheme(context).primaryContainer,
+                        Colors.transparent,
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
                 bottom: 0,
                 left: 0,
                 right: 0,
@@ -106,11 +128,11 @@ class _NewsItemState extends State<NewsItem> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     GlassButton(
-                      icon: Icons.view_sidebar_rounded,
+                      icon: widget.leadingIcon,
                       onTap: widget.onMenuTap,
                     ),
                     GlassButton(
-                      icon: Icons.bookmark_add_rounded,
+                      icon: widget.trailingIcon,
                       onTap: widget.onBookmarkTap,
                     ),
                   ],

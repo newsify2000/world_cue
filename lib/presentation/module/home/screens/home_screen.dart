@@ -79,26 +79,37 @@ class _HomeScreenState extends State<HomeScreen> {
           return const Center(child: Text("No news available"));
         }
 
-        return Stack(
-          children: [
-            PageView.builder(
-              controller: _pageController,
-              scrollDirection: Axis.vertical,
-              onPageChanged: _handlePageChange,
-              itemCount: controller.newsList.length,
-              itemBuilder: (context, i) {
-                final news = controller.newsList[i];
-                return controller.isLoading.value
-                    ? NewsItemShimmer(showButtons: true)
-                    : NewsItem(
-                        news: news,
-                        onMenuTap: widget.onOpenDrawer,
-                        onBookmarkTap: () {},
-                        showButtons: true,
-                      );
-              },
-            ),
-          ],
+        return PageView.builder(
+          controller: _pageController,
+          scrollDirection: Axis.vertical,
+          onPageChanged: _handlePageChange,
+          itemCount: controller.newsList.length,
+          itemBuilder: (context, i) {
+            final news = controller.newsList[i];
+            return controller.isLoading.value
+                ? NewsItemShimmer(showButtons: true)
+                : Obx(() {
+                    final isBookmarked = controller.bookmarkedIds.contains(
+                      news.id,
+                    );
+                    final bookmarkIcon = isBookmarked
+                        ? Icons.bookmark
+                        : Icons.bookmark_add_outlined;
+                    return NewsItem(
+                      news: news,
+                      onMenuTap: widget.onOpenDrawer,
+                      trailingIcon: bookmarkIcon,
+                      onBookmarkTap: () {
+                        if (isBookmarked) {
+                          controller.removeBookmark(news);
+                        } else {
+                          controller.bookmarkNews(news);
+                        }
+                      },
+                      showButtons: true,
+                    );
+                  });
+          },
         );
       }),
     );

@@ -1,7 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:world_cue/models/news_model.dart';
 import 'package:world_cue/network/gemini_service.dart';
+import 'package:world_cue/presentation/common_widgets/toast.dart';
 import 'package:world_cue/repositories/news_repository.dart';
+import 'package:world_cue/utils/constants.dart';
+import 'package:world_cue/utils/shared_pref.dart';
 
 class HomeController extends GetxController {
   final NewsRepository _newsRepo = NewsRepository();
@@ -13,13 +17,18 @@ class HomeController extends GetxController {
   final RxString errorMessage = ''.obs;
   final RxInt currentPage = 1.obs;
   final RxString currentCategory = 'general'.obs;
-
-  final RxBool isSearching = false.obs;
   final RxString currentQuery = ''.obs;
+  final RxSet<String> bookmarkedIds = <String>{}.obs;
+
 
   @override
   void onInit() {
     super.onInit();
+    // Load saved bookmarks from SharedPref
+    final saved = SharedPref.getList(SharedPrefConstants.bookMarkIdList);
+    if (saved != null) {
+      bookmarkedIds.addAll(saved.map((e) => e.toString()));
+    }
     fetchNews(page: currentPage.value);
   }
 
@@ -57,15 +66,6 @@ class HomeController extends GetxController {
     await fetchNews(page: 1, category: currentCategory.value);
   }
 
-  /// Reset search and go back to headlines
-  void clearSearch() {
-    isSearching.value = false;
-    currentQuery.value = '';
-    hasMore.value = true;
-    currentPage.value = 1;
-    fetchNews(page: 1, category: currentCategory.value);
-  }
-
   /// search with categories
   void updateCategory(String category) {
     if (currentCategory.value != category) {
@@ -92,4 +92,47 @@ class HomeController extends GetxController {
       // isLong: true
     );
   }
+
+  Future<void> bookmarkNews(NewsModel news) async {
+    try {
+      final ref = FirebaseFirestore.instance
+          .collection('users')
+          .doc(SharedPref.getString(SharedPrefConstants.userId))
+          .collection("bookmarks")
+          .doc(news.id);
+
+      await ref.set(news.toJson(), SetOptions(merge: true));
+
+      bookmarkedIds.add(news.id);
+
+      SharedPref.setOrAppendList(
+        SharedPrefConstants.bookMarkIdList,
+        bookmarkedIds.toList(),
+      );
+    } catch (error) {
+      showErrorToast("Failed to add bookmark: $error");
+    }
+  }
+
+  Future<void> removeBookmark(NewsModel news) async {
+    try {
+      final ref = FirebaseFirestore.instance
+          .collection('users')
+          .doc(SharedPref.getString(SharedPrefConstants.userId))
+          .collection("bookmarks")
+          .doc(news.id);
+
+      await ref.delete();
+
+      bookmarkedIds.remove(news.id);
+
+      SharedPref.setOrAppendList(
+        SharedPrefConstants.bookMarkIdList,
+        bookmarkedIds.toList(),
+      );
+    } catch (error) {
+      showErrorToast("Failed to remove bookmark: $error");
+    }
+  }
+
 }

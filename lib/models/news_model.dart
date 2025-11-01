@@ -1,4 +1,5 @@
 class NewsModel {
+  final String id;
   final String title;
   final String link;
   final String imageLink;
@@ -8,6 +9,7 @@ class NewsModel {
   final String sourceLink;
 
   NewsModel({
+    required this.id,
     required this.title,
     required this.link,
     required this.imageLink,
@@ -19,6 +21,7 @@ class NewsModel {
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
     return NewsModel(
+      id: json['id'] ?? '',
       title: json['title'] ?? '',
       link: json['link'] ?? '',
       imageLink: json['imageLink'] ?? '',
@@ -31,6 +34,7 @@ class NewsModel {
 
   Map<String, dynamic> toJson() {
     return {
+      'id': id,
       'title': title,
       'link': link,
       'imageLink': imageLink,
@@ -44,6 +48,7 @@ class NewsModel {
   @override
   String toString() {
     return 'NewsModel('
+        'id: $id, '
         'title: $title, '
         'link: $link, '
         'imageLink: $imageLink, '

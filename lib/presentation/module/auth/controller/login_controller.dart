@@ -7,7 +7,7 @@ import 'package:world_cue/presentation/common_widgets/toast.dart';
 import 'package:world_cue/presentation/module/home/screens/home_screen.dart';
 import 'package:world_cue/utils/constants.dart';
 import 'package:world_cue/utils/shared_pref.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 
 class LoginController extends GetxController {
@@ -36,12 +36,13 @@ class LoginController extends GetxController {
 
       if (user != null) {
         // 🔹 Save user info in SharedPref
+        await SharedPref.setString(SharedPrefConstants.userId, user.uid);
         await SharedPref.setString(SharedPrefConstants.userName, user.displayName ?? '');
         await SharedPref.setString(SharedPrefConstants.userEmail, user.email ?? '');
         await SharedPref.setString(SharedPrefConstants.userImage, user.photoURL ?? '');
 
         // 🔹 Save user info in Firestore
-   /*     final userRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
+        final userRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
 
         await userRef.set({
           'uid': user.uid,
@@ -49,7 +50,7 @@ class LoginController extends GetxController {
           'email': user.email ?? '',
           'photoUrl': user.photoURL ?? '',
           'lastLogin': FieldValue.serverTimestamp(),
-        }, SetOptions(merge: true)); */// merge prevents overwriting existing data
+        }, SetOptions(merge: true)); // merge prevents overwriting existing data
 
         // 🔹 Save initial screen
         await SharedPref.setString(
@@ -59,7 +60,6 @@ class LoginController extends GetxController {
 
         // 🔹 Navigate and show success
         Get.offAll(() => HomeScreen());
-        showSuccessToast("Login Successfully.");
       } else {
         showErrorToast('Google sign-in failed.');
       }

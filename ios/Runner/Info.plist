@@ -47,6 +47,8 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>GIDClientID</key>
+        <string>991744762477-cideker30krcc8t7m54pja5e2k2a26l0.apps.googleusercontent.com</string>
 		<key>CFBundleURLTypes</key>
         <array>
           <dict>

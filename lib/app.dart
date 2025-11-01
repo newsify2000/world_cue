@@ -62,11 +62,6 @@ class App extends StatelessWidget {
   }
 
   Widget homeScreen() {
-    SharedPref.setString(
-      SharedPrefConstants.initScreen,
-      SharedPrefConstants.loginScreen,
-    );
-
     String initialScreen =
         SharedPref.getString(SharedPrefConstants.initScreen) ??
         SharedPrefConstants.loginScreen;

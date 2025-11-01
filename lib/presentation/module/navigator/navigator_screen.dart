@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:world_cue/presentation/module/bookmark/bookmark_screen.dart';
 import 'package:world_cue/presentation/module/home/screens/home_screen.dart';
 import 'package:world_cue/presentation/module/home/widgets/app_drawer.dart';
 import 'package:world_cue/presentation/theme/text_style.dart';
@@ -27,17 +28,23 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
     _pageController = PageController(initialPage: 0);
 
     _pages = [
-      HomeScreen(
-        onOpenDrawer: () =>
-            _scaffoldKey.currentState?.openDrawer(),
+      HomeScreen(onOpenDrawer: () => _scaffoldKey.currentState?.openDrawer()),
+      BookmarkScreen(
+        onBackClick: () {
+          setState(() => _selectedIndex = 0);
+          _pageController.animateToPage(
+            0,
+            duration: const Duration(milliseconds: 300),
+            curve: Curves.easeOutCubic,
+          );
+        },
       ),
-      const HomeScreen(),
+
     ];
   }
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       key: _scaffoldKey,
       backgroundColor: Colors.black,
@@ -78,11 +85,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
     );
   }
 
-  Widget _buildNavItem(
-    String title,
-    IconData icon,
-    int index,
-  ) {
+  Widget _buildNavItem(String title, IconData icon, int index) {
     final bool isSelected = _selectedIndex == index;
 
     return Expanded(
@@ -106,13 +109,17 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
                   Icon(
                     icon,
                     size: 20.w,
-                    color: isSelected ? appColorScheme(context).onPrimary : Colors.grey,
+                    color: isSelected
+                        ? appColorScheme(context).onPrimary
+                        : Colors.grey,
                   ),
                   boxH4(),
                   Text(
                     title,
                     style: AppTextTheme.labelStyle.copyWith(
-                      color: isSelected ? appColorScheme(context).onPrimary : Colors.grey,
+                      color: isSelected
+                          ? appColorScheme(context).onPrimary
+                          : Colors.grey,
                     ),
                   ),
                 ],

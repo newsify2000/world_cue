@@ -50,14 +50,23 @@ class SharedPref {
     }
   }
 
-  static Future<void> setList(String key, List<dynamic> value) async {
+  static Future<void> setOrAppendList(String key, List<dynamic> value) async {
     try {
+      List<dynamic>? existingList = getList(key);
+
+      if (existingList != null) {
+        // Merge and remove duplicates
+        final merged = {...existingList, ...value}.toList();
+        value = merged;
+      }
+
       String jsonString = jsonEncode(value);
       await sharedPref!.setString(key, jsonString);
     } catch (e) {
-      debugPrint("$e");
+      debugPrint("Error in setList: $e");
     }
   }
+
 
   static List<dynamic>? getList(String key) {
     String? jsonString = sharedPref!.getString(key);

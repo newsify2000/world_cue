@@ -10,9 +10,11 @@ class SharedPrefConstants {
   static String initScreen = "initScreen";
   static String homeScreen = "homeScreen";
   static String loginScreen = "loginScreen";
+  static String userId = "userId";
   static String userName = "userName";
   static String userEmail = "userEmail";
   static String userImage = "userImage";
+  static String bookMarkIdList = "bookMarkIdList";
 }
 
 const String authToken = "authToken";

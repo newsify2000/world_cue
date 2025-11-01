@@ -35,6 +35,7 @@ class NewsRepository {
       final newsList = articles.map((article) {
         final source = article['source'] ?? {};
         return NewsModel(
+          id: article['id'] ?? '',
           title: article['title'] ?? '',
           link: article['url'] ?? '',
           imageLink: article['image'] ?? '',
@@ -85,6 +86,7 @@ class NewsRepository {
       final newsList = articles.map((article) {
         final source = article['source'] ?? {};
         return NewsModel(
+          id: article['id'] ?? '',
           title: article['title'] ?? '',
           link: article['url'] ?? '',
           imageLink: article['image'] ?? '',
