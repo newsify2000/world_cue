@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:world_cue/view/common_widgets/padding_helper.dart';
 import 'package:world_cue/controllers/home_controller.dart';
-import 'package:world_cue/view/screens/news_search_screen.dart';
-import 'package:world_cue/view/theme/text_style.dart';
 import 'package:world_cue/utils/constants.dart';
 import 'package:world_cue/utils/shared_pref.dart';
 import 'package:world_cue/utils/size_config.dart';
 import 'package:world_cue/utils/utilities.dart';
+import 'package:world_cue/view/common_widgets/padding_helper.dart';
+import 'package:world_cue/view/screens/news_search_screen.dart';
+import 'package:world_cue/view/theme/text_style.dart';
 
 const List<String> newsCategories = [
   'General',
@@ -40,10 +40,41 @@ class AppDrawer extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Expanded(child: searchView(context)),
-              Icon(
-                Icons.settings_rounded,
-                color: appColorScheme(context).onPrimary,
-              ).paddingOnly(right: 24.w),
+              PopupMenuButton<String>(
+                color: appColorScheme(context).primaryContainer,
+                icon: Icon(
+                  Icons.more_vert,
+                  color: appColorScheme(context).onPrimary,
+                ),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+                onSelected: (value) async {
+                  if (value == 'logout') {
+                    await controller.signOut();
+                  }
+                },
+                itemBuilder: (context) => [
+                  PopupMenuItem<String>(
+                    value: 'logout',
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.logout_rounded,
+                          color: appColorScheme(context).onPrimary,
+                        ),
+                        SizedBox(width: 8.w),
+                        Text(
+                          'Logout',
+                          style: AppTextTheme.bodyStyle.copyWith(
+                            color: appColorScheme(context).onPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ],
           ).paddingOnly(top: 16.h),
           boxH16(),

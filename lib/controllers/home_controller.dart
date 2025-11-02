@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:world_cue/models/news_model.dart';
 import 'package:world_cue/network/gemini_service.dart';
-import 'package:world_cue/view/common_widgets/toast.dart';
 import 'package:world_cue/repositories/news_repository.dart';
 import 'package:world_cue/utils/constants.dart';
 import 'package:world_cue/utils/shared_pref.dart';
+import 'package:world_cue/view/common_widgets/toast.dart';
+import 'package:world_cue/view/screens/login_screen.dart';
 
 class HomeController extends GetxController {
   final NewsRepository _newsRepo = NewsRepository();
@@ -131,6 +134,17 @@ class HomeController extends GetxController {
       );
     } catch (error) {
       showErrorToast("Failed to remove bookmark: $error");
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      await GoogleSignIn().signOut();
+      await FirebaseAuth.instance.signOut();
+      await SharedPref.deleteAll();
+      Get.to(() => LoginScreen());
+    } catch (e) {
+      showErrorToast('Logout failed: $e');
     }
   }
 }

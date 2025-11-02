@@ -1,19 +1,17 @@
 import 'dart:developer';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:world_cue/view/common_widgets/toast.dart';
-import 'package:world_cue/view/screens/home_screen.dart';
 import 'package:world_cue/utils/constants.dart';
 import 'package:world_cue/utils/shared_pref.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-
+import 'package:world_cue/view/common_widgets/toast.dart';
+import 'package:world_cue/view/screens/navigator_screen.dart';
 
 class LoginController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
   final RxBool isSigningIn = false.obs;
-
 
   Future<void> signInWithGoogle() async {
     try {
@@ -31,18 +29,31 @@ class LoginController extends GetxController {
         idToken: googleAuth.idToken,
       );
 
-      final userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+      final userCredential = await FirebaseAuth.instance.signInWithCredential(
+        credential,
+      );
       final user = userCredential.user;
 
       if (user != null) {
         // 🔹 Save user info in SharedPref
         await SharedPref.setString(SharedPrefConstants.userId, user.uid);
-        await SharedPref.setString(SharedPrefConstants.userName, user.displayName ?? '');
-        await SharedPref.setString(SharedPrefConstants.userEmail, user.email ?? '');
-        await SharedPref.setString(SharedPrefConstants.userImage, user.photoURL ?? '');
+        await SharedPref.setString(
+          SharedPrefConstants.userName,
+          user.displayName ?? '',
+        );
+        await SharedPref.setString(
+          SharedPrefConstants.userEmail,
+          user.email ?? '',
+        );
+        await SharedPref.setString(
+          SharedPrefConstants.userImage,
+          user.photoURL ?? '',
+        );
 
         // 🔹 Save user info in Firestore
-        final userRef = FirebaseFirestore.instance.collection('users').doc(user.uid);
+        final userRef = FirebaseFirestore.instance
+            .collection('users')
+            .doc(user.uid);
 
         await userRef.set({
           'uid': user.uid,
@@ -59,7 +70,7 @@ class LoginController extends GetxController {
         );
 
         // 🔹 Navigate and show success
-        Get.offAll(() => HomeScreen());
+        Get.offAll(() => NavigatorScreen());
       } else {
         showErrorToast('Google sign-in failed.');
       }
@@ -72,9 +83,5 @@ class LoginController extends GetxController {
     }
   }
 
-  Future<void> signOut() async {
-    await _googleSignIn.disconnect();
-    await FirebaseAuth.instance.signOut();
-    log('User signed out');
-  }
+
 }
