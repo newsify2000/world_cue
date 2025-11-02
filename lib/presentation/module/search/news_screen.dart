@@ -6,6 +6,7 @@ import 'package:world_cue/presentation/common_widgets/custom_network_image.dart'
 import 'package:world_cue/presentation/module/home/controller/home_controller.dart';
 import 'package:world_cue/presentation/theme/text_style.dart';
 import 'package:world_cue/utils/size_config.dart';
+import 'package:world_cue/utils/url_launcher.dart';
 import 'package:world_cue/utils/utilities.dart';
 
 class NewsScreen extends StatefulWidget {
@@ -88,35 +89,63 @@ class _NewsScreenState extends State<NewsScreen> {
             // Title
             Text(
               news.title,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
               style: AppTextTheme.titleBoldStyle.copyWith(
                 color: appColorScheme(context).onPrimary,
               ),
             ).paddingOnly(left: 16.w, right: 16.w, top: 16.h),
 
             // Description / Summary
-            Text(
-              isLoading
-                  ? "Generating AI summary..."
-                  : (summaryText ?? "No description available."),
-              style: AppTextTheme.bodyStyle.copyWith(
-                color: appColorScheme(context).onPrimary,
-              ),
-              maxLines: 10,
-              overflow: TextOverflow.ellipsis,
-            ).paddingOnly(left: 16.w, right: 16.w, top: 16.h),
+            isLoading
+                ? Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 20.w,
+                        height: 20.w,
+                        child: CircularProgressIndicator(strokeWidth: 1),
+                      ).paddingOnly(right: 8.w),
+                      Text(
+                        "Generating Long summary.",
+                        style: AppTextTheme.bodyStyle.copyWith(
+                          color: appColorScheme(context).onPrimary,
+                        ),
+                      ),
+                    ],
+                  ).paddingOnly(left: 16.w, right: 16.w, top: 16.h)
+                : Text(
+                    (summaryText ?? "No description available."),
+                    style: AppTextTheme.bodyStyle.copyWith(
+                      color: appColorScheme(context).onPrimary,
+                    ),
+                    textAlign: TextAlign.justify,
+                  ).paddingOnly(left: 16.w, right: 16.w, top: 16.h),
 
             // Source + Date
-            Text(
-              news.publishedAt.isNotEmpty && news.sourceName.isNotEmpty
-                  ? "${formatDateToDayMonth(news.publishedAt)} • ${news.sourceName}"
-                  : "source info not available",
-              style: AppTextTheme.captionStyle.copyWith(
-                color: appColorScheme(context).onPrimary,
+            if (!isLoading)
+              Row(
+                children: [
+                  Text(
+                    news.publishedAt.isNotEmpty && news.sourceName.isNotEmpty
+                        ? "${formatDateToDayMonth(news.publishedAt)} • ${news.sourceName}"
+                        : "",
+                    style: AppTextTheme.captionStyle.copyWith(
+                      color: appColorScheme(context).onPrimary,
+                    ),
+                  ).paddingOnly(left: 16.w, top: 4.h, bottom: 48.h, right: 8.w),
+                  GestureDetector(
+                    onTap: () {
+                      UrlLauncher.launchURL(news.sourceLink, context);
+                    },
+                    child: Text(
+                      "View Full Article",
+                      style: AppTextTheme.labelStyle.copyWith(
+                        color: Colors.blue,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ).paddingOnly(top: 4.h, bottom: 48.h),
+                  ),
+                ],
               ),
-              overflow: TextOverflow.ellipsis,
-            ).paddingOnly(left: 16.w, top: 4.h),
           ],
         ),
       ),

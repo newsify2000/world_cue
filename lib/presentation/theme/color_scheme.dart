@@ -7,7 +7,7 @@ class AppColorScheme {
     onPrimary: Color(0xFFFFFFFF),
     primaryContainer: Color(0xFF2C2C2C),
     onPrimaryContainer: Color(0xFFFFFFFF),
-    secondary: Color(0xFF5F64EB),
+    secondary: Color(0xFF13A4F3),
     onSecondary: Color(0xFFFFFFFF),
     secondaryContainer: Color(0xFFE3E3E7),
     onSecondaryContainer: Color(0xFF000000),

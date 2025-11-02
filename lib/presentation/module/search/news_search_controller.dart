@@ -111,7 +111,7 @@ class NewsSearchController extends GetxController {
 
   Future<String> summarizeNews(NewsModel news) async {
     /// summarizer call (AI summary)
-    return await _summarizer.getNewsSummary(
+    return await _summarizer.getNewsShortSummary(
       sourceLink: news.sourceLink,
       newsText: news.description,
       title: news.title,

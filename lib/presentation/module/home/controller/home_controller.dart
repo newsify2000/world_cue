@@ -20,7 +20,6 @@ class HomeController extends GetxController {
   final RxString currentQuery = ''.obs;
   final RxSet<String> bookmarkedIds = <String>{}.obs;
 
-
   @override
   void onInit() {
     super.onInit();
@@ -77,7 +76,7 @@ class HomeController extends GetxController {
   }
 
   Future<String> summarizeNews(NewsModel news) async {
-    return await _summarizer.getNewsSummary(
+    return await _summarizer.getNewsShortSummary(
       sourceLink: news.sourceLink,
       newsText: news.description,
       title: news.title,
@@ -85,7 +84,7 @@ class HomeController extends GetxController {
   }
 
   Future<String> summarizeNewsLong(NewsModel news) async {
-    return await _summarizer.getNewsSummary(
+    return await _summarizer.getNewsDetailedSummary(
       sourceLink: news.sourceLink,
       newsText: news.description,
       title: news.title,
@@ -134,5 +133,4 @@ class HomeController extends GetxController {
       showErrorToast("Failed to remove bookmark: $error");
     }
   }
-
 }
