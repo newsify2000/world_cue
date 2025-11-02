@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
-import 'package:world_cue/presentation/module/auth/controller/login_controller.dart';
-import 'package:world_cue/presentation/module/bookmark/bookmark_controller.dart';
-import 'package:world_cue/presentation/module/home/controller/home_controller.dart';
-import 'package:world_cue/presentation/module/search/news_search_controller.dart';
+import 'package:world_cue/controllers/login_controller.dart';
+import 'package:world_cue/controllers/bookmark_controller.dart';
+import 'package:world_cue/controllers/home_controller.dart';
+import 'package:world_cue/controllers/news_search_controller.dart';
 
 class DISetup {
   static void setup() {

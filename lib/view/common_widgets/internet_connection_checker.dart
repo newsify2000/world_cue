@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:world_cue/generated/l10n.dart';
-import 'package:world_cue/presentation/theme/text_style.dart';
+import 'package:world_cue/view/theme/text_style.dart';
 
 class InternetConnectivityChecker extends StatefulWidget {
   final Widget child;

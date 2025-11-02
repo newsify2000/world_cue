@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:world_cue/presentation/module/navigator/navigator_screen.dart';
+import 'package:world_cue/view/screens/navigator_screen.dart';
 
 import 'generated/l10n.dart';
-import 'presentation/common_widgets/internet_connection_checker.dart';
-import 'presentation/module/auth/screens/login_screen.dart';
-import 'presentation/theme/app_theme.dart';
+import 'view/common_widgets/internet_connection_checker.dart';
+import 'view/screens/login_screen.dart';
+import 'view/theme/app_theme.dart';
 import 'utils/constants.dart';
 import 'utils/shared_pref.dart';
 

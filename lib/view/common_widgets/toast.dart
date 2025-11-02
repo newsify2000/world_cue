@@ -4,7 +4,7 @@ import 'package:delightful_toast/toast/utils/enums.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:world_cue/app.dart';
-import 'package:world_cue/presentation/theme/text_style.dart';
+import 'package:world_cue/view/theme/text_style.dart';
 
 void showErrorToast(String message) {
   DelightToastBar? toastBar;

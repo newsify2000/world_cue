@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:world_cue/models/news_model.dart';
 import 'package:world_cue/network/gemini_service.dart';
-import 'package:world_cue/presentation/common_widgets/toast.dart';
+import 'package:world_cue/view/common_widgets/toast.dart';
 import 'package:world_cue/repositories/news_repository.dart';
 import 'package:world_cue/utils/constants.dart';
 import 'package:world_cue/utils/shared_pref.dart';

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:world_cue/generated/assets.dart';
-import 'package:world_cue/presentation/common_widgets/helper_widgets.dart';
-import 'package:world_cue/presentation/common_widgets/padding_helper.dart';
-import 'package:world_cue/presentation/module/auth/controller/login_controller.dart';
-import 'package:world_cue/presentation/theme/text_style.dart';
+import 'package:world_cue/view/common_widgets/helper_widgets.dart';
+import 'package:world_cue/view/common_widgets/padding_helper.dart';
+import 'package:world_cue/controllers/login_controller.dart';
+import 'package:world_cue/view/theme/text_style.dart';
 import 'package:world_cue/utils/size_config.dart';
 import 'package:world_cue/utils/utilities.dart';
 

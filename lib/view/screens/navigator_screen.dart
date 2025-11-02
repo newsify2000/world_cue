@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:world_cue/presentation/module/bookmark/bookmark_screen.dart';
-import 'package:world_cue/presentation/module/home/screens/home_screen.dart';
-import 'package:world_cue/presentation/module/home/widgets/app_drawer.dart';
-import 'package:world_cue/presentation/theme/text_style.dart';
+import 'package:world_cue/view/screens/bookmark_screen.dart';
+import 'package:world_cue/view/screens/home_screen.dart';
+import 'package:world_cue/view/common_widgets/app_drawer.dart';
+import 'package:world_cue/view/theme/text_style.dart';
 import 'package:world_cue/utils/size_config.dart';
 import 'package:world_cue/utils/utilities.dart';
 
@@ -49,7 +49,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
       key: _scaffoldKey,
       backgroundColor: Colors.black,
       extendBody: true,
-      drawer: const AppDrawer(),
+      drawer:  AppDrawer(onSearchClicked: () => _scaffoldKey.currentState?.closeDrawer()),
       drawerEnableOpenDragGesture: _selectedIndex == 0,
       drawerEdgeDragWidth: screenWidth(percentage: 20),
       body: PageView(

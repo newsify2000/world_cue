@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:world_cue/presentation/module/bookmark/bookmark_controller.dart';
-import 'package:world_cue/presentation/module/home/widgets/news_item.dart';
-import 'package:world_cue/presentation/module/home/widgets/news_item_shimmer.dart';
-import 'package:world_cue/presentation/theme/text_style.dart';
+import 'package:world_cue/controllers/bookmark_controller.dart';
+import 'package:world_cue/view/common_widgets/news_item.dart';
+import 'package:world_cue/view/common_widgets/news_item_shimmer.dart';
+import 'package:world_cue/view/theme/text_style.dart';
 import 'package:world_cue/utils/utilities.dart';
 
 class BookmarkScreen extends StatefulWidget {
