@@ -13,6 +13,7 @@ class UrlLauncher {
 
   static Future<void> launchURL(String url, BuildContext context) async {
     // 1. Create a Uri object from the URL string.
+    log(url);
     final Uri uri = Uri.parse(url);
 
     // 2. Check if the URL can be launched.

@@ -134,7 +134,7 @@ class _NewsScreenState extends State<NewsScreen> {
                   ).paddingOnly(left: 16.w, top: 4.h, bottom: 48.h, right: 8.w),
                   GestureDetector(
                     onTap: () {
-                      UrlLauncher.launchURL(news.sourceLink, context);
+                      UrlLauncher.launchURL(news.link, context);
                     },
                     child: Text(
                       "View Full Article",

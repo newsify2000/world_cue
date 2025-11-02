@@ -20,15 +20,17 @@ class NewsModel {
   });
 
   factory NewsModel.fromJson(Map<String, dynamic> json) {
+    final source = json['source'] ?? {};
+
     return NewsModel(
       id: json['id'] ?? '',
       title: json['title'] ?? '',
-      link: json['link'] ?? '',
-      imageLink: json['imageLink'] ?? '',
+      link: json['url'] ?? '',
+      imageLink: json['image'] ?? '',
       description: json['description'] ?? '',
       publishedAt: json['publishedAt'] ?? '',
-      sourceName: json['sourceName'] ?? '',
-      sourceLink: json['sourceLink'] ?? '',
+      sourceName: source['name'] ?? '',
+      sourceLink: source['url'] ?? '',
     );
   }
 
@@ -36,12 +38,14 @@ class NewsModel {
     return {
       'id': id,
       'title': title,
-      'link': link,
-      'imageLink': imageLink,
+      'url': link,
+      'image': imageLink,
       'description': description,
       'publishedAt': publishedAt,
-      'sourceName': sourceName,
-      'sourceLink': sourceLink,
+      'source': {
+        'name': sourceName,
+        'url': sourceLink,
+      },
     };
   }
 
