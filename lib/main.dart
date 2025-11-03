@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'app.dart';
-import 'firebase_options.dart';
-import 'utils/di_setup.dart';
-import 'utils/shared_pref.dart';
+import 'core/config/firebase_options.dart';
+import 'core/dependency_injection/di_setup.dart';
+import 'core/storage/shared_pref.dart';
 
 void main() async {
   /// initializing the framework

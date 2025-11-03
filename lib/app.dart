@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
-import 'package:world_cue/view/screens/navigator_screen.dart';
+import 'package:world_cue/features/navigator/view/navigator_screen.dart';
 
+import 'core/widgets/internet_connection_checker.dart';
 import 'generated/l10n.dart';
-import 'view/common_widgets/internet_connection_checker.dart';
-import 'view/screens/login_screen.dart';
-import 'view/theme/app_theme.dart';
-import 'utils/constants.dart';
-import 'utils/shared_pref.dart';
+import 'features/auth/view/auth_screen.dart';
+import 'core/theme/app_theme.dart';
+import 'core/utils/constants.dart';
+import 'core/storage/shared_pref.dart';
 
 /// global navigation key
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -66,7 +66,7 @@ class App extends StatelessWidget {
         SharedPref.getString(SharedPrefConstants.initScreen) ??
         SharedPrefConstants.loginScreen;
     if (initialScreen == SharedPrefConstants.loginScreen) {
-      return const LoginScreen();
+      return const AuthScreen();
     } else {
       return const NavigatorScreen();
     }
