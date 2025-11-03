@@ -27,7 +27,7 @@ class LoginScreen extends StatelessWidget {
               left: 0,
               right: 0,
               child: Image.asset(
-                Assets.assetsImg,
+                Assets.assetsLogin,
                 fit: BoxFit.fitHeight,
                 width: screenWidth(),
                 alignment: Alignment.center,

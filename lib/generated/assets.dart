@@ -3,8 +3,8 @@ class Assets {
   Assets._();
 
   static const String assetsGoogleLoginButton = 'assets/google_login_button.svg';
-  static const String assetsImg = 'assets/img.webp';
   static const String assetsLoading = 'assets/loading.json';
+  static const String assetsLogin = 'assets/login.webp';
   static const String assetsLogo = 'assets/logo.png';
   static const String assetsLogoTransparent = 'assets/logo_transparent.png';
   static const String assetsSplash = 'assets/splash.png';
