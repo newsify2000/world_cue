@@ -159,7 +159,7 @@ $sourceLink
 
         // Save the generated info (even the error code) to cache
         bool saved = await sharedPreferences.setString(cacheKey, info);
-        log("LONG SUMMARY: $info");
+        log("Info Saved in cache with key '$cacheKey': $saved");
 
         return info;
       } else {
