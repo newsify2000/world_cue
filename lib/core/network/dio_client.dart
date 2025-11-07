@@ -8,27 +8,33 @@ import 'interceptor.dart';
 
 class DioClient {
   static final DioClient _instance = DioClient._internal();
-  static String baseUrl = "https://gnews.io/api/v4";
+  static String baseUrl = "https://getnews-esnamhbpbq-uc.a.run.app";
   late Dio dio;
 
   factory DioClient() => _instance;
 
   DioClient._internal() {
-    dio = Dio(BaseOptions(
+    dio = Dio(
+      BaseOptions(
         baseUrl: baseUrl,
         responseType: ResponseType.json,
-        contentType: NetworkConstants.contentType));
+        contentType: NetworkConstants.contentType,
+      ),
+    );
     dio.interceptors.add(CustomInterceptor());
 
     if (!kReleaseMode) {
-      dio.interceptors.add(PrettyDioLogger(
+      dio.interceptors.add(
+        PrettyDioLogger(
           requestHeader: true,
           requestBody: true,
           responseBody: true,
           responseHeader: false,
           error: true,
           compact: true,
-          maxWidth: 300));
+          maxWidth: 300,
+        ),
+      );
     }
   }
 
@@ -42,11 +48,12 @@ class DioClient {
       final response = await dio.get(
         endPoint,
         queryParameters: queryParameters,
-        options: options ??
+        options:
+            options ??
             Options(
               headers: {
                 NetworkConstants.authorizationHeaderKey:
-                requiresAuthorizationHeader
+                    requiresAuthorizationHeader,
               },
             ),
       );
@@ -60,16 +67,22 @@ class DioClient {
     }
   }
 
-
-  Future<Response> postRequest(
-      {required String endPoint,
-      required dynamic data,
-      bool requiresAuthorizationHeader = false}) async {
+  Future<Response> postRequest({
+    required String endPoint,
+    required dynamic data,
+    bool requiresAuthorizationHeader = false,
+  }) async {
     try {
-      return await dio.post(endPoint,
-          data: data,
-          options: Options(
-              headers: {NetworkConstants.authorizationHeaderKey: requiresAuthorizationHeader}));
+      return await dio.post(
+        endPoint,
+        data: data,
+        options: Options(
+          headers: {
+            NetworkConstants.authorizationHeaderKey:
+                requiresAuthorizationHeader,
+          },
+        ),
+      );
     } on DioException catch (err) {
       throw BaseApiException.fromDioError(err);
     } on Exception catch (e) {
@@ -79,15 +92,22 @@ class DioClient {
     }
   }
 
-  Future<Response> patchRequest(
-      {required String endPoint,
-      required dynamic data,
-      bool requiresAuthorizationHeader = false}) async {
+  Future<Response> patchRequest({
+    required String endPoint,
+    required dynamic data,
+    bool requiresAuthorizationHeader = false,
+  }) async {
     try {
-      return await dio.patch(endPoint,
-          data: data,
-          options: Options(
-              headers: {NetworkConstants.authorizationHeaderKey: requiresAuthorizationHeader}));
+      return await dio.patch(
+        endPoint,
+        data: data,
+        options: Options(
+          headers: {
+            NetworkConstants.authorizationHeaderKey:
+                requiresAuthorizationHeader,
+          },
+        ),
+      );
     } on DioException catch (err) {
       throw BaseApiException.fromDioError(err);
     } on Exception catch (e) {
@@ -97,15 +117,22 @@ class DioClient {
     }
   }
 
-  Future<Response> putRequest(
-      {required String endPoint,
-      required dynamic data,
-      bool requiresAuthorizationHeader = false}) async {
+  Future<Response> putRequest({
+    required String endPoint,
+    required dynamic data,
+    bool requiresAuthorizationHeader = false,
+  }) async {
     try {
-      return await dio.put(endPoint,
-          data: data,
-          options: Options(
-              headers: {NetworkConstants.authorizationHeaderKey: requiresAuthorizationHeader}));
+      return await dio.put(
+        endPoint,
+        data: data,
+        options: Options(
+          headers: {
+            NetworkConstants.authorizationHeaderKey:
+                requiresAuthorizationHeader,
+          },
+        ),
+      );
     } on DioException catch (err) {
       throw BaseApiException.fromDioError(err);
     } on Exception catch (e) {
@@ -115,15 +142,22 @@ class DioClient {
     }
   }
 
-  Future<Response> deleteRequest(
-      {required String endPoint,
-      required dynamic data,
-      bool requiresAuthorizationHeader = false}) async {
+  Future<Response> deleteRequest({
+    required String endPoint,
+    required dynamic data,
+    bool requiresAuthorizationHeader = false,
+  }) async {
     try {
-      return await dio.delete(endPoint,
-          data: data,
-          options: Options(
-              headers: {NetworkConstants.authorizationHeaderKey: requiresAuthorizationHeader}));
+      return await dio.delete(
+        endPoint,
+        data: data,
+        options: Options(
+          headers: {
+            NetworkConstants.authorizationHeaderKey:
+                requiresAuthorizationHeader,
+          },
+        ),
+      );
     } on DioException catch (err) {
       throw BaseApiException.fromDioError(err);
     } on Exception catch (e) {

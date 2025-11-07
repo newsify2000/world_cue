@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:world_cue/features/auth/controller/auth_controller.dart';
-import 'package:world_cue/generated/assets.dart';
+import 'package:world_cue/core/theme/text_style.dart';
 import 'package:world_cue/core/utils/size_config.dart';
 import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/core/widgets/helper_widgets.dart';
 import 'package:world_cue/core/widgets/padding_helper.dart';
-import 'package:world_cue/core/theme/text_style.dart';
+import 'package:world_cue/features/auth/controller/auth_controller.dart';
+import 'package:world_cue/generated/assets.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});

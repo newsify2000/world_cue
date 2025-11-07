@@ -67,7 +67,6 @@ class SharedPref {
     }
   }
 
-
   static List<dynamic>? getList(String key) {
     String? jsonString = sharedPref!.getString(key);
     if (jsonString != null) {

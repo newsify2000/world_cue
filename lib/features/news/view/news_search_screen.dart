@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:world_cue/core/widgets/padding_helper.dart';
-import 'package:world_cue/features/news/view/news_screen.dart';
-import 'package:world_cue/features/news/controller/news_search_controller.dart';
-import 'package:world_cue/features/news/view/search_card.dart';
 import 'package:world_cue/core/theme/text_style.dart';
 import 'package:world_cue/core/utils/utilities.dart';
+import 'package:world_cue/core/widgets/padding_helper.dart';
+import 'package:world_cue/features/news/controller/news_search_controller.dart';
+import 'package:world_cue/features/news/view/news_screen.dart';
+import 'package:world_cue/features/news/view/search_card.dart';
 
 class NewsSearchScreen extends StatelessWidget {
   NewsSearchScreen({super.key});

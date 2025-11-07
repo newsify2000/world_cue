@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:world_cue/features/bookmark/view/bookmark_screen.dart';
-import 'package:world_cue/features/home/view/home_screen.dart';
-import 'package:world_cue/features/navigator/view/app_drawer.dart';
 import 'package:world_cue/core/theme/text_style.dart';
 import 'package:world_cue/core/utils/size_config.dart';
 import 'package:world_cue/core/utils/utilities.dart';
+import 'package:world_cue/features/bookmark/view/bookmark_screen.dart';
+import 'package:world_cue/features/home/view/home_screen.dart';
+import 'package:world_cue/features/navigator/view/app_drawer.dart';
 
 class NavigatorScreen extends StatefulWidget {
   const NavigatorScreen({super.key});
@@ -39,7 +39,6 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
           );
         },
       ),
-
     ];
   }
 
@@ -49,7 +48,9 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
       key: _scaffoldKey,
       backgroundColor: Colors.black,
       extendBody: true,
-      drawer:  AppDrawer(onSearchClicked: () => _scaffoldKey.currentState?.closeDrawer()),
+      drawer: AppDrawer(
+        onSearchClicked: () => _scaffoldKey.currentState?.closeDrawer(),
+      ),
       drawerEnableOpenDragGesture: _selectedIndex == 0,
       drawerEdgeDragWidth: screenWidth(percentage: 20),
       body: PageView(

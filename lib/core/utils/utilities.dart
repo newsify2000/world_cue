@@ -35,7 +35,6 @@ extension Separation on List<Widget> {
   }
 }
 
-
 String formatDateToDayMonth(String isoDate) {
   try {
     final dateTime = DateTime.parse(isoDate).toLocal();
@@ -67,7 +66,6 @@ String formatDateToDayMonth(String isoDate) {
 ColorScheme appColorScheme(BuildContext context) {
   return Theme.of(context).colorScheme;
 }
-
 
 String formatTime(String isoDateString) {
   DateTime postDate = DateTime.parse(isoDateString).toLocal();

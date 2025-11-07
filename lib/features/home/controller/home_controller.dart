@@ -2,17 +2,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:world_cue/features/news/model/news_model.dart';
-import 'package:world_cue/core/network/gemini_service.dart';
-import 'package:world_cue/features/news/repository/news_repository.dart';
-import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/storage/shared_pref.dart';
+import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/widgets/toast.dart';
 import 'package:world_cue/features/auth/view/auth_screen.dart';
+import 'package:world_cue/features/news/model/news_model.dart';
+import 'package:world_cue/features/news/repository/news_repository.dart';
 
 class HomeController extends GetxController {
   final NewsRepository _newsRepo = NewsRepository();
-  final NewsSummarizerService _summarizer = NewsSummarizerService();
 
   final RxList<NewsModel> newsList = <NewsModel>[].obs;
   final RxBool isLoading = false.obs;
@@ -44,7 +42,10 @@ class HomeController extends GetxController {
 
       final topic = category ?? currentCategory.value;
 
-      final result = await _newsRepo.getTopHeadlines(topic: topic, page: page);
+      final result = await _newsRepo.getNews(
+        category: topic,
+        page: page,
+      );
 
       if (page == 1) {
         newsList.assignAll(result.news);
@@ -76,23 +77,6 @@ class HomeController extends GetxController {
       hasMore.value = true;
       fetchNews(page: 1, category: category);
     }
-  }
-
-  Future<String> summarizeNews(NewsModel news) async {
-    return await _summarizer.getNewsShortSummary(
-      sourceLink: news.sourceLink,
-      newsText: news.description,
-      title: news.title,
-    );
-  }
-
-  Future<String> summarizeNewsLong(NewsModel news) async {
-    return await _summarizer.getNewsDetailedSummary(
-      sourceLink: news.sourceLink,
-      newsText: news.description,
-      title: news.title,
-      // isLong: true
-    );
   }
 
   Future<void> bookmarkNews(NewsModel news) async {

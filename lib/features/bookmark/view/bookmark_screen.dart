@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:world_cue/features/bookmark/controller/bookmark_controller.dart';
-import 'package:world_cue/core/widgets/news_card.dart';
-import 'package:world_cue/core/widgets/news_card_shimmer.dart';
 import 'package:world_cue/core/theme/text_style.dart';
 import 'package:world_cue/core/utils/utilities.dart';
+import 'package:world_cue/core/widgets/news_card.dart';
+import 'package:world_cue/core/widgets/news_card_shimmer.dart';
+import 'package:world_cue/features/bookmark/controller/bookmark_controller.dart';
 
 class BookmarkScreen extends StatefulWidget {
   final VoidCallback? onBackClick;

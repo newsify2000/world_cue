@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-import 'package:world_cue/generated/l10n.dart';
 import 'package:world_cue/core/theme/text_style.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 class InternetConnectivityChecker extends StatefulWidget {
   final Widget child;
@@ -26,8 +26,9 @@ class InternetConnectivityCheckerState
   void initState() {
     super.initState();
     // Listen for changes
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _connectivitySubscription = _connectivity.onConnectivityChanged.listen(
+      _updateConnectionStatus,
+    );
 
     // Check initial status
     _checkInitialConnection();
@@ -46,7 +47,8 @@ class InternetConnectivityCheckerState
 
   void _updateConnectionStatus(List<ConnectivityResult> results) {
     setState(() {
-      _isConnected = results.isNotEmpty &&
+      _isConnected =
+          results.isNotEmpty &&
           results.any((result) => result != ConnectivityResult.none);
     });
   }

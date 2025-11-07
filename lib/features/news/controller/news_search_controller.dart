@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:world_cue/features/news/model/news_model.dart';
-import 'package:world_cue/core/network/gemini_service.dart';
 import 'package:world_cue/features/news/repository/news_repository.dart';
 
 class NewsSearchController extends GetxController {
@@ -9,7 +8,6 @@ class NewsSearchController extends GetxController {
   /// Dependencies
   /// --------------------------
   final NewsRepository _newsRepo = NewsRepository();
-  final NewsSummarizerService _summarizer = NewsSummarizerService();
 
   /// --------------------------
   /// Reactive State
@@ -53,9 +51,11 @@ class NewsSearchController extends GetxController {
   }
 
   /// main fetch logic
-  Future<void> searchNews({required int page, required String query}) async {
-    /// avoid duplicate calls
-    if (isLoading.value) return;
+  Future<void> searchNews({
+    required int page,
+    required String query,
+  }) async {
+    if (isLoading.value) return; // avoid duplicate calls
 
     try {
       isLoading.value = true;
@@ -63,8 +63,13 @@ class NewsSearchController extends GetxController {
       isSearching.value = true;
       currentQuery.value = query;
 
-      /// call repo
-      final result = await _newsRepo.searchNews(query: query, page: page);
+      /// call new repo method
+      final result = await _newsRepo.getNews(
+        query: query,
+        page: page,
+        max: 10,
+        lang: "en",
+      );
 
       /// page 1 = fresh list
       if (page == 1) {
@@ -72,7 +77,7 @@ class NewsSearchController extends GetxController {
       } else {
         /// avoid duplicate news items
         final newItems = result.news.where(
-              (n) => !newsList.any((existing) => existing.link == n.link),
+              (n) => !newsList.any((existing) => existing.id == n.id),
         );
         newsList.addAll(newItems);
       }
@@ -91,7 +96,6 @@ class NewsSearchController extends GetxController {
   /// Pagination
   /// --------------------------
   Future<void> loadMore() async {
-    /// stop if already loading or done
     if (isLoading.value || !hasMore.value || currentQuery.value.isEmpty) return;
 
     final nextPage = currentPage.value + 1;
@@ -108,16 +112,6 @@ class NewsSearchController extends GetxController {
     currentPage.value = 1;
     newsList.clear();
   }
-
-  Future<String> summarizeNews(NewsModel news) async {
-    /// summarizer call (AI summary)
-    return await _summarizer.getNewsShortSummary(
-      sourceLink: news.sourceLink,
-      newsText: news.description,
-      title: news.title,
-    );
-  }
-
 
   /// --------------------------
   /// Cleanup

@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:world_cue/features/navigator/view/navigator_screen.dart';
 
-import 'core/widgets/internet_connection_checker.dart';
-import 'generated/l10n.dart';
-import 'features/auth/view/auth_screen.dart';
+import 'core/storage/shared_pref.dart';
 import 'core/theme/app_theme.dart';
 import 'core/utils/constants.dart';
-import 'core/storage/shared_pref.dart';
+import 'core/widgets/internet_connection_checker.dart';
+import 'features/auth/view/auth_screen.dart';
+import 'generated/l10n.dart';
 
 /// global navigation key
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();

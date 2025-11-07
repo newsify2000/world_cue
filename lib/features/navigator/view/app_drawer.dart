@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:world_cue/features/home/controller/home_controller.dart';
-import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/storage/shared_pref.dart';
+import 'package:world_cue/core/theme/text_style.dart';
+import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/utils/size_config.dart';
 import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/core/widgets/padding_helper.dart';
+import 'package:world_cue/features/home/controller/home_controller.dart';
 import 'package:world_cue/features/news/view/news_search_screen.dart';
-import 'package:world_cue/core/theme/text_style.dart';
 
 const List<String> newsCategories = [
   'General',

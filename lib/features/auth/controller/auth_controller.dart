@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/storage/shared_pref.dart';
+import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/widgets/toast.dart';
 import 'package:world_cue/features/navigator/view/navigator_screen.dart';
 
@@ -82,6 +82,4 @@ class AuthController extends GetxController {
       isSigningIn.value = false;
     }
   }
-
-
 }

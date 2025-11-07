@@ -6,10 +6,7 @@ import 'package:shimmer/shimmer.dart';
 class NewsCardShimmer extends StatelessWidget {
   final bool showButtons;
 
-  const NewsCardShimmer({
-    super.key,
-    this.showButtons = false,
-  });
+  const NewsCardShimmer({super.key, this.showButtons = false});
 
   @override
   Widget build(BuildContext context) {

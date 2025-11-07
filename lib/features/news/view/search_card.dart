@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:world_cue/features/news/model/news_model.dart';
-import 'package:world_cue/core/widgets/custom_network_image.dart';
 import 'package:world_cue/core/theme/text_style.dart';
 import 'package:world_cue/core/utils/utilities.dart';
+import 'package:world_cue/core/widgets/custom_network_image.dart';
+import 'package:world_cue/features/news/model/news_model.dart';
 
 class SearchCard extends StatelessWidget {
   final NewsModel model;
@@ -20,7 +20,7 @@ class SearchCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -31,7 +31,7 @@ class SearchCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           CustomNetworkImage(
-            imageUrl: model.imageLink,
+            imageUrl: model.image,
             width: 80.w,
             height: 120.h,
             fit: BoxFit.fitHeight,

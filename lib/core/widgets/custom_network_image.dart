@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
 
 class CustomNetworkImage extends StatelessWidget {
@@ -63,10 +63,7 @@ class CustomNetworkImage extends StatelessWidget {
             const SizedBox(height: 6),
             Text(
               "Failed to load image",
-              style: TextStyle(
-                color: colorScheme.onPrimary,
-                fontSize: 12,
-              ),
+              style: TextStyle(color: colorScheme.onPrimary, fontSize: 12),
             ),
           ],
         ),

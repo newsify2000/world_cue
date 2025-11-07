@@ -1,106 +1,56 @@
-import 'package:world_cue/features/news/model/news_model.dart';
 import 'package:world_cue/core/network/api_endpoints.dart';
 import 'package:world_cue/core/network/dio_client.dart';
 import 'package:world_cue/core/network/exception.dart';
+import 'package:world_cue/features/news/model/news_model.dart';
 
 class NewsRepository {
-  static const String apiKey = "1b98285e5ac5e8316450d752c897591e";
   final DioClient _dioClient = DioClient();
 
   /// Fetch Top Headlines with Pagination
-  Future<({List<NewsModel> news, bool hasMore})> getTopHeadlines({
-    String? topic,
+  Future<({List<NewsModel> news, bool hasMore, int totalPages})> getNews({
+    String? query,
+    String? category,
     String lang = "en",
-    String country = "in",
     int max = 10,
     int page = 1,
+    DateTime? from,
+    DateTime? to,
+    List<String>? nullableFields,
   }) async {
     try {
       final queryParams = {
-        "country": country,
+        if (query != null && query.isNotEmpty) "q": query,
         "lang": lang,
         "max": max.toString(),
         "page": page.toString(),
-        "apikey": apiKey,
-        if (topic != null && topic.isNotEmpty) "topic": topic,
+        "category": category,
+        "pageSize": max.toString(),
+        if (from != null) "from": from.toUtc().toIso8601String(),
+        if (to != null) "to": to.toUtc().toIso8601String(),
+        if (nullableFields != null && nullableFields.isNotEmpty)
+          "nullable": nullableFields.join(","),
       };
 
       final response = await _dioClient.getRequest(
-        endPoint: ApiEndpoints.topHeadlines,
+        endPoint: ApiEndpoints.getNews,
         queryParameters: queryParams,
       );
 
-      final List<dynamic> articles = response.data['articles'] ?? [];
+      final data = response.data;
 
-      final newsList = articles.map((article) {
-        final source = article['source'] ?? {};
-        return NewsModel(
-          id: article['id'] ?? '',
-          title: article['title'] ?? '',
-          link: article['url'] ?? '',
-          imageLink: article['image'] ?? '',
-          description: article['content'] ?? '',
-          publishedAt: article['publishedAt'] ?? '',
-          sourceName: source['name'] ?? '',
-          sourceLink: source['url'] ?? '',
-        );
-      }).toList();
+      if (data == null || data['articles'] == null) {
+        throw Exception("Invalid response from server");
+      }
 
-      // Pagination stop condition:
-      final hasMore = newsList.length >= max;
+      final List<dynamic> articles = data['articles'];
+      final List<NewsModel> newsList =
+      articles.map((e) => NewsModel.fromJson(e)).toList();
 
-      return (news: newsList, hasMore: hasMore);
-    } on BaseApiException catch (e) {
-      throw Exception("API Error: ${e.errorMessage}");
-    } catch (e) {
-      throw Exception("Unexpected error: $e");
-    }
-  }
+      final pagination = data['pagination'] ?? {};
+      final bool hasMore = (pagination['hasNextPage'] ?? false) as bool;
+      final int totalPages = (pagination['totalPages'] ?? 1) as int;
 
-  /// Search News with Pagination
-  Future<({List<NewsModel> news, bool hasMore})> searchNews({
-    required String query,
-    String lang = "en",
-    String country = "in",
-    int pageSize = 10, // renamed for clarity
-    int page = 1,
-  })
-  async {
-    try {
-      final queryParams = {
-        "q": query,
-        "lang": lang,
-        "country": country,
-        "max": pageSize.toString(),
-        "page": page.toString(),
-        "apikey": apiKey,
-      };
-
-      final response = await _dioClient.getRequest(
-        endPoint: ApiEndpoints.search,
-        queryParameters: queryParams,
-      );
-
-      final List<dynamic> articles = response.data['articles'] ?? [];
-
-      final newsList = articles.map((article) {
-        final source = article['source'] ?? {};
-        return NewsModel(
-          id: article['id'] ?? '',
-          title: article['title'] ?? '',
-          link: article['url'] ?? '',
-          imageLink: article['image'] ?? '',
-          description: article['content'] ?? '',
-          publishedAt: article['publishedAt'] ?? '',
-          sourceName: source['name'] ?? '',
-          sourceLink: source['url'] ?? '',
-        );
-      }).toList();
-
-      // stop if fewer than pageSize means no more results
-      final hasMore = newsList.length >= pageSize;
-
-      return (news: newsList, hasMore: hasMore);
+      return (news: newsList, hasMore: hasMore, totalPages: totalPages);
     } on BaseApiException catch (e) {
       throw Exception("API Error: ${e.errorMessage}");
     } catch (e) {

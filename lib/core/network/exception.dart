@@ -91,10 +91,10 @@ class BaseApiException implements Exception {
 
 class ImageUploadingException extends BaseApiException {
   ImageUploadingException(BaseApiException e)
-      : super(e.errorMessage, e.statusCode);
+    : super(e.errorMessage, e.statusCode);
 }
 
 class FileUploadingException extends BaseApiException {
   FileUploadingException(BaseApiException e)
-      : super(e.errorMessage, e.statusCode);
+    : super(e.errorMessage, e.statusCode);
 }

@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:world_cue/features/news/model/news_model.dart';
-import 'package:world_cue/core/widgets/toast.dart';
-import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/storage/shared_pref.dart';
+import 'package:world_cue/core/utils/constants.dart';
+import 'package:world_cue/core/widgets/toast.dart';
+import 'package:world_cue/features/news/model/news_model.dart';
 
 class BookmarkController extends GetxController {
   final RxList<NewsModel> bookmarkedNewsList = <NewsModel>[].obs;
@@ -76,7 +76,6 @@ class BookmarkController extends GetxController {
         SharedPrefConstants.bookMarkIdList,
         bookmarkedIds.toList(),
       );
-
     } catch (error) {
       showErrorToast("Failed to add bookmark: $error");
     }
@@ -100,7 +99,6 @@ class BookmarkController extends GetxController {
         SharedPrefConstants.bookMarkIdList,
         bookmarkedIds.toList(),
       );
-
     } catch (error) {
       showErrorToast("Failed to remove bookmark: $error");
     }
