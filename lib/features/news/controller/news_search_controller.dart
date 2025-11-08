@@ -96,7 +96,7 @@ class NewsSearchController extends GetxController {
   /// Pagination
   /// --------------------------
   Future<void> loadMore() async {
-    if (isLoading.value || !hasMore.value || currentQuery.value.isEmpty) return;
+    if (isLoading.value || currentQuery.value.isEmpty) return;
 
     final nextPage = currentPage.value + 1;
     await searchNews(page: nextPage, query: currentQuery.value.trim());

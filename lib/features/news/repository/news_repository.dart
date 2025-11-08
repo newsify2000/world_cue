@@ -11,7 +11,7 @@ class NewsRepository {
     String? query,
     String? category,
     String lang = "en",
-    int max = 10,
+    int max = 20,
     int page = 1,
     DateTime? from,
     DateTime? to,

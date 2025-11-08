@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
@@ -34,7 +36,9 @@ class HomeController extends GetxController {
 
   /// Fetch headlines with pagination
   Future<void> fetchNews({int page = 1, String? category}) async {
-    if (isLoading.value || (!hasMore.value && page != 1)) return;
+    log("fetching News $isLoading");
+
+    if (isLoading.value ) return;
 
     try {
       isLoading.value = true;
@@ -42,10 +46,7 @@ class HomeController extends GetxController {
 
       final topic = category ?? currentCategory.value;
 
-      final result = await _newsRepo.getNews(
-        category: topic,
-        page: page,
-      );
+      final result = await _newsRepo.getNews(category: topic, page: page);
 
       if (page == 1) {
         newsList.assignAll(result.news);
@@ -55,6 +56,7 @@ class HomeController extends GetxController {
 
       currentCategory.value = topic;
       currentPage.value = page;
+      log("Has more value: ${result.hasMore}");
       hasMore.value = result.hasMore;
     } catch (e) {
       errorMessage.value = e.toString();

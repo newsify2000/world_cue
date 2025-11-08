@@ -121,7 +121,7 @@ class _NewsCardState extends State<NewsCard> {
           GestureDetector(
             onTap: () => moveTo(context, NewsScreen(news: news)),
             child: Text(
-              (news.content),
+              (news.description),
               style: AppTextTheme.bodyStyle.copyWith(
                 color: appColorScheme(context).onPrimary,
               ),

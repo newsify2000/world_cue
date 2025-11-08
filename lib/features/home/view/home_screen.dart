@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:world_cue/core/theme/text_style.dart';
@@ -38,9 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _handlePageChange(int index) async {
+    log("handling page change");
     // Preload next page when user reaches the second-last item
     final shouldPreload =
-        index >= controller.newsList.length - 2 &&
+        index >= controller.newsList.length - 3 &&
         !_isFetchingMore &&
         !controller.isLoading.value;
 
