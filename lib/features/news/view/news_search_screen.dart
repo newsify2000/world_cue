@@ -27,16 +27,9 @@ class NewsSearchScreen extends StatelessWidget {
     });
 
     return Scaffold(
-      backgroundColor: appColorScheme(context).primaryContainer,
       appBar: AppBar(
         backgroundColor: appColorScheme(context).primaryContainer,
-        iconTheme: IconThemeData(color: appColorScheme(context).onPrimary),
-        title: Text(
-          "Search News",
-          style: AppTextTheme.titleBoldStyle.copyWith(
-            color: appColorScheme(context).onPrimary,
-          ),
-        ),
+        title: Text("Search News", style: context.titleBoldStyle),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,7 +39,7 @@ class NewsSearchScreen extends StatelessWidget {
             height: 52.h,
             width: double.infinity,
             decoration: BoxDecoration(
-              color: appColorScheme(context).onSecondaryContainer,
+              color: appColorScheme(context).onPrimary,
               borderRadius: BorderRadius.circular(100.r),
             ),
             child: Obx(() {
@@ -55,9 +48,7 @@ class NewsSearchScreen extends StatelessWidget {
                 controller: searchTextController,
                 textInputAction: TextInputAction.search,
                 textAlignVertical: TextAlignVertical.center,
-                style: AppTextTheme.titleBoldStyle.copyWith(
-                  color: appColorScheme(context).onPrimary,
-                ),
+                style: context.subtitleMediumStyle,
                 decoration: InputDecoration(
                   isDense: true,
                   contentPadding: EdgeInsets.symmetric(
@@ -66,7 +57,6 @@ class NewsSearchScreen extends StatelessWidget {
                   ),
                   prefixIcon: Icon(
                     Icons.search_rounded,
-                    color: appColorScheme(context).onPrimary,
                     size: 24.w,
                   ).paddingOnly(top: 2.h),
                   suffixIcon: controller.currentQuery.isNotEmpty
@@ -77,15 +67,12 @@ class NewsSearchScreen extends StatelessWidget {
                           },
                           child: Icon(
                             Icons.clear_rounded,
-                            color: appColorScheme(context).onPrimary,
                             size: 24.w,
                           ).paddingOnly(top: 2.h, right: 4.w),
                         )
                       : null,
                   hintText: "Search news...",
-                  hintStyle: AppTextTheme.subtitleStyle.copyWith(
-                    color: appColorScheme(context).onPrimary,
-                  ),
+                  hintStyle: context.subtitleStyle,
                   border: InputBorder.none,
                 ),
                 onChanged: _onSearchChanged,
@@ -109,8 +96,8 @@ class NewsSearchScreen extends StatelessWidget {
               }
 
               if (controller.newsList.isEmpty && controller.isSearching.value) {
-                return const Center(
-                  child: Text("No news found.", style: TextStyle(fontSize: 16)),
+                return Center(
+                  child: Text("No news found.", style: context.bodyMediumStyle),
                 );
               }
 
@@ -118,9 +105,7 @@ class NewsSearchScreen extends StatelessWidget {
                 return Center(
                   child: Text(
                     "Type something to get results...",
-                    style: AppTextTheme.titleStyle.copyWith(
-                      color: appColorScheme(context).onPrimary,
-                    ),
+                    style: context.bodyMediumStyle,
                   ),
                 );
               }

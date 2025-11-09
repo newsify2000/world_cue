@@ -16,11 +16,11 @@ class SearchCard extends StatelessWidget {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
       decoration: BoxDecoration(
-        color: Colors.white.withValues(alpha: 0.1),
+        color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(16.r),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withValues(alpha: 0.05),
+            color: appColorScheme(context).primaryContainer.withValues(alpha: 0.05),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -44,24 +44,18 @@ class SearchCard extends StatelessWidget {
                   model.title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextTheme.bodyBoldStyle.copyWith(
-                    color: appColorScheme(context).onPrimary,
-                  ),
+                  style: context.bodyBoldStyle,
                 ),
                 Text(
                   model.description,
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextTheme.bodyStyle.copyWith(
-                    color: appColorScheme(context).onPrimary,
-                  ),
+                  style: context.bodyStyle,
                 ),
                 Text(
                   formatTime(model.publishedAt),
                   overflow: TextOverflow.ellipsis,
-                  style: AppTextTheme.captionStyle.copyWith(
-                    color: appColorScheme(context).onPrimary,
-                  ),
+                  style: context.captionStyle,
                 ),
               ],
             ).paddingSymmetric(vertical: 8.h, horizontal: 16.w),

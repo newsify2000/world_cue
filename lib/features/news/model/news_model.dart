@@ -2,6 +2,7 @@ class NewsModel {
   final String id;
   final String title;
   final String description;
+  final String summary;
   final String content;
   final String url;
   final String image;
@@ -13,6 +14,7 @@ class NewsModel {
     required this.id,
     required this.title,
     required this.description,
+    required this.summary,
     required this.content,
     required this.url,
     required this.image,
@@ -34,6 +36,11 @@ class NewsModel {
       description: (json['description'] ?? '').toString().trim().isEmpty
           ? "No Description Available"
           : json['description'].toString().trim(),
+      summary: (json['summary'] ?? '').toString().trim().isEmpty
+          ? (json['description'] ?? '').toString().trim().isEmpty
+          ? "No Description Available"
+          : json['description'].toString().trim()
+          : json['summary'].toString().trim(),
       content: (json['content'] ?? '').toString().trim().isEmpty
           ? "No Content Available"
           : json['content'].toString().trim(),
@@ -57,6 +64,7 @@ class NewsModel {
     "id": id,
     "title": title,
     "description": description,
+    "summary": summary,
     "content": content,
     "url": url,
     "image": image,

@@ -9,7 +9,7 @@ import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/widgets/toast.dart';
 import 'package:world_cue/features/auth/view/auth_screen.dart';
 import 'package:world_cue/features/news/model/news_model.dart';
-import 'package:world_cue/features/news/repository/news_repository.dart';
+import 'package:world_cue/core/repository/news_repository.dart';
 
 class HomeController extends GetxController {
   final NewsRepository _newsRepo = NewsRepository();

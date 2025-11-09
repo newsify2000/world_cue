@@ -17,8 +17,6 @@ class AuthScreen extends StatelessWidget {
     final AuthController controller = Get.put(AuthController());
 
     return Scaffold(
-      backgroundColor: appColorScheme(context).surface,
-      body: Scaffold(
         backgroundColor: appColorScheme(context).primaryContainer,
         body: Stack(
           children: [
@@ -62,19 +60,11 @@ class AuthScreen extends StatelessWidget {
                       SizedBox(height: 20.h),
 
                       // App name + tagline
-                      Text(
-                        "World Cue",
-                        style: AppTextTheme.headingBoldStyle.copyWith(
-                          color: appColorScheme(context).onPrimaryContainer,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
+                      Text("World Cue", style: context.headingBoldStyle),
                       SizedBox(height: 8.h),
                       Text(
                         "Real facts. No bias. Global updates\n you can trust.",
-                        style: AppTextTheme.subtitleMediumStyle.copyWith(
-                          color: appColorScheme(context).onPrimary,
-                        ),
+                        style: context.subtitleMediumStyle,
                         textAlign: TextAlign.center,
                       ),
                       SizedBox(height: 16.h),
@@ -96,7 +86,9 @@ class AuthScreen extends StatelessWidget {
                                   height: 52.h,
                                   width: screenWidth(),
                                   decoration: BoxDecoration(
-                                    color: appColorScheme(context).onPrimary,
+                                    color: appColorScheme(
+                                      context,
+                                    ).onPrimary,
                                     borderRadius: BorderRadius.all(
                                       Radius.circular(100.r),
                                     ),
@@ -110,7 +102,7 @@ class AuthScreen extends StatelessWidget {
                                       ),
                                       Text(
                                         "Continue with Google",
-                                        style: AppTextTheme.titleBoldStyle,
+                                        style: context.titleBoldStyle,
                                       ).paddingOnly(right: 48.w),
                                     ],
                                   ),
@@ -124,7 +116,7 @@ class AuthScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
+
     );
   }
 }

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:get/get.dart';
 import 'package:world_cue/features/news/model/news_model.dart';
-import 'package:world_cue/features/news/repository/news_repository.dart';
+import 'package:world_cue/core/repository/news_repository.dart';
 
 class NewsSearchController extends GetxController {
   /// --------------------------

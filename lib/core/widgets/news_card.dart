@@ -8,6 +8,7 @@ import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/core/widgets/custom_network_image.dart';
 import 'package:world_cue/core/widgets/glass_back_button.dart';
 import 'package:world_cue/features/home/controller/home_controller.dart';
+import 'package:world_cue/features/image_view/view/image_view.dart';
 import 'package:world_cue/features/news/model/news_model.dart';
 import 'package:world_cue/features/news/view/news_screen.dart';
 
@@ -46,10 +47,16 @@ class _NewsCardState extends State<NewsCard> {
         children: [
           Stack(
             children: [
-              CustomNetworkImage(
-                width: screenWidth(),
-                height: screenHeight(percentage: 55),
-                imageUrl: news.image,
+              GestureDetector(
+                onTap: () => moveTo(context, ImageView(news: news)),
+                child: Hero(
+                  tag: news.image,
+                  child: CustomNetworkImage(
+                    width: screenWidth(),
+                    height: screenHeight(percentage: 55),
+                    imageUrl: news.image,
+                  ),
+                ),
               ),
               Positioned(
                 top: 0,
@@ -74,7 +81,7 @@ class _NewsCardState extends State<NewsCard> {
                 left: 0,
                 right: 0,
                 child: Container(
-                  height: 50.h,
+                  height: 30.h,
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topCenter,
@@ -111,9 +118,7 @@ class _NewsCardState extends State<NewsCard> {
               news.title,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: AppTextTheme.titleBoldStyle.copyWith(
-                color: appColorScheme(context).onPrimary,
-              ),
+              style: context.titleBoldStyle,
             ).paddingOnly(left: 16.w, right: 16.w, top: 16.h),
           ),
 
@@ -121,10 +126,8 @@ class _NewsCardState extends State<NewsCard> {
           GestureDetector(
             onTap: () => moveTo(context, NewsScreen(news: news)),
             child: Text(
-              (news.description),
-              style: AppTextTheme.bodyStyle.copyWith(
-                color: appColorScheme(context).onPrimary,
-              ),
+              (news.summary),
+              style: context.bodyStyle,
               maxLines: 8,
               overflow: TextOverflow.ellipsis,
             ).paddingOnly(left: 16.w, right: 16.w, top: 16.h),
@@ -132,12 +135,11 @@ class _NewsCardState extends State<NewsCard> {
 
           // Source + Date
           Text(
-            news.publishedAt != "NotAvailable" && news.source.name != "UnknownSource"
+            news.publishedAt != "NotAvailable" &&
+                    news.source.name != "UnknownSource"
                 ? "${formatDateToDayMonth(news.publishedAt)} • ${news.source.name}"
                 : "source info not available",
-            style: AppTextTheme.captionStyle.copyWith(
-              color: appColorScheme(context).onPrimary,
-            ),
+            style: context.captionStyle,
             maxLines: 10,
             overflow: TextOverflow.ellipsis,
           ).paddingOnly(left: 16.w, top: 4.h),

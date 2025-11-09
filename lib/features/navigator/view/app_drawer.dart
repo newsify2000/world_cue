@@ -32,7 +32,6 @@ class AppDrawer extends StatelessWidget {
     final controller = Get.find<HomeController>();
 
     return Drawer(
-      backgroundColor: appColorScheme(context).primaryContainer,
       child: Column(
         children: [
           boxH48(),
@@ -44,7 +43,7 @@ class AppDrawer extends StatelessWidget {
                 color: appColorScheme(context).primaryContainer,
                 icon: Icon(
                   Icons.more_vert,
-                  color: appColorScheme(context).onPrimary,
+                  color: appColorScheme(context).onPrimaryContainer,
                 ),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12.r),
@@ -59,17 +58,9 @@ class AppDrawer extends StatelessWidget {
                     value: 'logout',
                     child: Row(
                       children: [
-                        Icon(
-                          Icons.logout_rounded,
-                          color: appColorScheme(context).onPrimary,
-                        ),
+                        Icon(Icons.logout_rounded),
                         SizedBox(width: 8.w),
-                        Text(
-                          'Logout',
-                          style: AppTextTheme.bodyStyle.copyWith(
-                            color: appColorScheme(context).onPrimary,
-                          ),
-                        ),
+                        Text('Logout', style: context.bodyStyle),
                       ],
                     ),
                   ),
@@ -87,25 +78,12 @@ class AppDrawer extends StatelessWidget {
                     horizontal: 16,
                     vertical: 8,
                   ),
-                  child: Text(
-                    'Categories',
-                    style: AppTextTheme.titleBoldStyle.copyWith(
-                      color: appColorScheme(context).onPrimary,
-                    ),
-                  ),
+                  child: Text('Categories', style: context.titleBoldStyle),
                 ),
                 ...newsCategories.map((category) {
                   return ListTile(
-                    leading: Icon(
-                      Icons.label_outline,
-                      color: appColorScheme(context).onPrimary,
-                    ),
-                    title: Text(
-                      category,
-                      style: AppTextTheme.bodyStyle.copyWith(
-                        color: appColorScheme(context).onPrimary,
-                      ),
-                    ),
+                    leading: Icon(Icons.label_outline),
+                    title: Text(category, style: context.bodyStyle),
                     onTap: () {
                       Get.back(); // close drawer
                       controller.updateCategory(category.toLowerCase());
@@ -124,7 +102,7 @@ class AppDrawer extends StatelessWidget {
   Widget profileSection(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: appColorScheme(context).onPrimary.withValues(alpha: 0.1),
+        color: appColorScheme(context).onPrimary,
         borderRadius: BorderRadius.circular(24.r),
       ),
       child: ListTile(
@@ -135,15 +113,11 @@ class AppDrawer extends StatelessWidget {
         ),
         title: Text(
           SharedPref.getString(SharedPrefConstants.userName)!,
-          style: AppTextTheme.titleBoldStyle.copyWith(
-            color: appColorScheme(context).onPrimary,
-          ),
+          style: context.titleBoldStyle,
         ),
         subtitle: Text(
           SharedPref.getString(SharedPrefConstants.userEmail)!,
-          style: AppTextTheme.labelStyle.copyWith(
-            color: appColorScheme(context).onPrimary,
-          ),
+          style: context.labelStyle,
         ),
       ),
     );
@@ -160,7 +134,7 @@ class AppDrawer extends StatelessWidget {
         height: 40.h,
         width: double.infinity,
         decoration: BoxDecoration(
-          color: appColorScheme(context).onSecondaryContainer,
+          color: appColorScheme(context).onPrimary,
           borderRadius: BorderRadius.circular(100.r),
         ),
         child: Row(
@@ -168,15 +142,10 @@ class AppDrawer extends StatelessWidget {
             boxW16(),
             Icon(
               Icons.search_rounded,
-              color: appColorScheme(context).onPrimary,
+              color: appColorScheme(context).onPrimaryContainer,
             ),
             boxW8(),
-            Text(
-              "Search News",
-              style: AppTextTheme.bodyMediumStyle.copyWith(
-                color: appColorScheme(context).onPrimary,
-              ),
-            ),
+            Text("Search News", style: context.bodyMediumStyle),
           ],
         ),
       ),

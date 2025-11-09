@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:world_cue/core/utils/utilities.dart';
 
 class GlassButton extends StatelessWidget {
   final VoidCallback? onTap;
@@ -21,7 +22,6 @@ class GlassButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
     final double buttonSize = size ?? 45.w;
 
     return GestureDetector(
@@ -34,16 +34,16 @@ class GlassButton extends StatelessWidget {
             width: buttonSize,
             height: buttonSize,
             decoration: BoxDecoration(
-              color: colorScheme.onPrimary.withAlpha(25), // ~10% opacity
+              color: appColorScheme(context).onPrimary.withAlpha(25),
               shape: BoxShape.circle,
               border: Border.all(
-                color: colorScheme.onPrimary.withAlpha(204), // ~80% opacity
+                color: appColorScheme(context).onPrimary.withValues(alpha: 0.5),
                 width: 1.5,
               ),
             ),
             child: Icon(
               icon,
-              color: iconColor ?? Colors.white,
+              color: iconColor ?? appColorScheme(context).onPrimary.withValues(alpha: 0.5),
               size: iconSize ?? 22.w,
             ),
           ),

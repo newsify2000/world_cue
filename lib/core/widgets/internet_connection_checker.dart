@@ -65,7 +65,7 @@ class InternetConnectivityCheckerState
           child: Center(
             child: Text(
               S.of(context).noInternetConnection,
-              style: AppTextTheme.bodyMediumStyle.copyWith(color: Colors.white),
+              style: context.bodyMediumStyle.copyWith(color: Colors.white),
             ),
           ),
         ),

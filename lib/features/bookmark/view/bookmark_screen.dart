@@ -28,7 +28,6 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appColorScheme(context).primaryContainer,
       body: Obx(() {
         if (controller.isLoading.value) {
           return NewsCardShimmer(showButtons: false);
@@ -37,7 +36,7 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
           return Center(
             child: Text(
               controller.errorMessage.value,
-              style: AppTextTheme.bodyStyle.copyWith(
+              style: context.bodyStyle.copyWith(
                 color: appColorScheme(context).error,
               ),
               textAlign: TextAlign.center,
@@ -54,18 +53,8 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text(
-                    "No bookmarks yet.",
-                    style: AppTextTheme.titleBoldStyle.copyWith(
-                      color: appColorScheme(context).onPrimary,
-                    ),
-                  ),
-                  Text(
-                    "Click to refresh.",
-                    style: AppTextTheme.bodyStyle.copyWith(
-                      color: appColorScheme(context).onPrimary,
-                    ),
-                  ),
+                  Text("No bookmarks yet.", style: context.titleBoldStyle),
+                  Text("Click to refresh.", style: context.bodyStyle),
                 ],
               ),
             ),

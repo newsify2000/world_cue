@@ -74,7 +74,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
         height: 54.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100.r),
-          color: Colors.white.withValues(alpha: 0.1),
+          color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
         ),
         child: Row(
           children: [
@@ -111,16 +111,16 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
                     icon,
                     size: 20.w,
                     color: isSelected
-                        ? appColorScheme(context).onPrimary
+                        ? appColorScheme(context).onPrimaryContainer
                         : Colors.grey,
                   ),
                   boxH4(),
                   Text(
                     title,
-                    style: AppTextTheme.labelStyle.copyWith(
+                    style: context.labelStyle.copyWith(
                       color: isSelected
-                          ? appColorScheme(context).onPrimary
-                          : Colors.grey,
+                          ? appColorScheme(context).onPrimaryContainer
+                          : appColorScheme(context).tertiaryContainer
                     ),
                   ),
                 ],

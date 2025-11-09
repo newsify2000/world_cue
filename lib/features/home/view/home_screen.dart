@@ -57,7 +57,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: appColorScheme(context).primaryContainer,
       body: Obx(() {
         // --- Initial Loading State ---
         if (controller.isLoading.value && controller.newsList.isEmpty) {
@@ -69,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
           return Center(
             child: Text(
               controller.errorMessage.value,
-              style: AppTextTheme.bodyStyle.copyWith(
+              style: context.bodyStyle.copyWith(
                 color: appColorScheme(context).error,
               ),
               textAlign: TextAlign.center,

@@ -14,7 +14,7 @@ void showErrorToast(String message) {
       color: Theme.of(context).colorScheme.error,
       leading: Icon(
         Icons.error_outline,
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.onError,
         size: ScreenUtil().setSp(24),
       ),
       trailing: InkWell(
@@ -23,14 +23,14 @@ void showErrorToast(String message) {
         },
         child: Icon(
           Icons.clear,
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.onError,
           size: ScreenUtil().setSp(24),
         ),
       ),
       title: Text(
         message,
-        style: AppTextTheme.bodyStyle.copyWith(
-          color: Theme.of(context).colorScheme.background,
+        style: context.bodyStyle.copyWith(
+          color: Theme.of(context).colorScheme.onError,
         ),
       ),
     ),
@@ -48,7 +48,7 @@ void showSuccessToast(String message) {
       color: Colors.green,
       leading: Icon(
         Icons.error_outline,
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.onError,
         size: ScreenUtil().setSp(24),
       ),
       trailing: InkWell(
@@ -57,14 +57,14 @@ void showSuccessToast(String message) {
         },
         child: Icon(
           Icons.clear,
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.onError,
           size: ScreenUtil().setSp(24),
         ),
       ),
       title: Text(
         message,
-        style: AppTextTheme.bodyStyle.copyWith(
-          color: Theme.of(context).colorScheme.background,
+        style: context.bodyStyle.copyWith(
+          color: Theme.of(context).colorScheme.onError,
         ),
       ),
     ),
@@ -90,7 +90,7 @@ void toast(String message) {
           size: ScreenUtil().setSp(24),
         ),
       ),
-      title: Text(message, style: AppTextTheme.bodyStyle),
+      title: Text(message, style: context.bodyStyle),
     ),
     position: DelightSnackbarPosition.top,
     autoDismiss: true,
@@ -114,7 +114,7 @@ void toastWithAction(String message, VoidCallback action) {
           size: ScreenUtil().setSp(24),
         ),
       ),
-      title: Text(message, style: AppTextTheme.bodyStyle),
+      title: Text(message, style: context.bodyStyle),
     ),
     position: DelightSnackbarPosition.top,
     autoDismiss: true,

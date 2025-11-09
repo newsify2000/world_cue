@@ -11,8 +11,8 @@ class NewsCardShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
-      baseColor: Colors.grey.shade800,
-      highlightColor: Colors.grey.shade700,
+      baseColor: Colors.grey.shade500,
+      highlightColor: Colors.grey.shade600,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -59,7 +59,7 @@ class NewsCardShimmer extends StatelessWidget {
                   (index == 2 ? 0.6 : 0.9), // shorter last line
               margin: EdgeInsets.only(left: 16.w, right: 16.w, top: 10.h),
               decoration: BoxDecoration(
-                color: Colors.grey.shade900,
+                color: Colors.grey.shade500,
                 borderRadius: BorderRadius.circular(6),
               ),
             ),
@@ -71,7 +71,7 @@ class NewsCardShimmer extends StatelessWidget {
             width: MediaQuery.of(context).size.width * 0.5,
             margin: EdgeInsets.only(left: 16.w, top: 12.h),
             decoration: BoxDecoration(
-              color: Colors.grey.shade900,
+              color: Colors.grey.shade500,
               borderRadius: BorderRadius.circular(6),
             ),
           ),
@@ -85,7 +85,7 @@ class NewsCardShimmer extends StatelessWidget {
       height: 40.w,
       width: 40.w,
       decoration: BoxDecoration(
-        color: Colors.grey.shade900.withValues(alpha: 0.6),
+        color: Colors.grey.shade500.withValues(alpha: 0.6),
         borderRadius: BorderRadius.circular(12),
       ),
     );

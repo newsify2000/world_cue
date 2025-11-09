@@ -2,104 +2,159 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class AppTextTheme {
-  static TextStyle displayBoldStyle = GoogleFonts.urbanist(
+extension TextStyles on BuildContext {
+  Color get _textColor =>
+      Theme.of(this).brightness == Brightness.dark ? Colors.white : Colors.black;
+
+  // Display
+  TextStyle get displayBoldStyle => GoogleFonts.urbanist(
     fontSize: 32.sp,
     fontWeight: FontWeight.bold,
+    color: _textColor,
   );
-  static TextStyle displayMediumStyle = GoogleFonts.urbanist(
+
+  TextStyle get displayMediumStyle => GoogleFonts.urbanist(
     fontSize: 32.sp,
     fontWeight: FontWeight.w500,
+    color: _textColor,
   );
-  static TextStyle displayStyle = GoogleFonts.urbanist(
+
+  TextStyle get displayStyle => GoogleFonts.urbanist(
     fontSize: 32.sp,
     fontWeight: FontWeight.normal,
+    color: _textColor,
   );
 
-  static TextStyle headingBoldStyle = GoogleFonts.urbanist(
+  // Heading
+  TextStyle get headingBoldStyle => GoogleFonts.urbanist(
     fontSize: 24.sp,
     fontWeight: FontWeight.bold,
-  );
-  static TextStyle headingMediumStyle = GoogleFonts.urbanist(
-    fontSize: 24.sp,
-    fontWeight: FontWeight.w500,
-  );
-  static TextStyle headingStyle = GoogleFonts.urbanist(
-    fontSize: 24.sp,
-    fontWeight: FontWeight.normal,
+    color: _textColor,
   );
 
-  static TextStyle subHeadingBoldStyle = GoogleFonts.urbanist(
-    fontSize: 20.sp,
-    fontWeight: FontWeight.bold,
-  );
-  static TextStyle subHeadingMediumStyle = GoogleFonts.urbanist(
-    fontSize: 20.sp,
+  TextStyle get headingMediumStyle => GoogleFonts.urbanist(
+    fontSize: 24.sp,
     fontWeight: FontWeight.w500,
-  );
-  static TextStyle subHeadingStyle = GoogleFonts.urbanist(
-    fontSize: 20.sp,
-    fontWeight: FontWeight.normal,
+    color: _textColor,
   );
 
-  static TextStyle titleBoldStyle = GoogleFonts.urbanist(
+  TextStyle get headingStyle => GoogleFonts.urbanist(
+    fontSize: 24.sp,
+    fontWeight: FontWeight.normal,
+    color: _textColor,
+  );
+
+  // Subheading
+  TextStyle get subHeadingBoldStyle => GoogleFonts.urbanist(
+    fontSize: 20.sp,
+    fontWeight: FontWeight.bold,
+    color: _textColor,
+  );
+
+  TextStyle get subHeadingMediumStyle => GoogleFonts.urbanist(
+    fontSize: 20.sp,
+    fontWeight: FontWeight.w500,
+    color: _textColor,
+  );
+
+  TextStyle get subHeadingStyle => GoogleFonts.urbanist(
+    fontSize: 20.sp,
+    fontWeight: FontWeight.normal,
+    color: _textColor,
+  );
+
+  // Title
+  TextStyle get titleBoldStyle => GoogleFonts.urbanist(
     fontSize: 18.sp,
     fontWeight: FontWeight.bold,
+    color: _textColor,
   );
-  static TextStyle titleMediumStyle = GoogleFonts.urbanist(
+
+  TextStyle get titleMediumStyle => GoogleFonts.urbanist(
     fontSize: 18.sp,
     fontWeight: FontWeight.w500,
+    color: _textColor,
   );
-  static TextStyle titleStyle = GoogleFonts.urbanist(
+
+  TextStyle get titleStyle => GoogleFonts.urbanist(
     fontSize: 18.sp,
     fontWeight: FontWeight.normal,
+    color: _textColor,
   );
-  static TextStyle subtitleBoldStyle = GoogleFonts.urbanist(
+
+  // Subtitle
+  TextStyle get subtitleBoldStyle => GoogleFonts.urbanist(
     fontSize: 16.sp,
     fontWeight: FontWeight.bold,
+    color: _textColor,
   );
-  static TextStyle subtitleMediumStyle = GoogleFonts.urbanist(
+
+  TextStyle get subtitleMediumStyle => GoogleFonts.urbanist(
     fontSize: 16.sp,
     fontWeight: FontWeight.w500,
+    color: _textColor,
   );
-  static TextStyle subtitleStyle = GoogleFonts.urbanist(
+
+  TextStyle get subtitleStyle => GoogleFonts.urbanist(
     fontSize: 16.sp,
     fontWeight: FontWeight.normal,
+    color: _textColor,
   );
-  static TextStyle bodyBoldStyle = GoogleFonts.urbanist(
+
+  // Body
+  TextStyle get bodyBoldStyle => GoogleFonts.urbanist(
     fontSize: 14.sp,
     fontWeight: FontWeight.bold,
+    color: _textColor,
   );
-  static TextStyle bodyMediumStyle = GoogleFonts.urbanist(
+
+  TextStyle get bodyMediumStyle => GoogleFonts.urbanist(
     fontSize: 14.sp,
     fontWeight: FontWeight.w500,
+    color: _textColor,
   );
-  static TextStyle bodyStyle = GoogleFonts.urbanist(
+
+  TextStyle get bodyStyle => GoogleFonts.urbanist(
     fontSize: 14.sp,
     fontWeight: FontWeight.normal,
+    color: _textColor,
   );
-  static TextStyle labelBoldStyle = GoogleFonts.urbanist(
+
+  // Label
+  TextStyle get labelBoldStyle => GoogleFonts.urbanist(
     fontSize: 12.sp,
     fontWeight: FontWeight.bold,
+    color: _textColor,
   );
-  static TextStyle labelMediumStyle = GoogleFonts.urbanist(
+
+  TextStyle get labelMediumStyle => GoogleFonts.urbanist(
     fontSize: 12.sp,
     fontWeight: FontWeight.w500,
+    color: _textColor,
   );
-  static TextStyle labelStyle = GoogleFonts.urbanist(
+
+  TextStyle get labelStyle => GoogleFonts.urbanist(
     fontSize: 12.sp,
     fontWeight: FontWeight.normal,
+    color: _textColor,
   );
-  static TextStyle captionBoldStyle = GoogleFonts.urbanist(
+
+  // Caption
+  TextStyle get captionBoldStyle => GoogleFonts.urbanist(
     fontSize: 10.sp,
     fontWeight: FontWeight.bold,
+    color: _textColor,
   );
-  static TextStyle captionMediumStyle = GoogleFonts.urbanist(
+
+  TextStyle get captionMediumStyle => GoogleFonts.urbanist(
     fontSize: 10.sp,
     fontWeight: FontWeight.w500,
+    color: _textColor,
   );
-  static TextStyle captionStyle = GoogleFonts.urbanist(
+
+  TextStyle get captionStyle => GoogleFonts.urbanist(
     fontSize: 10.sp,
     fontWeight: FontWeight.normal,
+    color: _textColor,
   );
 }

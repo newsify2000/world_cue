@@ -40,7 +40,7 @@ class App extends StatelessWidget {
           darkTheme: AppTheme.darkTheme,
 
           /// current theme mode of app
-          themeMode: ThemeMode.system,
+          themeMode: ThemeMode.dark,
 
           /// setting up localisation delegates for the app
           localizationsDelegates: const [
