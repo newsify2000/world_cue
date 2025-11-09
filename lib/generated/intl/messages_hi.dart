@@ -82,6 +82,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "notavailable": MessageLookupByLibrary.simpleMessage("उपलब्ध नहीं"),
     "other": MessageLookupByLibrary.simpleMessage("अन्य"),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage("गोपनीयता नीति"),
     "profile": MessageLookupByLibrary.simpleMessage("प्रोफ़ाइल"),
     "rateUs": MessageLookupByLibrary.simpleMessage("हमें रेट करें"),
     "realFactsNoBiasGlobalUpdatesnYouCanTrust":
@@ -96,6 +97,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "स्रोत जानकारी उपलब्ध नहीं है",
     ),
     "systemDefault": MessageLookupByLibrary.simpleMessage("सिस्टम डिफ़ॉल्ट"),
+    "termsConditions": MessageLookupByLibrary.simpleMessage("नियम और शर्तें"),
     "typeSomethingToGetResults": MessageLookupByLibrary.simpleMessage(
       "परिणाम पाने के लिए कुछ टाइप करें...",
     ),

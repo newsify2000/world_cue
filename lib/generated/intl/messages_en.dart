@@ -76,6 +76,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "noNewsFound": MessageLookupByLibrary.simpleMessage("No news found."),
     "notavailable": MessageLookupByLibrary.simpleMessage("NotAvailable"),
     "other": MessageLookupByLibrary.simpleMessage("Other"),
+    "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "rateUs": MessageLookupByLibrary.simpleMessage("Rate Us"),
     "realFactsNoBiasGlobalUpdatesnYouCanTrust":
@@ -90,6 +91,9 @@ class MessageLookup extends MessageLookupByLibrary {
       "source info not available",
     ),
     "systemDefault": MessageLookupByLibrary.simpleMessage("System Default"),
+    "termsConditions": MessageLookupByLibrary.simpleMessage(
+      "Terms & Conditions",
+    ),
     "typeSomethingToGetResults": MessageLookupByLibrary.simpleMessage(
       "Type something to get results...",
     ),

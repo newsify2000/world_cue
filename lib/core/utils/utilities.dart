@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:world_cue/core/utils/url_launcher.dart';
 import 'package:world_cue/generated/l10n.dart';
 
 ///Check if a value is null or not
@@ -80,4 +82,29 @@ String formatTime(BuildContext context, String isoDateString) {
   if (diff.inDays < 30) return S.of(context).diffindays7floorWAgo;
   if (diff.inDays < 365) return S.of(context).diffindays30floorMoAgo;
   return S.of(context).diffindays365floorYrAgo;
+}
+
+void openAppInStore(BuildContext context) async {
+  const url = "https://play.google.com/store/apps/details?id=com.worldcue.app";
+  UrlLauncher.customLaunchURL(url, context);
+}
+
+void openPrivacyPolicy(BuildContext context) async {
+  const url = "https://www.worldcue.news/privacy-policy";
+  UrlLauncher.customLaunchURL(url, context);
+}
+
+void openTnC(BuildContext context) async {
+  const url = "https://www.worldcue.news/terms-of-service";
+  UrlLauncher.customLaunchURL(url, context);
+}
+
+void shareAppLink() {
+  SharePlus.instance.share(
+    ShareParams(
+      subject: 'World Cue',
+      text:
+          "Check out this app: https://play.google.com/store/apps/details?id=com.worldcue.app",
+    ),
+  );
 }

@@ -41,5 +41,8 @@
   "dark": "डार्क",
   "systemDefault": "सिस्टम डिफ़ॉल्ट",
   "areYouSureYouWantToLogout": "क्या आप वाकई लॉगआउट करना चाहते हैं?",
-  "cancel": "रद्द करें"
+  "cancel": "रद्द करें",
+  "privacyPolicy": "गोपनीयता नीति",
+  "termsConditions": "नियम और शर्तें"
+
 }

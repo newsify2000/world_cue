@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:world_cue/core/storage/shared_pref.dart';
 import 'package:world_cue/core/theme/text_style.dart';
 import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/utils/size_config.dart';
 import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/core/widgets/padding_helper.dart';
-import 'package:world_cue/features/auth/view/auth_screen.dart';
+import 'package:world_cue/features/profile/controller/profile_controller.dart';
 import 'package:world_cue/generated/l10n.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -17,6 +15,7 @@ class ProfileScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ProfileController controller = Get.find<ProfileController>();
     final profileUrl = SharedPref.getString(SharedPrefConstants.userImage);
     final name = SharedPref.getString(SharedPrefConstants.userName);
     final firstName = name?.split(" ").first ?? "";
@@ -47,7 +46,7 @@ class ProfileScreen extends StatelessWidget {
             boxH16(),
             Text(S.of(context).other, style: context.titleMediumStyle),
             boxH16(),
-            _buildOtherCard(context),
+            _buildOtherCard(context, controller),
           ],
         ).paddingAll(16.w),
       ),
@@ -63,12 +62,14 @@ class ProfileScreen extends StatelessWidget {
     String? email,
   ) {
     return Hero(
-      tag:"profile_container",
+      tag: "profile_container",
       child: Material(
         child: Container(
           padding: padSym(vertical: 16.h),
           decoration: BoxDecoration(
-            color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
+            color: appColorScheme(
+              context,
+            ).onPrimaryContainer.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12.r),
           ),
           child: ListTile(
@@ -91,7 +92,9 @@ class ProfileScreen extends StatelessWidget {
     return Container(
       padding: padSym(vertical: 16.h),
       decoration: BoxDecoration(
-        color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
+        color: appColorScheme(
+          context,
+        ).onPrimaryContainer.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
@@ -115,24 +118,37 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildOtherCard(BuildContext context) {
+  Widget _buildOtherCard(BuildContext context, ProfileController controller) {
     return Container(
       padding: padSym(vertical: 16.h),
       decoration: BoxDecoration(
-        color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
+        color: appColorScheme(
+          context,
+        ).onPrimaryContainer.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          menuCard(context, Icons.rate_review_rounded, S.of(context).rateUs, () {
-            Utilities.openAppInStore(); // implement in Utilities
-          }),
+          menuCard(
+            context,
+            Icons.rate_review_rounded,
+            S.of(context).rateUs,
+            () {
+              openAppInStore(context); // implement in Utilities
+            },
+          ),
           menuCard(context, Icons.share_rounded, S.of(context).shareApp, () {
-            Utilities.shareAppLink(); // implement in Utilities
+            shareAppLink(); // implement in Utilities
+          }),
+          menuCard(context, Icons.privacy_tip, S.of(context).privacyPolicy, () {
+            openPrivacyPolicy(context); // implement in Utilities
+          }),
+          menuCard(context, Icons.gavel, S.of(context).termsConditions, () {
+            openTnC(context); // implement in Utilities
           }),
           menuCard(context, Icons.logout_rounded, S.of(context).logout, () {
-            _confirmLogout(context);
+            _confirmLogout(context, controller);
           }, isLast: true),
         ],
       ),
@@ -178,7 +194,10 @@ class ProfileScreen extends StatelessWidget {
         child: Wrap(
           children: [
             Center(
-              child: Text(S.of(context).selectLanguage, style: context.titleMediumStyle),
+              child: Text(
+                S.of(context).selectLanguage,
+                style: context.titleMediumStyle,
+              ),
             ),
             boxH16(),
             ListTile(
@@ -219,12 +238,15 @@ class ProfileScreen extends StatelessWidget {
         child: Wrap(
           children: [
             Center(
-              child: Text(S.of(context).selectTheme, style: context.titleMediumStyle),
+              child: Text(
+                S.of(context).selectTheme,
+                style: context.titleMediumStyle,
+              ),
             ),
             boxH16(),
             ListTile(
               leading: const Icon(Icons.light_mode_rounded),
-              title:  Text(S.of(context).light,style: context.bodyMediumStyle),
+              title: Text(S.of(context).light, style: context.bodyMediumStyle),
               onTap: () {
                 SharedPref.setString("theme", "light");
                 Get.changeThemeMode(ThemeMode.light);
@@ -233,7 +255,7 @@ class ProfileScreen extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.dark_mode_rounded),
-              title:  Text(S.of(context).dark,style: context.bodyMediumStyle),
+              title: Text(S.of(context).dark, style: context.bodyMediumStyle),
               onTap: () {
                 SharedPref.setString("theme", "dark");
                 Get.changeThemeMode(ThemeMode.dark);
@@ -242,7 +264,10 @@ class ProfileScreen extends StatelessWidget {
             ),
             ListTile(
               leading: const Icon(Icons.settings_brightness_rounded),
-              title:  Text(S.of(context).systemDefault,style: context.bodyMediumStyle,),
+              title: Text(
+                S.of(context).systemDefault,
+                style: context.bodyMediumStyle,
+              ),
               onTap: () {
                 SharedPref.setString("theme", "system");
                 Get.changeThemeMode(ThemeMode.system);
@@ -256,7 +281,7 @@ class ProfileScreen extends StatelessWidget {
   }
 
   // ---------------- LOGOUT CONFIRMATION ----------------
-  void _confirmLogout(BuildContext context) {
+  void _confirmLogout(BuildContext context, ProfileController controller) {
     Get.dialog(
       AlertDialog(
         title: Text(S.of(context).logout, style: context.titleBoldStyle),
@@ -270,9 +295,8 @@ class ProfileScreen extends StatelessWidget {
             child: Text(S.of(context).cancel, style: context.bodyStyle),
           ),
           TextButton(
-            onPressed: () async {
-              await SharedPref.deleteAll();
-              Get.to(() => AuthScreen());
+            onPressed: () {
+              controller.logout();
             },
             child: Text(
               S.of(context).logout,
@@ -284,20 +308,6 @@ class ProfileScreen extends StatelessWidget {
         ],
       ),
       barrierDismissible: false,
-    );
-  }
-}
-
-class Utilities {
-  static void openAppInStore() async {
-    const url =
-        "https://play.google.com/store/apps/details?id=com.worldcue.app";
-    launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication);
-  }
-
-  static void shareAppLink() {
-    Share.share(
-      "Check out this app: https://play.google.com/store/apps/details?id=com.worldcue.app",
     );
   }
 }

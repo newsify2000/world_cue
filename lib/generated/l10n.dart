@@ -393,6 +393,26 @@ class S {
   String get cancel {
     return Intl.message('Cancel', name: 'cancel', desc: '', args: []);
   }
+
+  /// `Privacy Policy`
+  String get privacyPolicy {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'privacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms & Conditions`
+  String get termsConditions {
+    return Intl.message(
+      'Terms & Conditions',
+      name: 'termsConditions',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
