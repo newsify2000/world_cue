@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:world_cue/core/theme/text_style.dart';
@@ -77,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         // --- Empty State ---
         if (controller.newsList.isEmpty) {
-          return  Center(child: Text(S.of(context).noNewsAvailable));
+          return Center(child: Text(S.of(context).noNewsAvailable));
         }
 
         return RefreshIndicator(
@@ -95,7 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
             child: PageView.builder(
               controller: _pageController,
               scrollDirection: Axis.vertical,
-              physics: const AlwaysScrollableScrollPhysics(), // ✅ required
+              physics: const AlwaysScrollableScrollPhysics(),
+              // ✅ required
               onPageChanged: _handlePageChange,
               itemCount: controller.newsList.length,
               itemBuilder: (context, i) {
@@ -103,30 +102,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 return controller.isLoading.value
                     ? NewsCardShimmer(showButtons: true)
                     : Obx(() {
-                  final isBookmarked = controller.bookmarkedIds.contains(news.id);
-                  final bookmarkIcon = isBookmarked
-                      ? Icons.bookmark
-                      : Icons.bookmark_add_outlined;
+                        final isBookmarked = controller.bookmarkedIds.contains(
+                          news.id,
+                        );
+                        final bookmarkIcon = isBookmarked
+                            ? Icons.bookmark
+                            : Icons.bookmark_add_outlined;
 
-                  return NewsCard(
-                    news: news,
-                    onMenuTap: widget.onOpenDrawer,
-                    trailingIcon: bookmarkIcon,
-                    onBookmarkTap: () {
-                      if (isBookmarked) {
-                        controller.removeBookmark(news);
-                      } else {
-                        controller.bookmarkNews(news);
-                      }
-                    },
-                    showButtons: true,
-                  );
-                });
+                        return NewsCard(
+                          news: news,
+                          onMenuTap: widget.onOpenDrawer,
+                          trailingIcon: bookmarkIcon,
+                          onBookmarkTap: () {
+                            if (isBookmarked) {
+                              controller.removeBookmark(news);
+                            } else {
+                              controller.bookmarkNews(news);
+                            }
+                          },
+                          showButtons: true,
+                        );
+                      });
               },
             ),
           ),
         );
-
       }),
     );
   }

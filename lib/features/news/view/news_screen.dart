@@ -83,7 +83,6 @@ class _NewsScreenState extends State<NewsScreen> {
                     S.of(context).viewFullArticle,
                     style: context.labelStyle.copyWith(
                       color: Colors.blue,
-                      decoration: TextDecoration.underline,
                     ),
                   ).paddingOnly(top: 4.h, bottom: 48.h),
                 ),
