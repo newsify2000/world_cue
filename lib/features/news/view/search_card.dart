@@ -53,7 +53,7 @@ class SearchCard extends StatelessWidget {
                   style: context.bodyStyle,
                 ),
                 Text(
-                  formatTime(model.publishedAt),
+                  formatTime(context,model.publishedAt),
                   overflow: TextOverflow.ellipsis,
                   style: context.captionStyle,
                 ),

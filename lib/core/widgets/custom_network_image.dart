@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:world_cue/core/utils/utilities.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 class CustomNetworkImage extends StatelessWidget {
   final double? width;
@@ -20,8 +22,6 @@ class CustomNetworkImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-
     return ClipRRect(
       borderRadius: borderRadius ?? BorderRadius.circular(0),
       child: CachedNetworkImage(
@@ -30,7 +30,7 @@ class CustomNetworkImage extends StatelessWidget {
         imageUrl: imageUrl,
         fit: fit,
         placeholder: (context, url) => _buildShimmerPlaceholder(),
-        errorWidget: (context, url, error) => _buildErrorPlaceholder(colorScheme),
+        errorWidget: (context, url, error) => _buildErrorPlaceholder(context),
       ),
     );
   }
@@ -50,7 +50,7 @@ class CustomNetworkImage extends StatelessWidget {
     );
   }
 
-  Widget _buildErrorPlaceholder(ColorScheme colorScheme) {
+  Widget _buildErrorPlaceholder(BuildContext context) {
     return Container(
       width: width ?? double.infinity,
       height: height ?? 200,
@@ -59,11 +59,18 @@ class CustomNetworkImage extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(Icons.error_outline, color: colorScheme.error, size: 32),
+            Icon(
+              Icons.error_outline,
+              color: appColorScheme(context).error,
+              size: 32,
+            ),
             const SizedBox(height: 6),
             Text(
-              "Failed to load image",
-              style: TextStyle(color: colorScheme.onPrimary, fontSize: 12),
+              S.of(context).failedToLoadImage,
+              style: TextStyle(
+                color: appColorScheme(context).onPrimary,
+                fontSize: 12,
+              ),
             ),
           ],
         ),

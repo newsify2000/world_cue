@@ -7,6 +7,7 @@ import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/features/bookmark/view/bookmark_screen.dart';
 import 'package:world_cue/features/home/view/home_screen.dart';
 import 'package:world_cue/features/navigator/view/app_drawer.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 class NavigatorScreen extends StatefulWidget {
   const NavigatorScreen({super.key});
@@ -49,7 +50,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
       backgroundColor: Colors.black,
       extendBody: true,
       drawer: AppDrawer(
-        onSearchClicked: () => _scaffoldKey.currentState?.closeDrawer(),
+        onCloseDrawer: () => _scaffoldKey.currentState?.closeDrawer(),
       ),
       drawerEnableOpenDragGesture: _selectedIndex == 0,
       drawerEdgeDragWidth: screenWidth(percentage: 20),
@@ -78,8 +79,8 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
         ),
         child: Row(
           children: [
-            _buildNavItem("Home", Icons.home_rounded, 0),
-            _buildNavItem("Bookmark", Icons.bookmark_rounded, 1),
+            _buildNavItem(S.of(context).home, Icons.home_rounded, 0),
+            _buildNavItem(S.of(context).bookmark, Icons.bookmark_rounded, 1),
           ],
         ),
       ),

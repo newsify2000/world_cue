@@ -7,6 +7,7 @@ import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/core/widgets/news_card.dart';
 import 'package:world_cue/core/widgets/news_card_shimmer.dart';
 import 'package:world_cue/features/home/controller/home_controller.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 class HomeScreen extends StatefulWidget {
   final VoidCallback? onOpenDrawer;
@@ -40,8 +41,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> _handlePageChange(int index) async {
-    log("handling page change");
-    // Preload next page when user reaches the second-last item
     final shouldPreload =
         index >= controller.newsList.length - 3 &&
         !_isFetchingMore &&
@@ -78,7 +77,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
         // --- Empty State ---
         if (controller.newsList.isEmpty) {
-          return const Center(child: Text("No news available"));
+          return  Center(child: Text(S.of(context).noNewsAvailable));
         }
 
         return PageView.builder(

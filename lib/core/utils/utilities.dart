@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 ///Check if a value is null or not
 extension NullCheck<T> on T {
@@ -67,16 +68,16 @@ ColorScheme appColorScheme(BuildContext context) {
   return Theme.of(context).colorScheme;
 }
 
-String formatTime(String isoDateString) {
+String formatTime(BuildContext context, String isoDateString) {
   DateTime postDate = DateTime.parse(isoDateString).toLocal();
   Duration diff = DateTime.now().difference(postDate);
 
-  if (diff.inSeconds < 60) return 'Just now';
-  if (diff.inMinutes < 60) return '${diff.inMinutes} min ago';
-  if (diff.inHours < 24) return '${diff.inHours} hr ago';
-  if (diff.inDays == 1) return 'Yesterday';
-  if (diff.inDays < 7) return '${diff.inDays} days ago';
-  if (diff.inDays < 30) return '${(diff.inDays / 7).floor()} w ago';
-  if (diff.inDays < 365) return '${(diff.inDays / 30).floor()} mo ago';
-  return '${(diff.inDays / 365).floor()} yr ago';
+  if (diff.inSeconds < 60) return S.of(context).justNow;
+  if (diff.inMinutes < 60) return S.of(context).diffinminutesMinAgo;
+  if (diff.inHours < 24) return S.of(context).diffinhoursHrAgo;
+  if (diff.inDays == 1) return S.of(context).yesterday;
+  if (diff.inDays < 7) return S.of(context).diffindaysDaysAgo;
+  if (diff.inDays < 30) return S.of(context).diffindays7floorWAgo;
+  if (diff.inDays < 365) return S.of(context).diffindays30floorMoAgo;
+  return S.of(context).diffindays365floorYrAgo;
 }

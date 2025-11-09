@@ -5,6 +5,7 @@ import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/core/widgets/news_card.dart';
 import 'package:world_cue/core/widgets/news_card_shimmer.dart';
 import 'package:world_cue/features/bookmark/controller/bookmark_controller.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 class BookmarkScreen extends StatefulWidget {
   final VoidCallback? onBackClick;
@@ -53,8 +54,8 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("No bookmarks yet.", style: context.titleBoldStyle),
-                  Text("Click to refresh.", style: context.bodyStyle),
+                  Text(S.of(context).noBookmarksYet, style: context.titleBoldStyle),
+                  Text(S.of(context).clickToRefresh, style: context.bodyStyle),
                 ],
               ),
             ),

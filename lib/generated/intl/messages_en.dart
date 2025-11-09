@@ -22,12 +22,81 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+    "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
+    "appLanguage": MessageLookupByLibrary.simpleMessage("App Language"),
+    "appSettings": MessageLookupByLibrary.simpleMessage("App Settings"),
+    "appTheme": MessageLookupByLibrary.simpleMessage("App Theme"),
+    "areYouSureYouWantToLogout": MessageLookupByLibrary.simpleMessage(
+      "Are you sure you want to logout?",
+    ),
+    "bookmark": MessageLookupByLibrary.simpleMessage("Bookmark"),
     "byContinuingToUseThisSiteYouAcceptOurUse":
         MessageLookupByLibrary.simpleMessage(
           "By continuing to use this site, you accept our use of a cookie to keep you signed in and secure.",
         ),
+    "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+    "categories": MessageLookupByLibrary.simpleMessage("Categories"),
+    "clickToRefresh": MessageLookupByLibrary.simpleMessage("Click to refresh."),
+    "continueWithGoogle": MessageLookupByLibrary.simpleMessage(
+      "Continue with Google",
+    ),
+    "dark": MessageLookupByLibrary.simpleMessage("Dark"),
+    "diffindays30floorMoAgo": MessageLookupByLibrary.simpleMessage(
+      "\${(diff.inDays / 30).floor()} mo ago",
+    ),
+    "diffindays365floorYrAgo": MessageLookupByLibrary.simpleMessage(
+      "\${(diff.inDays / 365).floor()} yr ago",
+    ),
+    "diffindays7floorWAgo": MessageLookupByLibrary.simpleMessage(
+      "\${(diff.inDays / 7).floor()} w ago",
+    ),
+    "diffindaysDaysAgo": MessageLookupByLibrary.simpleMessage(
+      "\${diff.inDays} days ago",
+    ),
+    "diffinhoursHrAgo": MessageLookupByLibrary.simpleMessage(
+      "\${diff.inHours} hr ago",
+    ),
+    "diffinminutesMinAgo": MessageLookupByLibrary.simpleMessage(
+      "\${diff.inMinutes} min ago",
+    ),
+    "failedToLoadImage": MessageLookupByLibrary.simpleMessage(
+      "Failed to load image",
+    ),
+    "home": MessageLookupByLibrary.simpleMessage("Home"),
+    "justNow": MessageLookupByLibrary.simpleMessage("Just now"),
+    "light": MessageLookupByLibrary.simpleMessage("Light"),
+    "logout": MessageLookupByLibrary.simpleMessage("Logout"),
+    "noBookmarksYet": MessageLookupByLibrary.simpleMessage("No bookmarks yet."),
     "noInternetConnection": MessageLookupByLibrary.simpleMessage(
       "No Internet Connection",
     ),
+    "noNewsAvailable": MessageLookupByLibrary.simpleMessage(
+      "No news available",
+    ),
+    "noNewsFound": MessageLookupByLibrary.simpleMessage("No news found."),
+    "notavailable": MessageLookupByLibrary.simpleMessage("NotAvailable"),
+    "other": MessageLookupByLibrary.simpleMessage("Other"),
+    "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+    "rateUs": MessageLookupByLibrary.simpleMessage("Rate Us"),
+    "realFactsNoBiasGlobalUpdatesnYouCanTrust":
+        MessageLookupByLibrary.simpleMessage(
+          "Real facts. No bias. Global updates\n you can trust.",
+        ),
+    "searchNews": MessageLookupByLibrary.simpleMessage("Search News"),
+    "selectLanguage": MessageLookupByLibrary.simpleMessage("Select Language"),
+    "selectTheme": MessageLookupByLibrary.simpleMessage("Select Theme"),
+    "shareApp": MessageLookupByLibrary.simpleMessage("Share App"),
+    "sourceInfoNotAvailable": MessageLookupByLibrary.simpleMessage(
+      "source info not available",
+    ),
+    "systemDefault": MessageLookupByLibrary.simpleMessage("System Default"),
+    "typeSomethingToGetResults": MessageLookupByLibrary.simpleMessage(
+      "Type something to get results...",
+    ),
+    "unknownsource": MessageLookupByLibrary.simpleMessage("UnknownSource"),
+    "viewFullArticle": MessageLookupByLibrary.simpleMessage(
+      "View Full Article",
+    ),
+    "yesterday": MessageLookupByLibrary.simpleMessage("Yesterday"),
   };
 }

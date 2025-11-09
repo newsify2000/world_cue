@@ -7,6 +7,7 @@ import 'package:world_cue/core/widgets/padding_helper.dart';
 import 'package:world_cue/features/news/controller/news_search_controller.dart';
 import 'package:world_cue/features/news/view/news_screen.dart';
 import 'package:world_cue/features/news/view/search_card.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 class NewsSearchScreen extends StatelessWidget {
   NewsSearchScreen({super.key});
@@ -29,55 +30,60 @@ class NewsSearchScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: appColorScheme(context).primaryContainer,
-        title: Text("Search News", style: context.titleBoldStyle),
+        title: Text(S.of(context).searchNews, style: context.titleBoldStyle),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Container(
-            margin: padOnly(left: 16.w, right: 16.w, bottom: 16.h),
-            height: 52.h,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: appColorScheme(context).onPrimary,
-              borderRadius: BorderRadius.circular(100.r),
-            ),
-            child: Obx(() {
-              return TextFormField(
-                focusNode: focusNode,
-                controller: searchTextController,
-                textInputAction: TextInputAction.search,
-                textAlignVertical: TextAlignVertical.center,
-                style: context.subtitleMediumStyle,
-                decoration: InputDecoration(
-                  isDense: true,
-                  contentPadding: EdgeInsets.symmetric(
-                    vertical: 0,
-                    horizontal: 12.w,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.search_rounded,
-                    size: 24.w,
-                  ).paddingOnly(top: 2.h),
-                  suffixIcon: controller.currentQuery.isNotEmpty
-                      ? GestureDetector(
-                          onTap: () {
-                            searchTextController.clear();
-                            controller.clearSearch();
-                          },
-                          child: Icon(
-                            Icons.clear_rounded,
-                            size: 24.w,
-                          ).paddingOnly(top: 2.h, right: 4.w),
-                        )
-                      : null,
-                  hintText: "Search news...",
-                  hintStyle: context.subtitleStyle,
-                  border: InputBorder.none,
+          Hero(
+            tag: "search_container",
+            child: Material(
+              child: Container(
+                margin: padOnly(left: 16.w, right: 16.w, bottom: 16.h),
+                height: 52.h,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: appColorScheme(context).onPrimary,
+                  borderRadius: BorderRadius.circular(100.r),
                 ),
-                onChanged: _onSearchChanged,
-              );
-            }),
+                child: Obx(() {
+                  return TextFormField(
+                    focusNode: focusNode,
+                    controller: searchTextController,
+                    textInputAction: TextInputAction.search,
+                    textAlignVertical: TextAlignVertical.center,
+                    style: context.subtitleMediumStyle,
+                    decoration: InputDecoration(
+                      isDense: true,
+                      contentPadding: EdgeInsets.symmetric(
+                        vertical: 0,
+                        horizontal: 12.w,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.search_rounded,
+                        size: 24.w,
+                      ).paddingOnly(top: 2.h),
+                      suffixIcon: controller.currentQuery.isNotEmpty
+                          ? GestureDetector(
+                              onTap: () {
+                                searchTextController.clear();
+                                controller.clearSearch();
+                              },
+                              child: Icon(
+                                Icons.clear_rounded,
+                                size: 24.w,
+                              ).paddingOnly(top: 2.h, right: 4.w),
+                            )
+                          : null,
+                      hintText: S.of(context).searchNews,
+                      hintStyle: context.subtitleStyle,
+                      border: InputBorder.none,
+                    ),
+                    onChanged: _onSearchChanged,
+                  );
+                }),
+              ),
+            ),
           ),
           Expanded(
             child: Obx(() {
@@ -97,14 +103,14 @@ class NewsSearchScreen extends StatelessWidget {
 
               if (controller.newsList.isEmpty && controller.isSearching.value) {
                 return Center(
-                  child: Text("No news found.", style: context.bodyMediumStyle),
+                  child: Text(S.of(context).noNewsFound, style: context.bodyMediumStyle),
                 );
               }
 
               if (controller.newsList.isEmpty) {
                 return Center(
                   child: Text(
-                    "Type something to get results...",
+                    S.of(context).typeSomethingToGetResults,
                     style: context.bodyMediumStyle,
                   ),
                 );

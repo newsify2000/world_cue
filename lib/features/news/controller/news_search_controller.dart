@@ -68,7 +68,6 @@ class NewsSearchController extends GetxController {
         query: query,
         page: page,
         max: 10,
-        lang: "en",
       );
 
       /// page 1 = fresh list

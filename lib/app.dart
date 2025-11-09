@@ -14,57 +14,78 @@ import 'generated/l10n.dart';
 /// global navigation key
 GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
   const App({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<App> createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  ThemeMode _themeMode = ThemeMode.system;
+  Locale _locale = const Locale('en');
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPreferences();
+  }
+
+  Future<void> _loadPreferences() async {
+    // Load theme preference
+    final theme = SharedPref.getString('theme');
+    if (theme == 'dark') {
+      _themeMode = ThemeMode.dark;
+    } else if (theme == 'light') {
+      _themeMode = ThemeMode.light;
+    } else {
+      _themeMode = ThemeMode.system;
+    }
+
+    // Load language preference
+    final langCode = SharedPref.getString('language') ?? 'en';
+    _locale = Locale(langCode);
+
+    // Force rebuild after loading prefs
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    /// initializing the screen unit library and
-    /// setting up the design width and height
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       minTextAdapt: true,
       builder: (context, child) {
         return GetMaterialApp(
-          ///Remove Debug tag from top right corner
           debugShowCheckedModeBanner: false,
-
-          ///setup navigation key
           navigatorKey: navigatorKey,
 
-          ///Light theme of the app
+          /// Themes
           theme: AppTheme.lightTheme,
-
-          ///Dark theme of the app
           darkTheme: AppTheme.darkTheme,
+          themeMode: _themeMode,
 
-          /// current theme mode of app
-          themeMode: ThemeMode.dark,
-
-          /// setting up localisation delegates for the app
+          /// Localization setup
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-
-          /// this line set up the languages we use in our app
           supportedLocales: S.delegate.supportedLocales,
-          locale: const Locale('en'),
+          locale: _locale,
 
-          /// app home page
-          home: InternetConnectivityChecker(child: homeScreen()),
+          /// App entry point
+          home: InternetConnectivityChecker(child: _homeScreen()),
         );
       },
     );
   }
 
-  Widget homeScreen() {
-    String initialScreen =
-        SharedPref.getString(SharedPrefConstants.initScreen) ??
+  Widget _homeScreen() {
+    final initialScreen = SharedPref.getString(SharedPrefConstants.initScreen) ??
         SharedPrefConstants.loginScreen;
+
     if (initialScreen == SharedPrefConstants.loginScreen) {
       return const AuthScreen();
     } else {

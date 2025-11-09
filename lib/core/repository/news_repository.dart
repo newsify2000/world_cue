@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:world_cue/core/network/api_endpoints.dart';
 import 'package:world_cue/core/network/dio_client.dart';
 import 'package:world_cue/core/network/exception.dart';
@@ -10,17 +12,17 @@ class NewsRepository {
   Future<({List<NewsModel> news, bool hasMore, int totalPages})> getNews({
     String? query,
     String? category,
-    String lang = "en",
     int max = 20,
     int page = 1,
     DateTime? from,
     DateTime? to,
     List<String>? nullableFields,
   }) async {
+    String currentLang = Get.locale?.languageCode ?? 'en';
     try {
       final queryParams = {
         if (query != null && query.isNotEmpty) "q": query,
-        "lang": lang,
+        "lang": currentLang,
         "max": max.toString(),
         "page": page.toString(),
         "category": category,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:world_cue/core/navigation/navigation.dart';
 import 'package:world_cue/core/storage/shared_pref.dart';
 import 'package:world_cue/core/theme/text_style.dart';
 import 'package:world_cue/core/utils/constants.dart';
@@ -9,6 +10,8 @@ import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/core/widgets/padding_helper.dart';
 import 'package:world_cue/features/home/controller/home_controller.dart';
 import 'package:world_cue/features/news/view/news_search_screen.dart';
+import 'package:world_cue/features/profile/view/profile_screen.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 const List<String> newsCategories = [
   'General',
@@ -23,9 +26,9 @@ const List<String> newsCategories = [
 ];
 
 class AppDrawer extends StatelessWidget {
-  final VoidCallback? onSearchClicked;
+  final VoidCallback? onCloseDrawer;
 
-  const AppDrawer({super.key, this.onSearchClicked});
+  const AppDrawer({super.key, this.onCloseDrawer});
 
   @override
   Widget build(BuildContext context) {
@@ -35,39 +38,7 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         children: [
           boxH48(),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Expanded(child: searchView(context)),
-              PopupMenuButton<String>(
-                color: appColorScheme(context).primaryContainer,
-                icon: Icon(
-                  Icons.more_vert,
-                  color: appColorScheme(context).onPrimaryContainer,
-                ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12.r),
-                ),
-                onSelected: (value) async {
-                  if (value == 'logout') {
-                    await controller.signOut();
-                  }
-                },
-                itemBuilder: (context) => [
-                  PopupMenuItem<String>(
-                    value: 'logout',
-                    child: Row(
-                      children: [
-                        Icon(Icons.logout_rounded),
-                        SizedBox(width: 8.w),
-                        Text('Logout', style: context.bodyStyle),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ).paddingOnly(top: 16.h),
+          searchView(context).paddingOnly(top: 16.h),
           boxH16(),
           Expanded(
             child: ListView(
@@ -78,7 +49,7 @@ class AppDrawer extends StatelessWidget {
                     horizontal: 16,
                     vertical: 8,
                   ),
-                  child: Text('Categories', style: context.titleBoldStyle),
+                  child: Text(S.of(context).categories, style: context.titleBoldStyle),
                 ),
                 ...newsCategories.map((category) {
                   return ListTile(
@@ -100,24 +71,33 @@ class AppDrawer extends StatelessWidget {
   }
 
   Widget profileSection(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: appColorScheme(context).onPrimary,
-        borderRadius: BorderRadius.circular(24.r),
-      ),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(
-            SharedPref.getString(SharedPrefConstants.userImage)!,
+    var profileUrl = SharedPref.getString(SharedPrefConstants.userImage);
+    var name = SharedPref.getString(SharedPrefConstants.userName);
+    var firstName = name?.split(" ")[0];
+    var lastName = name?.split(" ")[1];
+    var email = SharedPref.getString(SharedPrefConstants.userEmail);
+    return GestureDetector(
+      onTap: () {
+        moveTo(context, ProfileScreen());
+        onCloseDrawer?.call();
+      },
+      child: Hero(
+        tag:"profile_container",
+        child: Container(
+          decoration: BoxDecoration(
+            color: appColorScheme(context).onPrimary,
+            borderRadius: BorderRadius.circular(24.r),
           ),
-        ),
-        title: Text(
-          SharedPref.getString(SharedPrefConstants.userName)!,
-          style: context.titleBoldStyle,
-        ),
-        subtitle: Text(
-          SharedPref.getString(SharedPrefConstants.userEmail)!,
-          style: context.labelStyle,
+          child: ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(
+                profileUrl ??
+                    "https://avatar.iran.liara.run/username?username=$firstName+$lastName",
+              ),
+            ),
+            title: Text(name ??"", style: context.titleBoldStyle),
+            subtitle: Text(email ?? "", style: context.labelStyle),
+          ),
         ),
       ),
     );
@@ -127,26 +107,29 @@ class AppDrawer extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.to(() => NewsSearchScreen());
-        onSearchClicked?.call();
+        onCloseDrawer?.call();
       },
-      child: Container(
-        margin: padOnly(left: 16.w, right: 16.w),
-        height: 40.h,
-        width: double.infinity,
-        decoration: BoxDecoration(
-          color: appColorScheme(context).onPrimary,
-          borderRadius: BorderRadius.circular(100.r),
-        ),
-        child: Row(
-          children: [
-            boxW16(),
-            Icon(
-              Icons.search_rounded,
-              color: appColorScheme(context).onPrimaryContainer,
-            ),
-            boxW8(),
-            Text("Search News", style: context.bodyMediumStyle),
-          ],
+      child: Hero(
+        tag:"search_container",
+        child: Container(
+          margin: padOnly(left: 16.w, right: 16.w),
+          height: 40.h,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: appColorScheme(context).onPrimary,
+            borderRadius: BorderRadius.circular(100.r),
+          ),
+          child: Row(
+            children: [
+              boxW16(),
+              Icon(
+                Icons.search_rounded,
+                color: appColorScheme(context).onPrimaryContainer,
+              ),
+              boxW8(),
+              Text(S.of(context).searchNews, style: context.bodyMediumStyle),
+            ],
+          ),
         ),
       ),
     );

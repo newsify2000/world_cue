@@ -10,6 +10,7 @@ import 'package:world_cue/core/widgets/custom_network_image.dart';
 import 'package:world_cue/features/home/controller/home_controller.dart';
 import 'package:world_cue/features/image_view/view/image_view.dart';
 import 'package:world_cue/features/news/model/news_model.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 class NewsScreen extends StatefulWidget {
   final NewsModel news;
@@ -37,7 +38,6 @@ class _NewsScreenState extends State<NewsScreen> {
           style: context.titleBoldStyle,
         ).paddingOnly(right: 48.w),
       ),
-      backgroundColor: appColorScheme(context).primaryContainer,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,7 +80,7 @@ class _NewsScreenState extends State<NewsScreen> {
                     UrlLauncher.launchURL(news.url, context);
                   },
                   child: Text(
-                    "View Full Article",
+                    S.of(context).viewFullArticle,
                     style: context.labelStyle.copyWith(
                       color: Colors.blue,
                       decoration: TextDecoration.underline,

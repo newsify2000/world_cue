@@ -11,6 +11,7 @@ import 'package:world_cue/features/home/controller/home_controller.dart';
 import 'package:world_cue/features/image_view/view/image_view.dart';
 import 'package:world_cue/features/news/model/news_model.dart';
 import 'package:world_cue/features/news/view/news_screen.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 class NewsCard extends StatefulWidget {
   final NewsModel news;
@@ -135,10 +136,10 @@ class _NewsCardState extends State<NewsCard> {
 
           // Source + Date
           Text(
-            news.publishedAt != "NotAvailable" &&
-                    news.source.name != "UnknownSource"
+            news.publishedAt != S.of(context).notavailable &&
+                    news.source.name != S.of(context).unknownsource
                 ? "${formatDateToDayMonth(news.publishedAt)} • ${news.source.name}"
-                : "source info not available",
+                : S.of(context).sourceInfoNotAvailable,
             style: context.captionStyle,
             maxLines: 10,
             overflow: TextOverflow.ellipsis,

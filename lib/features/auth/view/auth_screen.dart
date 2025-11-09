@@ -8,6 +8,7 @@ import 'package:world_cue/core/widgets/helper_widgets.dart';
 import 'package:world_cue/core/widgets/padding_helper.dart';
 import 'package:world_cue/features/auth/controller/auth_controller.dart';
 import 'package:world_cue/generated/assets.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
@@ -63,7 +64,7 @@ class AuthScreen extends StatelessWidget {
                       Text("World Cue", style: context.headingBoldStyle),
                       SizedBox(height: 8.h),
                       Text(
-                        "Real facts. No bias. Global updates\n you can trust.",
+                        S.of(context).realFactsNoBiasGlobalUpdatesnYouCanTrust,
                         style: context.subtitleMediumStyle,
                         textAlign: TextAlign.center,
                       ),
@@ -101,7 +102,7 @@ class AuthScreen extends StatelessWidget {
                                         ),
                                       ),
                                       Text(
-                                        "Continue with Google",
+                                        S.of(context).continueWithGoogle,
                                         style: context.titleBoldStyle,
                                       ).paddingOnly(right: 48.w),
                                     ],
