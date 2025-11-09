@@ -86,17 +86,17 @@ String formatTime(BuildContext context, String isoDateString) {
 
 void openAppInStore(BuildContext context) async {
   const url = "https://play.google.com/store/apps/details?id=com.worldcue.app";
-  UrlLauncher.customLaunchURL(url, context);
+  UrlLauncher.urlLauncher(url, context);
 }
 
 void openPrivacyPolicy(BuildContext context) async {
   const url = "https://www.worldcue.news/privacy-policy";
-  UrlLauncher.customLaunchURL(url, context);
+  UrlLauncher.urlLauncher(url, context);
 }
 
 void openTnC(BuildContext context) async {
   const url = "https://www.worldcue.news/terms-of-service";
-  UrlLauncher.customLaunchURL(url, context);
+  UrlLauncher.urlLauncher(url, context);
 }
 
 void shareAppLink() {

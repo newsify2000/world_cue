@@ -154,7 +154,7 @@ class AuthScreen extends StatelessWidget {
                 style: context.bodyMediumStyle,
               ),
               onTap: () async {
-                UrlLauncher.customLaunchURL(
+                UrlLauncher.urlLauncher(
                   "https://www.worldcue.news/privacy-policy",
                   context,
                 );

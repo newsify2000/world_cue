@@ -8,10 +8,10 @@ class UrlLauncher {
   /// Attempts to launch a given URL in the appropriate manner.
   ///
   /// This function first checks if the URL can be launched. If it can,
-  /// it attempts to launch it using [customLaunchURL]. If the launch fails,
+  /// it attempts to launch it using [urlLauncher]. If the launch fails,
   /// it prints an error message to the console.
 
-  static Future<void> customLaunchURL(String url, BuildContext context) async {
+  static Future<void> urlLauncher(String url, BuildContext context) async {
     // 1. Create a Uri object from the URL string.
     log(url);
     final Uri uri = Uri.parse(url);
