@@ -80,38 +80,53 @@ class _HomeScreenState extends State<HomeScreen> {
           return  Center(child: Text(S.of(context).noNewsAvailable));
         }
 
-        return PageView.builder(
-          controller: _pageController,
-          scrollDirection: Axis.vertical,
-          onPageChanged: _handlePageChange,
-          itemCount: controller.newsList.length,
-          itemBuilder: (context, i) {
-            final news = controller.newsList[i];
-            return controller.isLoading.value
-                ? NewsCardShimmer(showButtons: true)
-                : Obx(() {
-                    final isBookmarked = controller.bookmarkedIds.contains(
-                      news.id,
-                    );
-                    final bookmarkIcon = isBookmarked
-                        ? Icons.bookmark
-                        : Icons.bookmark_add_outlined;
-                    return NewsCard(
-                      news: news,
-                      onMenuTap: widget.onOpenDrawer,
-                      trailingIcon: bookmarkIcon,
-                      onBookmarkTap: () {
-                        if (isBookmarked) {
-                          controller.removeBookmark(news);
-                        } else {
-                          controller.bookmarkNews(news);
-                        }
-                      },
-                      showButtons: true,
-                    );
-                  });
+        return RefreshIndicator(
+          onRefresh: () async {
+            // User pulled down on first card → refresh news
+            await controller.refreshNews();
           },
+          edgeOffset: 80, // optional, how far from top the indicator appears
+          child: NotificationListener<ScrollNotification>(
+            onNotification: (ScrollNotification notification) {
+              // Prevent indicator when not on first page
+              if (_pageController.page != 0) return false;
+              return false;
+            },
+            child: PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.vertical,
+              physics: const AlwaysScrollableScrollPhysics(), // ✅ required
+              onPageChanged: _handlePageChange,
+              itemCount: controller.newsList.length,
+              itemBuilder: (context, i) {
+                final news = controller.newsList[i];
+                return controller.isLoading.value
+                    ? NewsCardShimmer(showButtons: true)
+                    : Obx(() {
+                  final isBookmarked = controller.bookmarkedIds.contains(news.id);
+                  final bookmarkIcon = isBookmarked
+                      ? Icons.bookmark
+                      : Icons.bookmark_add_outlined;
+
+                  return NewsCard(
+                    news: news,
+                    onMenuTap: widget.onOpenDrawer,
+                    trailingIcon: bookmarkIcon,
+                    onBookmarkTap: () {
+                      if (isBookmarked) {
+                        controller.removeBookmark(news);
+                      } else {
+                        controller.bookmarkNews(news);
+                      }
+                    },
+                    showButtons: true,
+                  );
+                });
+              },
+            ),
+          ),
         );
+
       }),
     );
   }

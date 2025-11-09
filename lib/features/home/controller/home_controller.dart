@@ -71,6 +71,8 @@ class HomeController extends GetxController {
     await fetchNews(page: 1, category: currentCategory.value);
   }
 
+
+
   /// search with categories
   void updateCategory(String category) {
     if (currentCategory.value != category) {
@@ -89,7 +91,10 @@ class HomeController extends GetxController {
           .collection("bookmarks")
           .doc(news.id);
 
-      await ref.set(news.toJson(), SetOptions(merge: true));
+      await ref.set({
+        ...news.toJson(),
+        'timestamp': FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true));
 
       bookmarkedIds.add(news.id);
 

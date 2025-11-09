@@ -27,6 +27,12 @@ class _BookmarkScreenState extends State<BookmarkScreen> {
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    controller.fetchBookmarks();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Obx(() {

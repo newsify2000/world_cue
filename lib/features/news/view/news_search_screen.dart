@@ -29,7 +29,6 @@ class NewsSearchScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: appColorScheme(context).primaryContainer,
         title: Text(S.of(context).searchNews, style: context.titleBoldStyle),
       ),
       body: Column(
@@ -43,7 +42,7 @@ class NewsSearchScreen extends StatelessWidget {
                 height: 52.h,
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: appColorScheme(context).onPrimary,
+                  color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(100.r),
                 ),
                 child: Obx(() {

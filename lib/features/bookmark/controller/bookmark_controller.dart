@@ -42,6 +42,7 @@ class BookmarkController extends GetxController {
           .collection('users')
           .doc(userId)
           .collection('bookmarks')
+          .orderBy('timestamp', descending: true)
           .get();
 
       final bookmarks = snapshot.docs.map((doc) {
@@ -67,7 +68,10 @@ class BookmarkController extends GetxController {
           .collection("bookmarks")
           .doc(news.id);
 
-      await ref.set(news.toJson(), SetOptions(merge: true));
+      await ref.set({
+        ...news.toJson(),
+        'timestamp': FieldValue.serverTimestamp(),
+      }, SetOptions(merge: true));
 
       bookmarkedIds.add(news.id);
       bookmarkedNewsList.add(news);

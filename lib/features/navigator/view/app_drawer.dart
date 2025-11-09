@@ -85,7 +85,7 @@ class AppDrawer extends StatelessWidget {
         tag:"profile_container",
         child: Container(
           decoration: BoxDecoration(
-            color: appColorScheme(context).onPrimary,
+            color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(24.r),
           ),
           child: ListTile(
@@ -116,7 +116,7 @@ class AppDrawer extends StatelessWidget {
           height: 40.h,
           width: double.infinity,
           decoration: BoxDecoration(
-            color: appColorScheme(context).onPrimary,
+            color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(100.r),
           ),
           child: Row(

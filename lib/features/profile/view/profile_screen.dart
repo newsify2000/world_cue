@@ -68,7 +68,7 @@ class ProfileScreen extends StatelessWidget {
         child: Container(
           padding: padSym(vertical: 16.h),
           decoration: BoxDecoration(
-            color: appColorScheme(context).onPrimary,
+            color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12.r),
           ),
           child: ListTile(
@@ -91,7 +91,7 @@ class ProfileScreen extends StatelessWidget {
     return Container(
       padding: padSym(vertical: 16.h),
       decoration: BoxDecoration(
-        color: appColorScheme(context).onPrimary,
+        color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
@@ -119,7 +119,7 @@ class ProfileScreen extends StatelessWidget {
     return Container(
       padding: padSym(vertical: 16.h),
       decoration: BoxDecoration(
-        color: appColorScheme(context).onPrimary,
+        color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12.r),
       ),
       child: Column(
