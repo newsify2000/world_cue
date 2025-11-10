@@ -20,6 +20,18 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
+  static String m0(months) => "${months} mo ago";
+
+  static String m1(years) => "${years} yr ago";
+
+  static String m2(weeks) => "${weeks} w ago";
+
+  static String m3(days) => "${days} days ago";
+
+  static String m4(hours) => "${hours} hr ago";
+
+  static String m5(minutes) => "${minutes} min ago";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
@@ -41,24 +53,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Continue with Google",
     ),
     "dark": MessageLookupByLibrary.simpleMessage("Dark"),
-    "diffindays30floorMoAgo": MessageLookupByLibrary.simpleMessage(
-      "\${(diff.inDays / 30).floor()} mo ago",
-    ),
-    "diffindays365floorYrAgo": MessageLookupByLibrary.simpleMessage(
-      "\${(diff.inDays / 365).floor()} yr ago",
-    ),
-    "diffindays7floorWAgo": MessageLookupByLibrary.simpleMessage(
-      "\${(diff.inDays / 7).floor()} w ago",
-    ),
-    "diffindaysDaysAgo": MessageLookupByLibrary.simpleMessage(
-      "\${diff.inDays} days ago",
-    ),
-    "diffinhoursHrAgo": MessageLookupByLibrary.simpleMessage(
-      "\${diff.inHours} hr ago",
-    ),
-    "diffinminutesMinAgo": MessageLookupByLibrary.simpleMessage(
-      "\${diff.inMinutes} min ago",
-    ),
+    "diffindays30floorMoAgo": m0,
+    "diffindays365floorYrAgo": m1,
+    "diffindays7floorWAgo": m2,
+    "diffindaysDaysAgo": m3,
+    "diffinhoursHrAgo": m4,
+    "diffinminutesMinAgo": m5,
     "failedToLoadImage": MessageLookupByLibrary.simpleMessage(
       "Failed to load image",
     ),
@@ -79,6 +79,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
     "profile": MessageLookupByLibrary.simpleMessage("Profile"),
     "rateUs": MessageLookupByLibrary.simpleMessage("Rate Us"),
+    "readPrivacyPolicy": MessageLookupByLibrary.simpleMessage(
+      "Read Privacy Policy",
+    ),
     "realFactsNoBiasGlobalUpdatesnYouCanTrust":
         MessageLookupByLibrary.simpleMessage(
           "Real facts. No bias. Global updates\n you can trust.",

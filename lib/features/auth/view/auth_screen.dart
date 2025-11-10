@@ -3,6 +3,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:world_cue/core/storage/shared_pref.dart';
 import 'package:world_cue/core/theme/text_style.dart';
+import 'package:world_cue/core/utils/app_data.dart';
+import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/utils/size_config.dart';
 import 'package:world_cue/core/utils/url_launcher.dart';
 import 'package:world_cue/core/utils/utilities.dart';
@@ -124,7 +126,7 @@ class AuthScreen extends StatelessWidget {
             top: 64.h,
             right: 16.w,
             child: GlassButton(
-              onTap: () => _showMoreOptions(context),
+              onTap: () => _showMoreOptions(context,controller),
               icon: Icons.more_vert_rounded,
             ),
           ),
@@ -136,7 +138,7 @@ class AuthScreen extends StatelessWidget {
   // --------------------------------------------------------------------
   // ---------------------  MORE OPTIONS SHEET --------------------------
   // --------------------------------------------------------------------
-  void _showMoreOptions(BuildContext context) {
+  void _showMoreOptions(BuildContext context,AuthController controller) {
     Get.bottomSheet(
       Container(
         padding: padAll(value: 16.w),
@@ -150,7 +152,7 @@ class AuthScreen extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.privacy_tip_outlined),
               title: Text(
-                "Read Privacy Policy",
+                S.of(context).readPrivacyPolicy,
                 style: context.bodyMediumStyle,
               ),
               onTap: () async {
@@ -172,7 +174,7 @@ class AuthScreen extends StatelessWidget {
               ),
               onTap: () {
                 Get.back();
-                _showLanguageSheet(context);
+                _showLanguageSheet(context,controller);
               },
             ),
           ],
@@ -184,15 +186,19 @@ class AuthScreen extends StatelessWidget {
   // --------------------------------------------------------------------
   // ---------------------- LANGUAGE BOTTOM SHEET -----------------------
   // --------------------------------------------------------------------
-  void _showLanguageSheet(BuildContext context) {
+  void _showLanguageSheet(BuildContext context,AuthController controller) {
     Get.bottomSheet(
+      // Use Column instead of Wrap to manage the fixed header and scrolling list
       Container(
         padding: padAll(value: 16.w),
         decoration: BoxDecoration(
           color: appColorScheme(context).onPrimary,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
         ),
-        child: Wrap(
+        // Change from Wrap to Column
+        child: Column(
+          // Important: Constrain the height of the entire bottom sheet
+          mainAxisSize: MainAxisSize.min,
           children: [
             Center(
               child: Text(
@@ -201,25 +207,33 @@ class AuthScreen extends StatelessWidget {
               ),
             ),
             boxH16(),
-            ListTile(
-              leading: const Icon(Icons.language),
-              title: const Text("English"),
-              onTap: () {
-                SharedPref.setString("language", "en");
-                S.load(const Locale('en'));
-                Get.back();
-                Get.updateLocale(const Locale('en'));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.language),
-              title: const Text("हिन्दी"),
-              onTap: () {
-                SharedPref.setString("language", "hi");
-                S.load(const Locale('hi'));
-                Get.back();
-                Get.updateLocale(const Locale('hi'));
-              },
+            // Constrain the height of the ListView.builder
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                // Set a maximum height (e.g., 50% of screen height)
+                maxHeight: 0.45.sh,
+              ),
+              child: ListView.builder(
+                // Use a proper List View inside the constrained box
+                shrinkWrap: true,
+                // This is key when in a Column/constrained space
+                itemCount: appLanguages.length,
+                itemBuilder: (BuildContext context, int index) {
+                  // Assuming 'appLanguages' is accessible (it's defined in app_data.dart based on imports)
+                  // The type casting 'as String' is safe if your data is structured as expected.
+                  final language = appLanguages[index];
+                  final code = language["code"] as String;
+                  final label = language["label"] as String;
+
+                  return ListTile(
+                    leading: const Icon(Icons.language),
+                    title: Text(label),
+                    onTap: () {
+                      controller.setAppLanguage(code);
+                    },
+                  );
+                },
+              ),
             ),
           ],
         ),

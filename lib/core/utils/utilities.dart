@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:world_cue/core/utils/url_launcher.dart';
+import 'package:world_cue/core/widgets/toast.dart';
 import 'package:world_cue/generated/l10n.dart';
 
 ///Check if a value is null or not
@@ -74,14 +74,48 @@ String formatTime(BuildContext context, String isoDateString) {
   DateTime postDate = DateTime.parse(isoDateString).toLocal();
   Duration diff = DateTime.now().difference(postDate);
 
-  if (diff.inSeconds < 60) return S.of(context).justNow;
-  if (diff.inMinutes < 60) return S.of(context).diffinminutesMinAgo;
-  if (diff.inHours < 24) return S.of(context).diffinhoursHrAgo;
-  if (diff.inDays == 1) return S.of(context).yesterday;
-  if (diff.inDays < 7) return S.of(context).diffindaysDaysAgo;
-  if (diff.inDays < 30) return S.of(context).diffindays7floorWAgo;
-  if (diff.inDays < 365) return S.of(context).diffindays30floorMoAgo;
-  return S.of(context).diffindays365floorYrAgo;
+  // Assuming 'diff' is a Duration object representing the time difference
+
+  if (diff.inSeconds < 60) {
+    return S.of(context).justNow;
+  }
+
+  if (diff.inMinutes < 60) {
+    // Pass the calculated minutes value (diff.inMinutes) to the generated function
+    return S.of(context).diffinminutesMinAgo(diff.inMinutes);
+  }
+
+  if (diff.inHours < 24) {
+    // Pass the calculated hours value (diff.inHours)
+    return S.of(context).diffinhoursHrAgo(diff.inHours);
+  }
+
+  if (diff.inDays == 1) {
+    // Use 'yesterday' if the difference is exactly 1 day (no argument needed)
+    return S.of(context).yesterday;
+  }
+
+  if (diff.inDays < 7) {
+    // Pass the calculated days value (diff.inDays)
+    return S.of(context).diffindaysDaysAgo(diff.inDays);
+  }
+
+  if (diff.inDays < 30) {
+    // Calculate and pass the weeks value (diff.inDays / 7)
+    final int weeks = (diff.inDays / 7).floor();
+    return S.of(context).diffindays7floorWAgo(weeks);
+  }
+
+  if (diff.inDays < 365) {
+    // Calculate and pass the months value (diff.inDays / 30)
+    final int months = (diff.inDays / 30).floor();
+    return S.of(context).diffindays30floorMoAgo(months);
+  }
+
+  // Default case: Years
+  // Calculate and pass the years value (diff.inDays / 365)
+  final int years = (diff.inDays / 365).floor();
+  return S.of(context).diffindays365floorYrAgo(years);
 }
 
 void openAppInStore(BuildContext context) async {
@@ -100,11 +134,5 @@ void openTnC(BuildContext context) async {
 }
 
 void shareAppLink() {
-  SharePlus.instance.share(
-    ShareParams(
-      subject: 'World Cue',
-      text:
-          "Check out this app: https://play.google.com/store/apps/details?id=com.worldcue.app",
-    ),
-  );
+  toast("coming soon");
 }

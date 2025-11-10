@@ -5,6 +5,7 @@ import 'package:world_cue/core/navigation/navigation.dart';
 import 'package:world_cue/core/storage/shared_pref.dart';
 import 'package:world_cue/core/theme/text_style.dart';
 import 'package:world_cue/core/utils/constants.dart';
+import 'package:world_cue/core/utils/app_data.dart';
 import 'package:world_cue/core/utils/size_config.dart';
 import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/core/widgets/padding_helper.dart';
@@ -12,18 +13,6 @@ import 'package:world_cue/features/home/controller/home_controller.dart';
 import 'package:world_cue/features/news/view/news_search_screen.dart';
 import 'package:world_cue/features/profile/view/profile_screen.dart';
 import 'package:world_cue/generated/l10n.dart';
-
-const List<String> newsCategories = [
-  'General',
-  'World',
-  'Nation',
-  'Business',
-  'Technology',
-  'Entertainment',
-  'Sports',
-  'Science',
-  'Health',
-];
 
 class AppDrawer extends StatelessWidget {
   final VoidCallback? onCloseDrawer;
@@ -51,13 +40,13 @@ class AppDrawer extends StatelessWidget {
                   ),
                   child: Text(S.of(context).categories, style: context.titleBoldStyle),
                 ),
-                ...newsCategories.map((category) {
+                ...newsCategories.map((categoryMap) {
                   return ListTile(
                     leading: Icon(Icons.label_outline),
-                    title: Text(category, style: context.bodyStyle),
+                    title: Text(categoryMap["label"] ?? "", style: context.bodyStyle),
                     onTap: () {
                       Get.back(); // close drawer
-                      controller.updateCategory(category.toLowerCase());
+                      controller.updateCategory(categoryMap["slug"] ?? "breaking-news");
                     },
                   );
                 }),
@@ -95,6 +84,7 @@ class AppDrawer extends StatelessWidget {
                     "https://avatar.iran.liara.run/username?username=$firstName+$lastName",
               ),
             ),
+            trailing: Icon(Icons.arrow_forward_ios_rounded),
             title: Text(name ??"", style: context.titleBoldStyle),
             subtitle: Text(email ?? "", style: context.labelStyle),
           ),

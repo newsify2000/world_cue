@@ -99,68 +99,68 @@ class S {
     return Intl.message('Just now', name: 'justNow', desc: '', args: []);
   }
 
-  /// `${diff.inMinutes} min ago`
-  String get diffinminutesMinAgo {
-    return Intl.message(
-      '\${diff.inMinutes} min ago',
-      name: 'diffinminutesMinAgo',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `${diff.inHours} hr ago`
-  String get diffinhoursHrAgo {
-    return Intl.message(
-      '\${diff.inHours} hr ago',
-      name: 'diffinhoursHrAgo',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Yesterday`
   String get yesterday {
     return Intl.message('Yesterday', name: 'yesterday', desc: '', args: []);
   }
 
-  /// `${diff.inDays} days ago`
-  String get diffindaysDaysAgo {
+  /// `{minutes} min ago`
+  String diffinminutesMinAgo(int minutes) {
     return Intl.message(
-      '\${diff.inDays} days ago',
+      '$minutes min ago',
+      name: 'diffinminutesMinAgo',
+      desc: 'Text shown when time difference is in minutes.',
+      args: [minutes],
+    );
+  }
+
+  /// `{hours} hr ago`
+  String diffinhoursHrAgo(int hours) {
+    return Intl.message(
+      '$hours hr ago',
+      name: 'diffinhoursHrAgo',
+      desc: 'Text shown when time difference is in hours.',
+      args: [hours],
+    );
+  }
+
+  /// `{days} days ago`
+  String diffindaysDaysAgo(int days) {
+    return Intl.message(
+      '$days days ago',
       name: 'diffindaysDaysAgo',
-      desc: '',
-      args: [],
+      desc: 'Text shown when time difference is in days.',
+      args: [days],
     );
   }
 
-  /// `${(diff.inDays / 7).floor()} w ago`
-  String get diffindays7floorWAgo {
+  /// `{weeks} w ago`
+  String diffindays7floorWAgo(int weeks) {
     return Intl.message(
-      '\${(diff.inDays / 7).floor()} w ago',
+      '$weeks w ago',
       name: 'diffindays7floorWAgo',
-      desc: '',
-      args: [],
+      desc: 'Text shown when time difference is in weeks.',
+      args: [weeks],
     );
   }
 
-  /// `${(diff.inDays / 30).floor()} mo ago`
-  String get diffindays30floorMoAgo {
+  /// `{months} mo ago`
+  String diffindays30floorMoAgo(int months) {
     return Intl.message(
-      '\${(diff.inDays / 30).floor()} mo ago',
+      '$months mo ago',
       name: 'diffindays30floorMoAgo',
-      desc: '',
-      args: [],
+      desc: 'Text shown when time difference is in months.',
+      args: [months],
     );
   }
 
-  /// `${(diff.inDays / 365).floor()} yr ago`
-  String get diffindays365floorYrAgo {
+  /// `{years} yr ago`
+  String diffindays365floorYrAgo(int years) {
     return Intl.message(
-      '\${(diff.inDays / 365).floor()} yr ago',
+      '$years yr ago',
       name: 'diffindays365floorYrAgo',
-      desc: '',
-      args: [],
+      desc: 'Text shown when time difference is in years.',
+      args: [years],
     );
   }
 
@@ -413,6 +413,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Read Privacy Policy`
+  String get readPrivacyPolicy {
+    return Intl.message(
+      'Read Privacy Policy',
+      name: 'readPrivacyPolicy',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -422,6 +432,10 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
       Locale.fromSubtags(languageCode: 'hi'),
+      Locale.fromSubtags(languageCode: 'ml'),
+      Locale.fromSubtags(languageCode: 'mr'),
+      Locale.fromSubtags(languageCode: 'ta'),
+      Locale.fromSubtags(languageCode: 'te'),
     ];
   }
 

@@ -64,7 +64,7 @@ class NewsSearchController extends GetxController {
       currentQuery.value = query;
 
       /// call new repo method
-      final result = await _newsRepo.getNews(
+      final result = await _newsRepo.searchNews(
         query: query,
         page: page,
         max: 10,

@@ -1,4 +1,4 @@
 class ApiEndpoints {
-  static const String getNews = "/getNews";
-  static const String search = "/search";
+  static const  getNewsByCategory = "/getNewsByCategory";
+  static const  searchNews = "/searchNews";
 }

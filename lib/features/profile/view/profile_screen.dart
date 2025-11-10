@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:world_cue/core/storage/shared_pref.dart';
 import 'package:world_cue/core/theme/text_style.dart';
+import 'package:world_cue/core/utils/app_data.dart';
 import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/utils/size_config.dart';
 import 'package:world_cue/core/utils/utilities.dart';
@@ -42,7 +43,7 @@ class ProfileScreen extends StatelessWidget {
             boxH16(),
             Text(S.of(context).appSettings, style: context.titleMediumStyle),
             boxH16(),
-            _buildSettingsCard(context),
+            _buildSettingsCard(context, controller),
             boxH16(),
             Text(S.of(context).other, style: context.titleMediumStyle),
             boxH16(),
@@ -88,7 +89,10 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildSettingsCard(BuildContext context) {
+  Widget _buildSettingsCard(
+    BuildContext context,
+    ProfileController controller,
+  ) {
     return Container(
       padding: padSym(vertical: 16.h),
       decoration: BoxDecoration(
@@ -104,7 +108,7 @@ class ProfileScreen extends StatelessWidget {
             context,
             Icons.language_rounded,
             S.of(context).appLanguage,
-            () => _showLanguageSheet(context),
+            () => _showLanguageSheet(context, controller),
           ),
           menuCard(
             context,
@@ -183,15 +187,20 @@ class ProfileScreen extends StatelessWidget {
   }
 
   // ---------------- LANGUAGE BOTTOM SHEET ----------------
-  void _showLanguageSheet(BuildContext context) {
+  // ---------------- LANGUAGE BOTTOM SHEET ----------------
+  void _showLanguageSheet(BuildContext context, ProfileController controller) {
     Get.bottomSheet(
+      // Use Column instead of Wrap to manage the fixed header and scrolling list
       Container(
         padding: padAll(value: 16.w),
         decoration: BoxDecoration(
           color: appColorScheme(context).onPrimary,
           borderRadius: BorderRadius.vertical(top: Radius.circular(16.r)),
         ),
-        child: Wrap(
+        // Change from Wrap to Column
+        child: Column(
+          // Important: Constrain the height of the entire bottom sheet
+          mainAxisSize: MainAxisSize.min,
           children: [
             Center(
               child: Text(
@@ -200,25 +209,33 @@ class ProfileScreen extends StatelessWidget {
               ),
             ),
             boxH16(),
-            ListTile(
-              leading: const Icon(Icons.language),
-              title: const Text("English"),
-              onTap: () {
-                SharedPref.setString("language", "en");
-                S.load(const Locale('en'));
-                Get.back();
-                Get.updateLocale(const Locale('en'));
-              },
-            ),
-            ListTile(
-              leading: const Icon(Icons.language),
-              title: const Text("हिन्दी"),
-              onTap: () {
-                SharedPref.setString("language", "hi");
-                S.load(const Locale('hi'));
-                Get.back();
-                Get.updateLocale(const Locale('hi'));
-              },
+            // Constrain the height of the ListView.builder
+            ConstrainedBox(
+              constraints: BoxConstraints(
+                // Set a maximum height (e.g., 50% of screen height)
+                maxHeight: 0.45.sh,
+              ),
+              child: ListView.builder(
+                // Use a proper List View inside the constrained box
+                shrinkWrap: true,
+                // This is key when in a Column/constrained space
+                itemCount: appLanguages.length,
+                itemBuilder: (BuildContext context, int index) {
+                  // Assuming 'appLanguages' is accessible (it's defined in app_data.dart based on imports)
+                  // The type casting 'as String' is safe if your data is structured as expected.
+                  final language = appLanguages[index];
+                  final code = language["code"] as String;
+                  final label = language["label"] as String;
+
+                  return ListTile(
+                    leading: const Icon(Icons.language),
+                    title: Text(label),
+                    onTap: () {
+                      controller.setAppLanguage(code);
+                    },
+                  );
+                },
+              ),
             ),
           ],
         ),

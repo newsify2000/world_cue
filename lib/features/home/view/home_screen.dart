@@ -18,23 +18,15 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final HomeController controller = Get.find<HomeController>();
-  late final PageController _pageController;
   bool _isFetchingMore = false;
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController();
-    ever(controller.currentCategory, (_) {
-      if (mounted && _pageController.hasClients) {
-        _pageController.jumpToPage(0);
-      }
-    });
   }
 
   @override
   void dispose() {
-    _pageController.dispose();
     super.dispose();
   }
 
@@ -80,18 +72,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
         return RefreshIndicator(
           onRefresh: () async {
-            // User pulled down on first card → refresh news
             await controller.refreshNews();
           },
-          edgeOffset: 80, // optional, how far from top the indicator appears
+          edgeOffset: 80,
           child: NotificationListener<ScrollNotification>(
             onNotification: (ScrollNotification notification) {
               // Prevent indicator when not on first page
-              if (_pageController.page != 0) return false;
+              if (controller.pageController.page != 0) return false;
               return false;
             },
             child: PageView.builder(
-              controller: _pageController,
+              controller: controller.pageController,
               scrollDirection: Axis.vertical,
               physics: const AlwaysScrollableScrollPhysics(),
               // ✅ required

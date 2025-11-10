@@ -6,13 +6,13 @@
   "profile": "प्रोफ़ाइल",
   "other": "अन्य",
   "justNow": "अभी-अभी",
-  "diffinminutesMinAgo": "${diff.inMinutes} मिनट पहले",
-  "diffinhoursHrAgo": "${diff.inHours} घंटे पहले",
   "yesterday": "कल",
-  "diffindaysDaysAgo": "${diff.inDays} दिन पहले",
-  "diffindays7floorWAgo": "${(diff.inDays / 7).floor()} हफ़्ते पहले",
-  "diffindays30floorMoAgo": "${(diff.inDays / 30).floor()} महीने पहले",
-  "diffindays365floorYrAgo": "${(diff.inDays / 365).floor()} साल पहले",
+  "diffinminutesMinAgo": "{minutes} मिनट पहले",
+  "diffinhoursHrAgo": "{hours} घंटा पहले",
+  "diffindaysDaysAgo": "{days} दिन पहले",
+  "diffindays7floorWAgo": "{weeks} स. पहले",
+  "diffindays30floorMoAgo": "{months} म. पहले",
+  "diffindays365floorYrAgo": "{years} व. पहले",
   "failedToLoadImage": "छवि लोड करने में विफल",
   "notavailable": "उपलब्ध नहीं",
   "unknownsource": "अज्ञात स्रोत",
@@ -43,6 +43,7 @@
   "areYouSureYouWantToLogout": "क्या आप वाकई लॉगआउट करना चाहते हैं?",
   "cancel": "रद्द करें",
   "privacyPolicy": "गोपनीयता नीति",
-  "termsConditions": "नियम और शर्तें"
+  "termsConditions": "नियम और शर्तें",
+  "readPrivacyPolicy": "गोपनीयता नीति पढ़ें"
 
 }

@@ -5,13 +5,61 @@
   "profile": "Profile",
   "other": "Other",
   "justNow": "Just now",
-  "diffinminutesMinAgo": "${diff.inMinutes} min ago",
-  "diffinhoursHrAgo": "${diff.inHours} hr ago",
   "yesterday": "Yesterday",
-  "diffindaysDaysAgo": "${diff.inDays} days ago",
-  "diffindays7floorWAgo": "${(diff.inDays / 7).floor()} w ago",
-  "diffindays30floorMoAgo": "${(diff.inDays / 30).floor()} mo ago",
-  "diffindays365floorYrAgo": "${(diff.inDays / 365).floor()} yr ago",
+  "diffinminutesMinAgo": "{minutes} min ago",
+  "@diffinminutesMinAgo": {
+    "description": "Text shown when time difference is in minutes.",
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "diffinhoursHrAgo": "{hours} hr ago",
+  "@diffinhoursHrAgo": {
+    "description": "Text shown when time difference is in hours.",
+    "placeholders": {
+      "hours": {
+        "type": "int"
+      }
+    }
+  },
+  "diffindaysDaysAgo": "{days} days ago",
+  "@diffindaysDaysAgo": {
+    "description": "Text shown when time difference is in days.",
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "diffindays7floorWAgo": "{weeks} w ago",
+  "@diffindays7floorWAgo": {
+    "description": "Text shown when time difference is in weeks.",
+    "placeholders": {
+      "weeks": {
+        "type": "int"
+      }
+    }
+  },
+  "diffindays30floorMoAgo": "{months} mo ago",
+  "@diffindays30floorMoAgo": {
+    "description": "Text shown when time difference is in months.",
+    "placeholders": {
+      "months": {
+        "type": "int"
+      }
+    }
+  },
+  "diffindays365floorYrAgo": "{years} yr ago",
+  "@diffindays365floorYrAgo": {
+    "description": "Text shown when time difference is in years.",
+    "placeholders": {
+      "years": {
+        "type": "int"
+      }
+    }
+  },
   "failedToLoadImage": "Failed to load image",
   "notavailable": "NotAvailable",
   "unknownsource": "UnknownSource",
@@ -42,5 +90,6 @@
   "areYouSureYouWantToLogout": "Are you sure you want to logout?",
   "cancel": "Cancel",
   "privacyPolicy": "Privacy Policy",
-  "termsConditions": "Terms & Conditions"
+  "termsConditions": "Terms & Conditions",
+  "readPrivacyPolicy": "Read Privacy Policy"
 }

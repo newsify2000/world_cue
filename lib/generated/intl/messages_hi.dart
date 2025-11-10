@@ -20,6 +20,18 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'hi';
 
+  static String m0(months) => "${months} म. पहले";
+
+  static String m1(years) => "${years} व. पहले";
+
+  static String m2(weeks) => "${weeks} स. पहले";
+
+  static String m3(days) => "${days} दिन पहले";
+
+  static String m4(hours) => "${hours} घंटा पहले";
+
+  static String m5(minutes) => "${minutes} मिनट पहले";
+
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "aboutUs": MessageLookupByLibrary.simpleMessage("हमारे बारे में"),
@@ -43,24 +55,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Google से जारी रखें",
     ),
     "dark": MessageLookupByLibrary.simpleMessage("डार्क"),
-    "diffindays30floorMoAgo": MessageLookupByLibrary.simpleMessage(
-      "\${(diff.inDays / 30).floor()} महीने पहले",
-    ),
-    "diffindays365floorYrAgo": MessageLookupByLibrary.simpleMessage(
-      "\${(diff.inDays / 365).floor()} साल पहले",
-    ),
-    "diffindays7floorWAgo": MessageLookupByLibrary.simpleMessage(
-      "\${(diff.inDays / 7).floor()} हफ़्ते पहले",
-    ),
-    "diffindaysDaysAgo": MessageLookupByLibrary.simpleMessage(
-      "\${diff.inDays} दिन पहले",
-    ),
-    "diffinhoursHrAgo": MessageLookupByLibrary.simpleMessage(
-      "\${diff.inHours} घंटे पहले",
-    ),
-    "diffinminutesMinAgo": MessageLookupByLibrary.simpleMessage(
-      "\${diff.inMinutes} मिनट पहले",
-    ),
+    "diffindays30floorMoAgo": m0,
+    "diffindays365floorYrAgo": m1,
+    "diffindays7floorWAgo": m2,
+    "diffindaysDaysAgo": m3,
+    "diffinhoursHrAgo": m4,
+    "diffinminutesMinAgo": m5,
     "failedToLoadImage": MessageLookupByLibrary.simpleMessage(
       "छवि लोड करने में विफल",
     ),
@@ -85,6 +85,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "privacyPolicy": MessageLookupByLibrary.simpleMessage("गोपनीयता नीति"),
     "profile": MessageLookupByLibrary.simpleMessage("प्रोफ़ाइल"),
     "rateUs": MessageLookupByLibrary.simpleMessage("हमें रेट करें"),
+    "readPrivacyPolicy": MessageLookupByLibrary.simpleMessage(
+      "गोपनीयता नीति पढ़ें",
+    ),
     "realFactsNoBiasGlobalUpdatesnYouCanTrust":
         MessageLookupByLibrary.simpleMessage(
           "सच्ची ख़बरें। बिना पक्षपात के। विश्व की वो अपडेट जिन पर आप भरोसा कर सकते हैं।",

@@ -2,12 +2,14 @@ import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:world_cue/core/storage/shared_pref.dart';
 import 'package:world_cue/core/utils/constants.dart';
 import 'package:world_cue/core/widgets/toast.dart';
 import 'package:world_cue/features/navigator/view/navigator_screen.dart';
+import 'package:world_cue/generated/l10n.dart';
 
 class AuthController extends GetxController {
   final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email', 'profile']);
@@ -81,5 +83,12 @@ class AuthController extends GetxController {
     } finally {
       isSigningIn.value = false;
     }
+  }
+
+  void setAppLanguage(String code) {
+    SharedPref.setString(SharedPrefConstants.language, code);
+    S.load(Locale(code));
+    Get.back();
+    Get.updateLocale(Locale(code));
   }
 }

@@ -43,7 +43,7 @@ class _AppState extends State<App> {
     }
 
     // Load language preference
-    final langCode = SharedPref.getString('language') ?? 'en';
+    final langCode = SharedPref.getString(SharedPrefConstants.language) ?? 'en';
     _locale = Locale(langCode);
 
     // Force rebuild after loading prefs

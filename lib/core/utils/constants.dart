@@ -14,6 +14,7 @@ class SharedPrefConstants {
   static String userEmail = "userEmail";
   static String userImage = "userImage";
   static String bookMarkIdList = "bookMarkIdList";
+  static String language = "language";
 }
 
 const String authToken = "authToken";
