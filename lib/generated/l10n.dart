@@ -423,6 +423,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Trending Now`
+  String get trendingNow {
+    return Intl.message(
+      'Trending Now',
+      name: 'trendingNow',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
@@ -431,11 +441,27 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'ar'),
+      Locale.fromSubtags(languageCode: 'de'),
+      Locale.fromSubtags(languageCode: 'el'),
+      Locale.fromSubtags(languageCode: 'es'),
+      Locale.fromSubtags(languageCode: 'fr'),
+      Locale.fromSubtags(languageCode: 'he'),
       Locale.fromSubtags(languageCode: 'hi'),
+      Locale.fromSubtags(languageCode: 'it'),
+      Locale.fromSubtags(languageCode: 'ja'),
       Locale.fromSubtags(languageCode: 'ml'),
       Locale.fromSubtags(languageCode: 'mr'),
+      Locale.fromSubtags(languageCode: 'nl'),
+      Locale.fromSubtags(languageCode: 'no'),
+      Locale.fromSubtags(languageCode: 'pt'),
+      Locale.fromSubtags(languageCode: 'ro'),
+      Locale.fromSubtags(languageCode: 'ru'),
+      Locale.fromSubtags(languageCode: 'sv'),
       Locale.fromSubtags(languageCode: 'ta'),
       Locale.fromSubtags(languageCode: 'te'),
+      Locale.fromSubtags(languageCode: 'uk'),
+      Locale.fromSubtags(languageCode: 'zh'),
     ];
   }
 

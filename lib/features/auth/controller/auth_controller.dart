@@ -63,7 +63,8 @@ class AuthController extends GetxController {
           'email': user.email ?? '',
           'photoUrl': user.photoURL ?? '',
           'lastLogin': FieldValue.serverTimestamp(),
-        }, SetOptions(merge: true)); // merge prevents overwriting existing data
+          'fcmToken': SharedPref.getString(SharedPrefConstants.fcmToken),
+        }, SetOptions(merge: true));
 
         // 🔹 Save initial screen
         await SharedPref.setString(

@@ -103,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "termsConditions": MessageLookupByLibrary.simpleMessage(
       "నిబంధనలు & షరతులు",
     ),
+    "trendingNow": MessageLookupByLibrary.simpleMessage("Trending Now"),
     "typeSomethingToGetResults": MessageLookupByLibrary.simpleMessage(
       "ఫలితాలను పొందడానికి ఏదైనా టైప్ చేయండి...",
     ),

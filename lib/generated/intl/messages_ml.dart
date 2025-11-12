@@ -105,6 +105,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "termsConditions": MessageLookupByLibrary.simpleMessage(
       "നിബന്ധനകളും വ്യവസ്ഥകളും",
     ),
+    "trendingNow": MessageLookupByLibrary.simpleMessage("Trending Now"),
     "typeSomethingToGetResults": MessageLookupByLibrary.simpleMessage(
       "ഫലങ്ങൾ ലഭിക്കുന്നതിന് എന്തെങ്കിലും ടൈപ്പുചെയ്യുക...",
     ),

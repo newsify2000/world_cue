@@ -61,9 +61,10 @@ class AppDrawer extends StatelessWidget {
 
   Widget profileSection(BuildContext context) {
     var profileUrl = SharedPref.getString(SharedPrefConstants.userImage);
-    var name = SharedPref.getString(SharedPrefConstants.userName);
-    var firstName = name?.split(" ")[0];
-    var lastName = name?.split(" ")[1];
+    var name = SharedPref.getString(SharedPrefConstants.userName) ?? '';
+    var parts = name.trim().split(RegExp(r'\s+')); // split by any whitespace
+    var firstName = parts.isNotEmpty ? parts[0] : '';
+    var lastName = parts.length > 1 ? parts.sublist(1).join(' ') : '';
     var email = SharedPref.getString(SharedPrefConstants.userEmail);
     return GestureDetector(
       onTap: () {
@@ -85,7 +86,7 @@ class AppDrawer extends StatelessWidget {
               ),
             ),
             trailing: Icon(Icons.arrow_forward_ios_rounded),
-            title: Text(name ??"", style: context.titleBoldStyle),
+            title: Text(name, style: context.titleBoldStyle),
             subtitle: Text(email ?? "", style: context.labelStyle),
           ),
         ),

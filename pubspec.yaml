@@ -35,6 +35,10 @@ dependencies:
   http: ^1.5.0
   url_launcher: ^6.3.2
   photo_view: ^0.15.0
+  firebase_messaging: ^16.0.1
+  flutter_local_notifications: ^19.4.1
+  firebase_crashlytics: ^5.0.4
+  permission_handler: ^12.0.1
 
 
 dev_dependencies:
@@ -42,6 +46,7 @@ dev_dependencies:
   flutter_native_splash: ^2.4.7
   flutter_launcher_icons: ^0.14.4
   flutter_lints: ^6.0.0
+  intl_utils: ^2.8.12
   flutter_test:
     sdk: flutter
 
@@ -68,3 +73,6 @@ flutter:
 
 flutter_intl:
   enabled: true
+  localizely:
+    project_id: a712bfcf-e4c2-440b-b89d-2a0f191c57ae
+    api_token: 85f14c9f887846e4813d899956a03482678282f410fd4ae49bc694a8641bbe87

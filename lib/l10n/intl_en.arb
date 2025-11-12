@@ -1,4 +1,5 @@
 {
+  "@@locale": "en",
   "noInternetConnection": "No Internet Connection",
   "byContinuingToUseThisSiteYouAcceptOurUse": "By continuing to use this site, you accept our use of a cookie to keep you signed in and secure.",
   "appSettings": "App Settings",
@@ -91,5 +92,6 @@
   "cancel": "Cancel",
   "privacyPolicy": "Privacy Policy",
   "termsConditions": "Terms & Conditions",
-  "readPrivacyPolicy": "Read Privacy Policy"
+  "readPrivacyPolicy": "Read Privacy Policy",
+  "trendingNow": "Trending Now"
 }

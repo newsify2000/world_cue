@@ -7,6 +7,7 @@ import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/features/bookmark/view/bookmark_screen.dart';
 import 'package:world_cue/features/home/view/home_screen.dart';
 import 'package:world_cue/features/navigator/view/app_drawer.dart';
+import 'package:world_cue/features/trending_news/views/trending_news_screen.dart';
 import 'package:world_cue/generated/l10n.dart';
 
 class NavigatorScreen extends StatefulWidget {
@@ -30,6 +31,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
 
     _pages = [
       HomeScreen(onOpenDrawer: () => _scaffoldKey.currentState?.openDrawer()),
+      TrendingNewsScreen(),
       BookmarkScreen(
         onBackClick: () {
           setState(() => _selectedIndex = 0);
@@ -56,11 +58,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
       drawerEdgeDragWidth: screenWidth(percentage: 20),
       body: PageView(
         controller: _pageController,
-        physics: (_selectedIndex == 0)
-            ? const ClampingScrollPhysics()
-            : (_selectedIndex == _pages.length - 1)
-            ? const ClampingScrollPhysics()
-            : const BouncingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         onPageChanged: (index) => setState(() => _selectedIndex = index),
         children: _pages,
       ),
@@ -69,18 +67,22 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
       bottomNavigationBar: Container(
         margin: EdgeInsets.only(
           bottom: 20.h,
-          left: screenWidth(percentage: 25),
-          right: screenWidth(percentage: 25),
+          left: screenWidth(percentage: 15),
+          right: screenWidth(percentage: 15),
         ),
         height: 54.h,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100.r),
-          color: appColorScheme(context).onPrimaryContainer.withValues(alpha: 0.1),
+          color: appColorScheme(
+            context,
+          ).onPrimaryContainer.withValues(alpha: 0.1),
         ),
         child: Row(
           children: [
             _buildNavItem(S.of(context).home, Icons.home_rounded, 0),
-            _buildNavItem(S.of(context).bookmark, Icons.bookmark_rounded, 1),
+            _buildNavItem("Trending", Icons.trending_up_rounded, 1),
+            // 👈 New tab
+            _buildNavItem(S.of(context).bookmark, Icons.bookmark_rounded, 2),
           ],
         ),
       ),
@@ -106,7 +108,6 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
               alignment: Alignment.center,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Icon(
                     icon,
@@ -121,14 +122,14 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
                     style: context.labelStyle.copyWith(
                       color: isSelected
                           ? appColorScheme(context).onPrimaryContainer
-                          : appColorScheme(context).tertiaryContainer
+                          : appColorScheme(context).tertiaryContainer,
                     ),
                   ),
                 ],
               ),
             ).paddingOnly(
               left: index == 0 ? 16.w : 0,
-              right: index == 1 ? 16.w : 0,
+              right: index == 2 ? 16.w : 0,
             ),
       ),
     );

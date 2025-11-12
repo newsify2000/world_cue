@@ -101,6 +101,7 @@ class MessageLookup extends MessageLookupByLibrary {
     ),
     "systemDefault": MessageLookupByLibrary.simpleMessage("सिस्टम डिफ़ॉल्ट"),
     "termsConditions": MessageLookupByLibrary.simpleMessage("नियम और शर्तें"),
+    "trendingNow": MessageLookupByLibrary.simpleMessage("Trending Now"),
     "typeSomethingToGetResults": MessageLookupByLibrary.simpleMessage(
       "परिणाम पाने के लिए कुछ टाइप करें...",
     ),

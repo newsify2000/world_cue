@@ -16,37 +16,101 @@ import 'package:intl/intl.dart';
 import 'package:intl/message_lookup_by_library.dart';
 import 'package:intl/src/intl_helpers.dart';
 
+import 'messages_ar.dart' as messages_ar;
+import 'messages_de.dart' as messages_de;
+import 'messages_el.dart' as messages_el;
 import 'messages_en.dart' as messages_en;
+import 'messages_es.dart' as messages_es;
+import 'messages_fr.dart' as messages_fr;
+import 'messages_he.dart' as messages_he;
 import 'messages_hi.dart' as messages_hi;
+import 'messages_it.dart' as messages_it;
+import 'messages_ja.dart' as messages_ja;
 import 'messages_ml.dart' as messages_ml;
 import 'messages_mr.dart' as messages_mr;
+import 'messages_nl.dart' as messages_nl;
+import 'messages_no.dart' as messages_no;
+import 'messages_pt.dart' as messages_pt;
+import 'messages_ro.dart' as messages_ro;
+import 'messages_ru.dart' as messages_ru;
+import 'messages_sv.dart' as messages_sv;
 import 'messages_ta.dart' as messages_ta;
 import 'messages_te.dart' as messages_te;
+import 'messages_uk.dart' as messages_uk;
+import 'messages_zh.dart' as messages_zh;
 
 typedef Future<dynamic> LibraryLoader();
 Map<String, LibraryLoader> _deferredLibraries = {
+  'ar': () => new SynchronousFuture(null),
+  'de': () => new SynchronousFuture(null),
+  'el': () => new SynchronousFuture(null),
   'en': () => new SynchronousFuture(null),
+  'es': () => new SynchronousFuture(null),
+  'fr': () => new SynchronousFuture(null),
+  'he': () => new SynchronousFuture(null),
   'hi': () => new SynchronousFuture(null),
+  'it': () => new SynchronousFuture(null),
+  'ja': () => new SynchronousFuture(null),
   'ml': () => new SynchronousFuture(null),
   'mr': () => new SynchronousFuture(null),
+  'nl': () => new SynchronousFuture(null),
+  'no': () => new SynchronousFuture(null),
+  'pt': () => new SynchronousFuture(null),
+  'ro': () => new SynchronousFuture(null),
+  'ru': () => new SynchronousFuture(null),
+  'sv': () => new SynchronousFuture(null),
   'ta': () => new SynchronousFuture(null),
   'te': () => new SynchronousFuture(null),
+  'uk': () => new SynchronousFuture(null),
+  'zh': () => new SynchronousFuture(null),
 };
 
 MessageLookupByLibrary? _findExact(String localeName) {
   switch (localeName) {
+    case 'ar':
+      return messages_ar.messages;
+    case 'de':
+      return messages_de.messages;
+    case 'el':
+      return messages_el.messages;
     case 'en':
       return messages_en.messages;
+    case 'es':
+      return messages_es.messages;
+    case 'fr':
+      return messages_fr.messages;
+    case 'he':
+      return messages_he.messages;
     case 'hi':
       return messages_hi.messages;
+    case 'it':
+      return messages_it.messages;
+    case 'ja':
+      return messages_ja.messages;
     case 'ml':
       return messages_ml.messages;
     case 'mr':
       return messages_mr.messages;
+    case 'nl':
+      return messages_nl.messages;
+    case 'no':
+      return messages_no.messages;
+    case 'pt':
+      return messages_pt.messages;
+    case 'ro':
+      return messages_ro.messages;
+    case 'ru':
+      return messages_ru.messages;
+    case 'sv':
+      return messages_sv.messages;
     case 'ta':
       return messages_ta.messages;
     case 'te':
       return messages_te.messages;
+    case 'uk':
+      return messages_uk.messages;
+    case 'zh':
+      return messages_zh.messages;
     default:
       return null;
   }
