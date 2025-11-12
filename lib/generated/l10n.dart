@@ -433,6 +433,41 @@ class S {
       args: [],
     );
   }
+
+  /// `Retry`
+  String get retry {
+    return Intl.message('Retry', name: 'retry', desc: '', args: []);
+  }
+
+  /// `Failed to fetch trending topics.`
+  String get failedToFetchTrendingTopics {
+    return Intl.message(
+      'Failed to fetch trending topics.',
+      name: 'failedToFetchTrendingTopics',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trending in India`
+  String get trendingInIndia {
+    return Intl.message(
+      'Trending in India',
+      name: 'trendingInIndia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Trending Globally`
+  String get trendingGlobally {
+    return Intl.message(
+      'Trending Globally',
+      name: 'trendingGlobally',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

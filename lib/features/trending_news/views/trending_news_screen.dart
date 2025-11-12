@@ -27,23 +27,23 @@ class TrendingNewsScreen extends StatelessWidget {
         if (controller.isLoading.value) {
           return const Center(child: CircularProgressIndicator());
         }
-
+      
         if (controller.hasError.value) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text('Failed to fetch trending topics.'),
+                 Text(S.of(context).failedToFetchTrendingTopics),
                 const SizedBox(height: 8),
                 ElevatedButton(
                   onPressed: controller.fetchTrendingTopics,
-                  child: const Text('Retry'),
+                  child:  Text(S.of(context).retry,style: context.titleMediumStyle,),
                 ),
               ],
             ),
           );
         }
-
+      
         return RefreshIndicator(
           onRefresh: controller.fetchTrendingTopics,
           child: ListView(
@@ -51,16 +51,15 @@ class TrendingNewsScreen extends StatelessWidget {
             children: [
               _buildSection(
                 context,
-                'Trending in India',
+                S.of(context).trendingInIndia,
                 controller.indiaTopics,
               ),
               boxH32(),
               _buildSection(
                 context,
-                'Trending Globally',
+                S.of(context).trendingGlobally,
                 controller.globalTopics,
               ),
-              boxHCustom(60.h)
             ],
           ),
         );

@@ -59,6 +59,9 @@ class MessageLookup extends MessageLookupByLibrary {
     "diffindaysDaysAgo": m3,
     "diffinhoursHrAgo": m4,
     "diffinminutesMinAgo": m5,
+    "failedToFetchTrendingTopics": MessageLookupByLibrary.simpleMessage(
+      "Failed to fetch trending topics.",
+    ),
     "failedToLoadImage": MessageLookupByLibrary.simpleMessage(
       "Failed to load image",
     ),
@@ -86,6 +89,7 @@ class MessageLookup extends MessageLookupByLibrary {
         MessageLookupByLibrary.simpleMessage(
           "Real facts. No bias. Global updates\n you can trust.",
         ),
+    "retry": MessageLookupByLibrary.simpleMessage("Retry"),
     "searchNews": MessageLookupByLibrary.simpleMessage("Search News"),
     "selectLanguage": MessageLookupByLibrary.simpleMessage("Select Language"),
     "selectTheme": MessageLookupByLibrary.simpleMessage("Select Theme"),
@@ -96,6 +100,12 @@ class MessageLookup extends MessageLookupByLibrary {
     "systemDefault": MessageLookupByLibrary.simpleMessage("System Default"),
     "termsConditions": MessageLookupByLibrary.simpleMessage(
       "Terms & Conditions",
+    ),
+    "trendingGlobally": MessageLookupByLibrary.simpleMessage(
+      "Trending Globally",
+    ),
+    "trendingInIndia": MessageLookupByLibrary.simpleMessage(
+      "Trending in India",
     ),
     "trendingNow": MessageLookupByLibrary.simpleMessage("Trending Now"),
     "typeSomethingToGetResults": MessageLookupByLibrary.simpleMessage(

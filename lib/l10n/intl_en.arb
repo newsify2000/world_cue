@@ -93,5 +93,9 @@
   "privacyPolicy": "Privacy Policy",
   "termsConditions": "Terms & Conditions",
   "readPrivacyPolicy": "Read Privacy Policy",
-  "trendingNow": "Trending Now"
+  "trendingNow": "Trending Now",
+  "retry": "Retry",
+  "failedToFetchTrendingTopics": "Failed to fetch trending topics.",
+  "trendingInIndia": "Trending in India",
+  "trendingGlobally": "Trending Globally"
 }
