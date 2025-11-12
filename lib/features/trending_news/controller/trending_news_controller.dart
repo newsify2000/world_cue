@@ -1,71 +1,107 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
+
 import 'package:get/get.dart';
-// Note: You must ensure this import path remains correct in your project.
-import 'package:world_cue/core/repository/gemini_service.dart';
+import 'package:world_cue/core/repository/news_repository.dart';
+import 'package:world_cue/features/news/model/news_model.dart';
 
-// --- 1. NEW TOPIC MODEL ---
-/// Data model for a single trending topic.
-class TopicItem {
-  final String topic;
-  final String category;
-
-  TopicItem({required this.topic, required this.category});
-
-  /// Factory constructor to parse JSON map into a TopicItem instance.
-  factory TopicItem.fromJson(Map<String, dynamic> json) {
-    return TopicItem(
-      // Use null-aware operators to provide safe fallbacks
-      topic: json['topic'] as String? ?? 'Unknown Topic',
-      category: json['category'] as String? ?? 'general',
-    );
-  }
-}
-
-// --- 2. UPDATED CONTROLLER ---
-
-/// Controller to fetch and manage trending topics data.
 class TrendingNewsController extends GetxController {
-  final GeminiService service;
-  TrendingNewsController({required this.service});
+  final String topic;
+  TrendingNewsController({required this.topic});
 
-  // 2a. Update Rx variables to use TopicItem
-  var indiaTopics = <TopicItem>[].obs;
-  var globalTopics = <TopicItem>[].obs;
+  /// --------------------------
+  /// Dependencies
+  /// --------------------------
+  final NewsRepository _newsRepo = NewsRepository();
 
-  var isLoading = false.obs;
-  var hasError = false.obs;
+  /// --------------------------
+  /// Reactive State
+  /// --------------------------
+  final RxList<NewsModel> newsList = <NewsModel>[].obs;
+  final RxBool isLoading = false.obs;
+  final RxBool hasMore = true.obs;
+  final RxBool isSearching = false.obs;
+  final RxString errorMessage = ''.obs;
+  final RxInt currentPage = 1.obs;
+  final RxString currentQuery = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
-    fetchTrendingTopics();
+    searchNews(page: 1, query: topic);
   }
 
-  Future<void> fetchTrendingTopics() async {
+  /// initial loading state flag
+  bool get isInitialLoading => isLoading.value && newsList.isEmpty;
+
+  /// --------------------------
+  /// Search Handling
+  /// --------------------------
+
+
+  /// main fetch logic
+  Future<void> searchNews({required int page, required String query}) async {
+    if (isLoading.value) return; // avoid duplicate calls
+
     try {
       isLoading.value = true;
-      hasError.value = false;
+      errorMessage.value = '';
+      isSearching.value = true;
+      currentQuery.value = query;
 
-      final data = await service.getTrendingTopics(limit: 10);
-
-      // Ensure the lists exist and are of the correct type (List<dynamic>)
-      final List<dynamic> rawIndia = data['india'] as List<dynamic>? ?? [];
-      final List<dynamic> rawGlobal = data['global'] as List<dynamic>? ?? [];
-
-      // 2b. Map the list of JSON maps to a list of TopicItem objects
-      indiaTopics.assignAll(
-        rawIndia.map((item) => TopicItem.fromJson(item as Map<String, dynamic>)).toList(),
-      );
-      globalTopics.assignAll(
-        rawGlobal.map((item) => TopicItem.fromJson(item as Map<String, dynamic>)).toList(),
+      /// call new repo method
+      final result = await _newsRepo.searchNews(
+        query: query,
+        page: page,
+        max: 10,
       );
 
+      /// page 1 = fresh list
+      if (page == 1) {
+        newsList.assignAll(result.news);
+      } else {
+        /// avoid duplicate news items
+        final newItems = result.news.where(
+          (n) => !newsList.any((existing) => existing.id == n.id),
+        );
+        newsList.addAll(newItems);
+      }
+
+      /// update flags
+      hasMore.value = result.hasMore;
+      currentPage.value = page;
     } catch (e) {
-      debugPrint('Error fetching trending topics: $e');
-      hasError.value = true;
+      errorMessage.value = e.toString();
     } finally {
       isLoading.value = false;
     }
   }
 
+  /// --------------------------
+  /// Pagination
+  /// --------------------------
+  Future<void> loadMore() async {
+    if (isLoading.value || currentQuery.value.isEmpty) return;
+
+    final nextPage = currentPage.value + 1;
+    await searchNews(page: nextPage, query: currentQuery.value.trim());
+  }
+
+  /// --------------------------
+  /// Utility Functions
+  /// --------------------------
+  void clearSearch() {
+    isSearching.value = false;
+    currentQuery.value = '';
+    hasMore.value = true;
+    currentPage.value = 1;
+    newsList.clear();
+  }
+
+  /// --------------------------
+  /// Cleanup
+  /// --------------------------
+  @override
+  void onClose() {
+    super.onClose();
+  }
 }

@@ -7,7 +7,7 @@ import 'package:world_cue/core/utils/utilities.dart';
 import 'package:world_cue/features/bookmark/view/bookmark_screen.dart';
 import 'package:world_cue/features/home/view/home_screen.dart';
 import 'package:world_cue/features/navigator/view/app_drawer.dart';
-import 'package:world_cue/features/trending_news/views/trending_news_screen.dart';
+import 'package:world_cue/features/trending_news/views/trends_screen.dart';
 import 'package:world_cue/generated/l10n.dart';
 
 class NavigatorScreen extends StatefulWidget {
@@ -31,7 +31,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
 
     _pages = [
       HomeScreen(onOpenDrawer: () => _scaffoldKey.currentState?.openDrawer()),
-      TrendingNewsScreen(),
+      TrendsScreen(),
       BookmarkScreen(
         onBackClick: () {
           setState(() => _selectedIndex = 0);
