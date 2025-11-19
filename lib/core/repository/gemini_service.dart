@@ -1,11 +1,13 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'package:world_cue/core/utils/constants.dart';
 
 class GeminiService {
-  final String _apikey = NetworkConstants.geminiKey;
+  final String geminiApiKey = dotenv.env['GEMINI_API_KEY']!;
+
   final String geminiModel = SharedPrefConstants.geminiModel;
 
   Future<Map<String, dynamic>> getTrendingTopics({int limit = 10}) async {
@@ -47,7 +49,7 @@ Ensure all topics are real, time-sensitive, and reflect current events or discus
     // ... rest of the method remains the same ...
 
     final url = Uri.parse(
-      "https://generativelanguage.googleapis.com/v1beta/models/$geminiModel:generateContent?key=$_apikey",
+      "https://generativelanguage.googleapis.com/v1beta/models/$geminiModel:generateContent?key=$geminiApiKey",
     );
 
     final headers = {'Content-Type': 'application/json'};

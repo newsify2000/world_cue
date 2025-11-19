@@ -2,7 +2,6 @@ class NetworkConstants {
   static String contentType = "application/json";
   static String authorizationHeaderKey = "requiresAuthorizationHeader";
   static String authorizationHeaderTag = "Authorization";
-  static String geminiKey = "AIzaSyDqDjeI1CUnvu8fhxVlamsBXHM_iG688hM";
 }
 
 class SharedPrefConstants {

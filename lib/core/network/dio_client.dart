@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:world_cue/core/utils/constants.dart';
 
@@ -8,7 +9,7 @@ import 'interceptor.dart';
 
 class DioClient {
   static final DioClient _instance = DioClient._internal();
-  static String baseUrl = "https://getnews-esnamhbpbq-uc.a.run.app";
+  static String baseUrl = dotenv.env['BASE_URL']!;
   late Dio dio;
 
   factory DioClient() => _instance;
