@@ -28,12 +28,10 @@ void main() async {
     await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
     /// initializing the shared preference
     await SharedPref().initSharedPreferences();
+    /// initialize DI container
     DISetup.setup();
     /// initializing the env file
     await dotenv.load(fileName: ".env");
-    /// initialize DI container
-    var key = dotenv.env['GEMINI_API_KEY']!;
-
   }
   catch(err){
     log(err.toString());
